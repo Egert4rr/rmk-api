@@ -10,7 +10,7 @@
    
     }, 
     "paths": {
-      "/Trails": {
+      "/trails": {
           "summary": "get a list of all hiking trails",
           "description": "Returns a list of Hiking trails",
           "get": {
@@ -43,8 +43,49 @@
               "summary": "get a list of all hiking trails",
               "description": "Returns a list fo all Trails in API"
           }
-      }
+      },
+
+      "/trails/:id":{
+        "get": {
+            "tags": [
+                "Trails"
+            ],
+            "responses": {
+                "200": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "examples": {
+                                "list of details": {
+                                    "value": [
+                                        "Id",
+                                        "Title",
+                                        "Distance",
+                                        "Location",
+                                        "Region",
+                                        "Picture"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "description": "Returns full details of a trail"
+                }
+            },
+            "summary": "Get full details of a trail",
+            "description": "Returns details of a trail"
+        }
+    }
+
+
   }
+
+
    
 }
    
