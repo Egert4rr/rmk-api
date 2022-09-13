@@ -19,7 +19,8 @@ const trails = [
         location: "Caveman",
         region: "Caveman",
         picture: "Caveman"
-    }
+    }   
+    
 ];
 
 
