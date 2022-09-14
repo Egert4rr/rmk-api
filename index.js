@@ -2,7 +2,18 @@ const app = require('express')();
 const port = 8080;
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
+const mongoose = require("mongoose");
 
+const Trail = require("./Models/trailModel")
+const bodyParser = require("body-parser")
+
+mongoose.Promise = global.Promise
+mongoose.connect("mongodb://localhost/trailsApiDb")
+
+require("./Routes/trailRoutes")(app)
+
+
+/*
 const trails = [
     {
         id: 1,
@@ -19,17 +30,12 @@ const trails = [
         location: "Caveman",
         region: "Caveman",
         picture: "Caveman"
-    }   
-    
+    }     
 ];
-
 
 app.get('/trails', (req,res) => {
     res.send(trails)
 });
-
-
-
 
 app.get('/trails/:id', (req,res) => {
     if (!(parseInt(req.params.id) > 0)) {
@@ -43,10 +49,9 @@ app.get('/trails/:id', (req,res) => {
 
     res.send(result);
 });
+*/
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-
 
 app.listen(port, () =>  {
     console.log(`API up at: http://localhost:${port}`)
