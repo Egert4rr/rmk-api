@@ -1,4 +1,4 @@
-const trailsList = require('../Controllers/trailController');
+const trailsList = require('../Controllers/mockTrailController');
 
 module.exports = function(app){
     app.route('/trails')

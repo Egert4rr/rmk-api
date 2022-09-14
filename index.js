@@ -8,7 +8,10 @@ const Trail = require("./Models/trailModel")
 const bodyParser = require("body-parser")
 
 mongoose.Promise = global.Promise
-mongoose.connect("mongodb://localhost/trailsApiDb")
+mongoose.connect("mongodb://localhost:27017/trailsApiDb")
+
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
 
 require("./Routes/trailRoutes")(app)
 

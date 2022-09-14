@@ -24,15 +24,11 @@ exports.createNew = (req,res) =>{
         }
     }) 
 }
-    
-
-
 
 exports.getById = function(req,res){
     
 
 }
-
 
 exports.editById = function(req,res){
     
