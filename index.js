@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 require("./Routes/trailRoutes")(app)
+require("./Routes/hikerRoutes")(app)
+require("./Routes/hikeRoutes")(app)
 
 
 /*
