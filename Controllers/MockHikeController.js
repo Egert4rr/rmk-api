@@ -1,3 +1,5 @@
+const { faker } = require('@faker-js/faker');
+/*
 const hikes = [
     {
         id: 1,
@@ -20,7 +22,20 @@ const hikes = [
        
     }     
 ];
+*/
+const hikes = [];
 
+for (let i = 0; i < 20; i++) {
+    hikes.push({
+            id: i + 1,
+            name: faker.name.jobTitle(),
+            organizer: faker.name.fullName(),
+            organizerEmail: faker.internet.email(),
+            plannedTrails:[faker.name.lastName(), faker.name.lastName()],
+            startingDate:  new Date(faker.date.between()),
+            startingLocation: faker.address.streetAddress(false)
+        })
+}
 
 
 exports.getAll = function(req,res){

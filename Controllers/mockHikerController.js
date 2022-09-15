@@ -1,3 +1,6 @@
+const { faker } = require('@faker-js/faker');
+
+/*
 const hikers = [
     {
         id: 1,
@@ -14,8 +17,17 @@ const hikers = [
        
     }     
 ];
+*/
+const hikers = [];
 
-
+for (let i = 0; i < 20; i++) {
+    hikers.push({
+            id: i + 1,
+            name:  faker.name.fullName(),
+            email: faker.internet.email(),
+            phoneNumber: parseInt(faker.random.numeric(7))
+        })
+}
 
 exports.getAll = function(req,res){
     res.send(hikers)

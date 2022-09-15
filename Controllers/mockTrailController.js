@@ -1,32 +1,28 @@
-const trails = [
-    {
-        id: 1,
-        title: "GAMING",
-        distance: "gaming",
-        location: "gaming",
-        region: "gaming",
-        picture: "gaming"
-    },
-    {
-        id: 2,
-        title: "CAVEMAN",
-        distance: "Caveman",
-        location: "Caveman",
-        region: "Caveman",
-        picture: "Caveman"
-    }     
-];
+const { faker } = require('@faker-js/faker');
+
+
+const trails = [];
+
+for (let i = 0; i < 20; i++) {
+    trails.push({
+            id: i + 1,
+            title:  faker.name.fullName(),
+            distance: faker.random.numeric(2) + " km",
+            location: faker.address.streetAddress(false),
+            region: faker.address.county(),
+            picture: faker.image.abstract()
+        })
+}
 
 
 exports.getAll = function(req,res){
-    res.send(trails)
+    res.send(trails);
 }
 
 exports.createNew = (req,res) =>{
     const length = trails.push(req.body)
     trails[length-1] = {id: trails[length-2].id+1,...trails[length-1]}
     res.status(201).json(trails[length-1])
-
 }
 
 exports.getById = function(req,res){
@@ -71,5 +67,4 @@ exports.deleteById = function(req,res){
 
     trails.splice(index,1)
     res.status(204).send();
-
 }
