@@ -15,6 +15,7 @@ exports.getAll = function(req,res){
 
 }
 
+
 exports.createNew = (req,res) =>{
     const newTrail = new trail({
         title: req.body.title,
@@ -34,35 +35,36 @@ exports.createNew = (req,res) =>{
 }
 
 exports.getById = function(req,res){
-    /*if (!(parseInt(req.params.id) > 0)) {
-        return res.status(400).send({error: "ID must be a positive integer"});
-    }*/
-    /*
-    let result = trail.findOne(x => x._id === req.params.id);
 
-    if (typeof(result) === "undefined") {
+ trail.findById(req.params.id)
+    .then(doc => {
+        res.json(doc);
+
+    }).catch(err => {
         res.status(404).send({error: "trail not found"});
-    }
-    res.send(result);
-    */
+    })
+
 }
 
 exports.editById = function(req,res){
-    /*
-    if (!(parseInt(req.params.id) > 0)) {
-        return res.status(400).send({error: "ID must be a positive integer"});
-    }
-    const index = mongoose.findIndex(x => x.id === parseInt(req.params.id));
 
-    if (index === -1) {
+    trail.findOne({title:"gfgdff"}).
+    then(doc => trail.updateOne({_id:"632999e5bd7c0efa593766c4"}, {title: "gaming"})).
+    then(doc => res.send(doc))
+    
+
+
+
+    /*if (trail.findById(x => x._id === req.params.id)) {
+        const doc = trail.findOne(req.params.id)
+        doc.update(req.body)
+        res.status(200).send("Updated successfully")
+    }else {
         res.status(404).send({error: "trail not found"});
-    }
+    }*/
 
-    hikes[index] = {...hikes[index],...req.body}
-
-    res.status(200).json(hikes[index])
-*/
 }
+
 exports.deleteById = function(req,res){
     
 
