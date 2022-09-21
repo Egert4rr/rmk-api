@@ -1,20 +1,16 @@
-const mongoose = require('mongoose');
-const Trail  = mongoose.model("trail");
 const trail = require("../Models/trailModel")
 
-
 exports.getAll = function(req,res){
-    Trail.find({},(err,trail) =>{
+    trail.find({},(err,trail) =>{
         if(err){
             res.status(400).send(err);
         }
         else{
-            res.json(trail);
+            console.log(trail)
+            res.json(trail)
         }
     })
-
 }
-
 
 exports.createNew = (req,res) =>{
     const newTrail = new trail({
@@ -38,42 +34,37 @@ exports.getById = function(req,res){
 
  trail.findById(req.params.id)
     .then(doc => {
-        res.json(doc);
-
-    }).catch(err => {
-        res.status(404).send({error: "trail not found"});
+        if(doc === null){
+            res.status(404).send("Trail not found")
+        }
+        else{
+            res.json(doc);
+        }
     })
-
 }
 
 exports.editById = function(req,res){
 
-    trail.findOne({title:"gfgdff"}).
-    then(doc => trail.updateOne({_id:"632999e5bd7c0efa593766c4"}, {title: "gaming"})).
-    then(doc => res.send(doc))
-    
-
-
-
-    /*if (trail.findById(x => x._id === req.params.id)) {
-        const doc = trail.findOne(req.params.id)
-        doc.update(req.body)
-        res.status(200).send("Updated successfully")
-    }else {
-        res.status(404).send({error: "trail not found"});
-    }*/
-
+    trail.updateOne({_id: req.params.id}, req.body)
+    .then(doc =>{ res.status(202).send("successfully updated")
+    }).catch(err => {res.status(404).send(err, {error:"Trail not found"})})
 }
 
-exports.deleteById = function(req,res){
-    
-
+exports.deleteById = function(req,res){    
+   trail.deleteOne({_id: req.params.id})
+   .then(
+    (doc) =>{
+        if(doc.deletedCount == 0){
+            res.status(404).json({
+                error: "trail not found"
+             });        
+        }
+        else{
+            res.status(202).send(
+                "successfully deleted"
+            )
+        }
+    }
+   )
 }
-/*
-  .post(trailsList.createNew);    //create
 
-    app.route("/trails/:id")
-        .get(trailsList.getById)        //read
-        .put(trailsList.editById)       //update
-        .delete(trailsList.deleteById)  //delete
-*/ 

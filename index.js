@@ -6,6 +6,11 @@ const mongoose = require("mongoose");
 const Trail = require("./Models/trailModel")
 const bodyParser = require("body-parser")
 
+const Seed = require("../rmk-api/SeedDatabase")
+
+
+
+
 mongoose.Promise = global.Promise
 mongoose.connect("mongodb://localhost:27017/trailsApiDb")
 
