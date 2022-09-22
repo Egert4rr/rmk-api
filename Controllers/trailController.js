@@ -20,3 +20,18 @@ exports.getAll = function(req,res){
     })
 }
 
+exports.createNew = (req,res) =>{
+    const newTrail = new trail({
+        title: req.body.title,
+        distance: req.body.distance,
+        location: req.body.location,
+        region: req.body.region,
+        picture: req.body.picture
+    })
+    newTrail.save((err,trail)=>{
+        if(err){
+            res.status(400).send(err)
+        }
+        else{res.status(201).send(trail)}
+    }) 
+}
