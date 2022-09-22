@@ -45,3 +45,10 @@ exports.getById = function(req,res){
             else{res.json(doc);}
         })
 }
+
+exports.editById = function(req,res){
+
+    trail.updateOne({_id: req.params.id}, req.body)
+        .then(doc =>{ res.status(202).send("successfully updated")})
+        .catch(err => {res.status(404).send(err, {error:"Trail not found"})})
+}
