@@ -35,3 +35,13 @@ exports.createNew = (req,res) =>{
         else{res.status(201).send(trail)}
     }) 
 }
+
+exports.getById = function(req,res){
+    trail.findById(req.params.id)
+        .then(doc => {
+            if(doc === null){
+                res.status(404).send("Trail not found")
+            }
+            else{res.json(doc);}
+        })
+}
