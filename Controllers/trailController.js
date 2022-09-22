@@ -42,7 +42,7 @@ exports.getById = function(req,res){
             if(doc === null){
                 res.status(404).send("Trail not found")
             }
-            else{res.json(doc);}
+            else{res.json(doc);} 
         })
 }
 
