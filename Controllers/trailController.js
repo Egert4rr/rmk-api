@@ -52,3 +52,15 @@ exports.editById = function(req,res){
         .then(doc =>{ res.status(202).send("successfully updated")})
         .catch(err => {res.status(404).send(err, {error:"Trail not found"})})
 }
+
+exports.deleteById = function(req,res){    
+    trail.deleteOne({_id: req.params.id})
+        .then(
+            (doc) =>{
+                if(doc.deletedCount == 0){
+                    res.status(404).json({error: "trail not found"});        
+                }
+                else{res.status(202).send("successfully deleted")}
+            }
+        )
+}
