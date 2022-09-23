@@ -55,13 +55,13 @@ exports.editById = function(req,res){
 }
 
 exports.deleteById = function(req,res){    
-    /*trail.deleteOne({_id: req.params.id})
+    hike.deleteOne({_id: req.params.id})
         .then(
             (doc) =>{
                 if(doc.deletedCount == 0){
-                    res.status(404).json({error: "trail not found"});        
+                    res.status(404).json({error: "Hike not found"});        
                 }
                 else{res.status(202).send("successfully deleted")}
             }
-        )*/
+        )
 }
