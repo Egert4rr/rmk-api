@@ -35,13 +35,13 @@ exports.createNew = (req,res) =>{
 }
 
 exports.getById = function(req,res){
-    /*hiker.findById(req.params.id)
+    hiker.findById(req.params.id)
         .then(doc => {
             if(doc === null){
                 res.status(404).send("Hiker not found")
             }
             else{res.json(doc);} 
-        })*/
+        })
 }
 
 exports.editById = function(req,res){
