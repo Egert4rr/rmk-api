@@ -1,4 +1,4 @@
-const hikeList = require('../Controllers/mockHikeController');
+const hikeList = require('../Controllers/hikeController');
 
 module.exports = function(app){
     app.route('/hikes')

@@ -32,5 +32,4 @@ const HikeSchema = new Schema({
 
 });
 
-module.exports = model('hike',HikeSchema);
-
+module.exports = mongoose.model('hike',HikeSchema);

@@ -9,7 +9,6 @@ const bodyParser = require("body-parser")
 require("../rmk-api/SeedDatabaseTrails")
 require("../rmk-api/SeedDatabaseHikers")
 require("../rmk-api/SeedDatabaseHikes")
-console.log("Database seeded!")
 
 
 mongoose.Promise = global.Promise
