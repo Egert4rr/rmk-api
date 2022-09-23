@@ -6,7 +6,6 @@ const HikerSchema = new Schema({
         type:String,
         required:"Name is mandatory"
     },
-
     Email:{
         type:String,
         required:"Email"
