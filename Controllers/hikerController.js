@@ -21,7 +21,7 @@ exports.getAll = function(req,res){
 }
 
 exports.createNew = (req,res) =>{
-    /*const newHiker = new hiker({
+    const newHiker = new hiker({
         Name: req.body.Name,
         Email: req.body.Email,
         Phonenumber: req.body.Phonenumber
@@ -31,7 +31,7 @@ exports.createNew = (req,res) =>{
             res.status(400).send(err)
         }
         else{res.status(201).send(hiker)}
-    })*/
+    })
 }
 
 exports.getById = function(req,res){
