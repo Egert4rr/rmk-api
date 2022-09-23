@@ -52,7 +52,7 @@ exports.editById = function(req,res){
 }
 
 exports.deleteById = function(req,res){    
-    /*hiker.deleteOne({_id: req.params.id})
+    hiker.deleteOne({_id: req.params.id})
         .then(
             (doc) =>{
                 if(doc.deletedCount == 0){
@@ -60,5 +60,5 @@ exports.deleteById = function(req,res){
                 }
                 else{res.status(202).send("successfully deleted")}
             }
-        )*/
+        )
 }
