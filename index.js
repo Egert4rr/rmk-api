@@ -1,5 +1,6 @@
 const app = require('express')();
-const port = 8080;
+require('dotenv').config();
+const port = process.env.PORT;
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 const mongoose = require("mongoose");
@@ -12,7 +13,7 @@ require("../rmk-api/SeedDatabaseHikes")
 
 
 mongoose.Promise = global.Promise
-mongoose.connect("mongodb://localhost:27017/trailsApiDb")
+mongoose.connect(process.env.DBCONNECTIONSTRING)
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
