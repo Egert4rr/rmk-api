@@ -21,26 +21,27 @@ exports.getAll = function(req,res){
 }
 
 exports.createNew = (req,res) =>{
-    /*const newTrail = new trail({
-        title: req.body.title,
-        distance: req.body.distance,
-        location: req.body.location,
-        region: req.body.region,
-        picture: req.body.picture
+    const newHike = new hike({
+        Name: req.body.Name,
+        Organizer: req.body.Organizer,
+        OrganizerEmail: req.body.OrganizerEmail,
+        PlannedTrails: req.body.PlannedTrails,
+        StartDate: req.body.StartDate,
+        Startinglocation: req.body.Startinglocation
     })
-    newTrail.save((err,trail)=>{
+    newHike.save((err,hike)=>{
         if(err){
             res.status(400).send(err)
         }
-        else{res.status(201).send(trail)}
-    })*/ 
+        else{res.status(201).send(hike)}
+    })
 }
 
 exports.getById = function(req,res){
-    /*trail.findById(req.params.id)
+    /*hike.findById(req.params.id)
         .then(doc => {
             if(doc === null){
-                res.status(404).send("Trail not found")
+                res.status(404).send("Hike not found")
             }
             else{res.json(doc);} 
         })*/
