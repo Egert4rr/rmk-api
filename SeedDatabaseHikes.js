@@ -1,5 +1,4 @@
 const { faker } = require('@faker-js/faker');
-const { json } = require('express');
 const MongoClient = require("mongodb").MongoClient;
 
 
@@ -13,38 +12,9 @@ async function seedDB() {
     });
     try {
         await client.connect();
-        console.log("Connected correctly to server");
-
-        const trailCollection = await client.db("trailsApiDb").collection("trails");
-        trailCollection.drop();
-
-        // make a bunch of time series data
-
-        let trails = [];
-        for (let index = 0; index < 100; index++) {
-            const title = faker.name.fullName();
-            const distance = faker.random.numeric(2) + " km"
-            const location =  faker.address.streetAddress(false)
-            const region =  faker.address.county()
-            const picture =  faker.image.abstract()
-
-            let trail = {
-                title: title,
-                distance: distance,
-                location: location,
-                region: region,
-                picture: picture
-            }
-
-            trails.push(trail);
-        }
         
-
-
         const hikeCollection = await client.db("trailsApiDb").collection("hikes");
         hikeCollection.drop();
-
-        // make a bunch of time series data
 
         let hikes = [];
         for (let index = 0; index < 100; index++) {
@@ -66,19 +36,14 @@ async function seedDB() {
 
             hikes.push(hike);
         }
-        
+
         await hikeCollection.insertMany(hikes);
-        await trailCollection.insertMany(trails);
 
-        console.log("Database seeded!")
-
+        console.log("Hikes seeded!")
         await client.close();
-
-    }
-    catch(err){
+    } catch (err) {
         console.log(err.stack)
     }
-
 };
 
 seedDB();

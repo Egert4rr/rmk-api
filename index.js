@@ -6,9 +6,10 @@ const mongoose = require("mongoose");
 const Trail = require("./Models/trailModel")
 const bodyParser = require("body-parser")
 
-const Seed = require("../rmk-api/SeedDatabase")
-
-
+require("../rmk-api/SeedDatabaseTrails")
+require("../rmk-api/SeedDatabaseHikers")
+require("../rmk-api/SeedDatabaseHikes")
+console.log("Database seeded!")
 
 
 mongoose.Promise = global.Promise
