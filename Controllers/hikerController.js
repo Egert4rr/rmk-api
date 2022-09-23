@@ -46,9 +46,9 @@ exports.getById = function(req,res){
 
 exports.editById = function(req,res){
 
-    /*hiker.updateOne({_id: req.params.id}, req.body)
+    hiker.updateOne({_id: req.params.id}, req.body)
         .then(doc =>{ res.status(202).send("successfully updated")})
-        .catch(err => {res.status(404).send(err, {error:"Hiker not found"})})*/
+        .catch(err => {res.status(404).send(err, {error:"Hiker not found"})})
 }
 
 exports.deleteById = function(req,res){    
