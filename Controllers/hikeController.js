@@ -38,13 +38,13 @@ exports.createNew = (req,res) =>{
 }
 
 exports.getById = function(req,res){
-    /*hike.findById(req.params.id)
+    hike.findById(req.params.id)
         .then(doc => {
             if(doc === null){
                 res.status(404).send("Hike not found")
             }
             else{res.json(doc);} 
-        })*/
+        })
 }
 
 exports.editById = function(req,res){
