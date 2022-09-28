@@ -1,4 +1,5 @@
 const app = require('express')();
+const cors = require('cors')
 require('dotenv').config();
 const port = process.env.PORT;
 const swaggerUi = require('swagger-ui-express');
@@ -6,6 +7,8 @@ const swaggerDocument = require('./docs/swagger.json');
 const mongoose = require("mongoose");
 const Trail = require("./Models/trailModel")
 const bodyParser = require("body-parser")
+
+app.use(cors())
 
 require("../rmk-api/SeedDatabaseTrails")
 require("../rmk-api/SeedDatabaseHikers")
