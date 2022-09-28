@@ -1,2 +1,2 @@
-DBCONNECTIONSTRING="mongodb://localhost:27017/"
+DBCONNECTIONSTRING="mongodb://localhost:27017/DBNAME"
 PORT=3000
