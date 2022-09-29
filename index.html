@@ -6,11 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <a class="navbar-brand" href="#" style="margin-left: 2rem;">RMK-API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Create a hike</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Profile</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+    <!--<div id="app">
         <table id="trailsTable" class="table table-striped table-bordered">
             <tr>
                 <th>title</th>
@@ -32,8 +50,8 @@
               <div class="modal-body">
                 <table>
                     <tr>
-                        <th>title: </th>
-                        <td>{{ trailInModal.title }}</td>
+                        <th>title:</th>
+                        <td style="margin-left: 1rem;">{{ trailInModal.title }}</td>
                     </tr>
                     <tr>
                         <th>id: </th>
@@ -46,7 +64,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         
     </div>
     

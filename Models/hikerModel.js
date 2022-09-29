@@ -13,6 +13,7 @@ const HikerSchema = new Schema({
     Phonenumber:{
         type:Number
     }
+    
 
 });
 
