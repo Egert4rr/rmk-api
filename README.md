@@ -11,5 +11,5 @@
     * In the ".env" file you need to add the "DBCONNECTIONSTRING" and "PORT".
     * how to write the ".env example" will show how the ".env" should look
     like.
-    * When successfully configured open the project with terminal and install packages "npm i".
+    * When successfully configured open the project with terminal and install packages with "npm i".
     * Then start with "npm start"
