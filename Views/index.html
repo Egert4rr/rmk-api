@@ -123,9 +123,9 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <div class="btn-group-vertical">
-                <div v-for="(item, index) in regions">
-                  <input type="checkbox" class="btn-check" id="" autocomplete="off">
-                  <label class="btn btn-outline-primary" for="">{{ item.region }}</label>
+                <div v-for="(item, index) in regions" :key="index">
+                  <input type="checkbox" class="btn-check" :id="`btn${index}`" autocomplete="off">
+                  <label class="btn btn-outline-primary" :for="`btn${index}`">{{ item.region }}</label>
                 </div>
               </div>
             </ul>

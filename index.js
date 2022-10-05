@@ -8,8 +8,6 @@ const swaggerDocument = require('./docs/swagger.json');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-
-
 app.use(cors());
 
 require("../rmk-api/SeedDatabaseTrails");
@@ -29,7 +27,7 @@ require("./Routes/hikeRoutes")(app);
 
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-/*From TARpv20, With love <3*/
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/Views/index.html'));
 })
