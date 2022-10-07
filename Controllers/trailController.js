@@ -37,30 +37,39 @@ exports.createNew = (req,res) =>{
 }
 
 exports.getById = function(req,res){
-    trail.findById(req.params.id)
-        .then(doc => {
-            if(doc === null){
-                res.status(404).send("Trail not found")
-            }
-            else{res.json(doc);} 
-        })
+    trail.findById(req.params.id,(err,result)=>{
+        if(err){
+            res.status(400).send(err.message)
+        }
+        if(result === null){
+            res.status(404).send("Trail not found")
+        }
+        else{res.status(200).json(result);} 
+    })
 }
 
 exports.editById = function(req,res){
-
-    trail.updateOne({_id: req.params.id}, req.body)
-        .then(doc =>{ res.status(202).send("successfully updated")})
-        .catch(err => {res.status(404).send(err, {error:"Trail not found"})})
+    trail.updateOne({_id: req.params.id}, req.body, (err, result) => {
+        if(err) {
+            res.status(404).send(err.message)
+        }else if(result.matchedCount == 0) {
+            res.status(404).send("Trail not found")
+        }else {
+            res.status(202).send("Successfully updated")
+        } 
+    })
 }
 
 exports.deleteById = function(req,res){    
-    trail.deleteOne({_id: req.params.id})
-        .then(
-            (doc) =>{
-                if(doc.deletedCount == 0){
-                    res.status(404).json({error: "trail not found"});        
-                }
-                else{res.status(202).send("successfully deleted")}
-            }
-        )
+    trail.deleteOne({_id: req.params.id}, (err, result) => {
+        if(err) {
+            console.log(err);
+            res.status(404).send(err.message)
+        }else if(result.deletedCount == 0) {
+            res.status(404).send("Trail not found")
+        }else {
+            console.log(result);
+            res.status(202).send("Successfully deleted")
+        }
+    })
 }

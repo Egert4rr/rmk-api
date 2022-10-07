@@ -1,88 +1,142 @@
 {
-
-  "openapi": "3.0.2",
-   
+    "openapi": "3.0.2",
     "info": {
-   
-      "title": "RMK-api",
-      "version": "1.0.0",
-      "description": "### This is a Swagger UI for our Games API  \n\n### Error handling\nErrors are presented using the HTTP status codes 400-599. The response include a more detailed explanation about the error in the body.\n\n```\n{\n  \"error\": \"Cleartext explanation of the error that occurred\"\n}\n```\n\n### Generic API errors\nThese error responses can be returned by any of the described endpoints.\n\n| HTTP status  |  Description |\n|---|---|\n| 400| Bad input parameters or invalid request. More information can be found in the response body.\n| 401| The consumer does not have access to the requested resource or the provided token is not valid.\n| 404| The requested resource can not be found or the user does not have access to the resource.\n| 5XX| A server error has occurred while processing the request."
-   
-    }, 
+        "title": "RMK-api",
+        "version": "1.0.0",
+        "description": "This is a Swagger UI for our Hiking trails API"
+    },
     "paths": {
-      "/trails": {
-          "summary": "get a list of all hiking trails",
-          "description": "Returns a list of Hiking trails",
-          "get": {
-              "tags": [
-                  "Trails"
-              ],
-              "responses": {
-                  "200": {
-                      "content": {
-                          "application/json": {
-                              "schema": {
-                                  "type": "array",
-                                  "items": {
-                                      "type": "string"
-                                  }
-                              },
-                              "examples": {
-                                  "List of Trails": {
-                                      "value": [
-                                          "Elva jõe",
-                                          "Endla järve"
-                                      ]
-                                  }
-                              }
-                          }
-                      },
-                      "description": "Returns a list of trails"
-                  }
-              },
-              "summary": "get a list of all hiking trails",
-              "description": "Returns a list fo all Trails in API"
-          }
-      },
-
-      "/trails/:id":{
-        "get": {
-            "tags": [
-                "Trails"
-            ],
-            "responses": {
-                "200": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "string"
-                            },
-                            "examples": {
-                                "gaming": {
-                                    "value": {
-                                        "Id": 1,
-                                        "Title": "GAMING",
-                                        "Distance": "gaming",
-                                        "Location": "gaming",
-                                        "Region": "gaming",
-                                        "Picture": "gaming"
+        "/trails": {
+            "summary": "get a list of all hiking trails",
+            "description": "Returns a list of Hiking trails",
+            "get": {
+                "tags": [
+                    "Trails"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "List of Trails": {
+                                        "value": [
+                                            "Elva jõe",
+                                            "Endla järve"
+                                        ]
                                     }
                                 }
                             }
-                        }
+                        },
+                        "description": "Returns a list of trails"
+                    }
+                },
+                "summary": "get a list of all hiking trails",
+                "description": "Returns a list fo all Trails in API"
+            }
+        },
+        "/trails/{id}": {
+            "get": {
+                "requestBody": {},
+                "tags": [
+                    "details"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired trail",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "examples": {
+                                    "gaming": {
+                                        "value": {
+                                            "id": "1",
+                                            "title": "Järvala matkarada", 
+                                            "distance": "9 km", 
+                                            "location": "test", 
+                                            "region": "Harjumaa", 
+                                            "picture": "Picture link"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns full details of a given id trail\n"
                     },
-                    "description": "Returns full details of a trail"
-                }
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Trail /w+ was not found": {
+                                        "value": {
+                                            "error": "Trail \\w+ was not found in trail array."
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Trail was not found "
+                    }
+                },
+                "operationId": "id",
+                "summary": "Get full details of a trail",
+                "description": "Returns full details of given id trail"
             },
-            "summary": "Get full details of a trail",
-            "description": "Returns details of a trail"
+            "put": {
+                "tags": [
+                    "Edit"
+                ],
+                "summary": "Update the trail under the given id"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "id of the desired trail",
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "error": {
+                "title": "Root Type for error",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "error": "Error message."
+                }
+            }
         }
     }
-
-
-  }
-
-
-   
 }
-   
