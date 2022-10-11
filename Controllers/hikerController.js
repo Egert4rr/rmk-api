@@ -15,7 +15,7 @@ exports.getAll = function(req,res){
                 hikers.push(newHiker);
             });
 
-            res.json(hikers)
+            res.status(200).json(hikers)
         }
     })
 }
@@ -30,17 +30,17 @@ exports.createNew = (req,res) =>{
         if(err){
             res.status(400).send(err)
         }
-        else{res.status(201).send(hiker)}
+        else{res.status(200).send(hiker)}
     })
 }
 
 exports.getById = function(req,res){
     hiker.findById(req.params.id, (err,result)=>{
         if(err){
-            res.status(400).send(err.message)
+            res.status(400).json(err.message)
         }
         if(result === null){
-            res.status(404).send("Hiker not found")
+            res.status(404).json("Hiker not found")
         }
         else{res.status(200).json(result);} 
     })
@@ -50,11 +50,11 @@ exports.editById = function(req,res){
 
     hiker.updateOne({_id: req.params.id}, req.body, (err, result) => {
         if(err) {
-            res.status(404).send(err.message)
+            res.status(400).json(err.message)
         }else if(result.matchedCount == 0) {
-            res.status(404).send("Hiker not found")
+            res.status(404).json("Hiker not found")
         }else {
-            res.status(202).send("Successfully updated")
+            res.status(202).json("Successfully updated")
         } 
     })
 }
@@ -62,13 +62,12 @@ exports.editById = function(req,res){
 exports.deleteById = function(req,res){
     hiker.deleteOne({_id: req.params.id}, (err, result) => {
         if(err) {
-            console.log(err);
-            res.status(404).send(err.message)
+            res.status(400).json(err.message)
         }else if(result.deletedCount == 0) {
-            res.status(404).send("Hiker not found")
+            res.status(404).json("Hiker not found")
         }else {
             console.log(result);
-            res.status(202).send("Successfully deleted")
+            res.status(202).json("Successfully deleted")
         }
     })
 }

@@ -3,7 +3,7 @@ const trail = require("../Models/trailModel")
 exports.getAll = function(req,res){
     trail.find({},(err,trail) =>{
         if(err){
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
         else{
            let trails = []
@@ -15,7 +15,7 @@ exports.getAll = function(req,res){
                 trails.push(newTrail);
             });
 
-            res.json(trails)
+            res.status(200).json(trails)
         }
     })
 }
@@ -32,17 +32,17 @@ exports.createNew = (req,res) =>{
         if(err){
             res.status(400).send(err)
         }
-        else{res.status(201).send(trail)}
+        else{res.status(200).send(trail)}
     }) 
 }
 
 exports.getById = function(req,res){
     trail.findById(req.params.id,(err,result)=>{
         if(err){
-            res.status(400).send(err.message)
+            res.status(400).json(err.message)
         }
         if(result === null){
-            res.status(404).send("Trail not found")
+            res.status(404).json("Trail not found")
         }
         else{res.status(200).json(result);} 
     })
@@ -51,11 +51,11 @@ exports.getById = function(req,res){
 exports.editById = function(req,res){
     trail.updateOne({_id: req.params.id}, req.body, (err, result) => {
         if(err) {
-            res.status(404).send(err.message)
+            res.status(400).json(err.message)
         }else if(result.matchedCount == 0) {
-            res.status(404).send("Trail not found")
+            res.status(404).json("Trail not found")
         }else {
-            res.status(202).send("Successfully updated")
+            res.status(202).json("Successfully updated")
         } 
     })
 }
@@ -63,13 +63,12 @@ exports.editById = function(req,res){
 exports.deleteById = function(req,res){    
     trail.deleteOne({_id: req.params.id}, (err, result) => {
         if(err) {
-            console.log(err);
-            res.status(404).send(err.message)
+            res.status(400).json(err.message)
         }else if(result.deletedCount == 0) {
-            res.status(404).send("Trail not found")
+            res.status(404).json("Trail not found")
         }else {
             console.log(result);
-            res.status(202).send("Successfully deleted")
+            res.status(202).json("Successfully deleted")
         }
     })
 }

@@ -26,25 +26,116 @@
                                 "examples": {
                                     "List of Trails": {
                                         "value": [
-                                            "Elva jõe",
-                                            "Endla järve"
+                                            {
+                                                "id": "b2312b12b31b2222mb",
+                                                "Title": "Endla järva"
+                                            }
                                         ]
                                     }
                                 }
                             }
                         },
                         "description": "Returns a list of trails"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "Trails get all 400 bad request": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hikers 400 bad request"
                     }
                 },
                 "summary": "get a list of all hiking trails",
                 "description": "Returns a list fo all Trails in API"
+            },
+            "post": {
+                "requestBody": {
+                    "description": "The body of the new trail",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "examples": {
+                                "Trails  create new object": {
+                                    "value": {
+                                        "title": "Gertrude Leffler",
+                                        "distance": "18 km",
+                                        "location": "70443 Oma Centers",
+                                        "region": "Avon",
+                                        "picture": "https://loremflickr.com/640/480/abstract"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Trails"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": {
+                                            "title": "Gertrude Leffler",
+                                            "distance": "18 km",
+                                            "location": "70443 Oma Centers",
+                                            "region": "Avon",
+                                            "picture": "https://loremflickr.com/640/480/abstract"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Trail successfully created"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    }
+                },
+                "summary": "Create a new trail",
+                "description": "Creates a new trail"
             }
         },
         "/trails/{id}": {
+            "summary": "Get specific trail",
+            "description": "Returns specific trail",
             "get": {
-                "requestBody": {},
                 "tags": [
-                    "details"
+                    "Trails"
                 ],
                 "parameters": [
                     {
@@ -68,18 +159,33 @@
                                 "examples": {
                                     "gaming": {
                                         "value": {
-                                            "id": "1",
+                                            "id": "63450e5af91e84fd3e4ae54b",
                                             "title": "Järvala matkarada", 
                                             "distance": "9 km", 
-                                            "location": "test", 
-                                            "region": "Harjumaa", 
+                                            "location": "test",
+                                            "region": "Harjumaa",
                                             "picture": "Picture link"
                                         }
                                     }
                                 }
                             }
                         },
-                        "description": "Returns full details of a given id trail\n"
+                        "description": "Returns details of a given trail\n"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "Trail get by id 400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
                     },
                     "404": {
                         "content": {
@@ -99,20 +205,873 @@
                         "description": "Trail was not found "
                     }
                 },
-                "operationId": "id",
-                "summary": "Get full details of a trail",
+                "operationId": "GetReqId",
+                "summary": "Get the details of a trail",
                 "description": "Returns full details of given id trail"
             },
             "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "EditReqBody": {
+                                    "value": {
+                                        "title": "Järvala matkarada",
+                                        "distance": "9 km",
+                                        "location": "test",
+                                        "region": "Harjumaa",
+                                        "picture": "Picture link"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "tags": [
-                    "Edit"
+                    "Trails"
                 ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired trail",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "Update trail 200 status": {
+                                        "value": "\"Successfully updated\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Trail successfully updated"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "400 trails put request": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "404": {
+                                        "value": "\"Trail not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Trail under given id not found"
+                    }
+                },
+                "operationId": "PutReqId",
                 "summary": "Update the trail under the given id"
+            },
+            "delete": {
+                "tags": [
+                    "Trails"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired trail",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "202 trail delete": {
+                                        "value": "\"Trail successfully deleted\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Trail successfully deleted"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "Trail delete 400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "\"invalid request\""
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "Trail delete 404": {
+                                        "value": "\"Trail not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Trail delete 404"
+                    }
+                },
+                "summary": "Delete trail under given id"
             },
             "parameters": [
                 {
                     "name": "id",
                     "description": "id of the desired trail",
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/hikers/": {
+            "summary": "get a list of all hiking trails",
+            "description": "Returns a list of Hiking trails",
+            "get": {
+                "tags": [
+                    "Hikers"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "Hikers names": {
+                                        "value": {
+                                            "id": "6345125726f3a49ff97222d9",
+                                            "Name": "Adolf Schickelgruber"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns a list of hikers"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "Hikers get all 400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hikers get all request 400"
+                    }
+                },
+                "summary": "get a list of all hikers",
+                "description": "Returns a list of all Hikers in API"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "examples": {
+                                "Create new hiker": {
+                                    "value": {
+                                        "Name": "Amber Hettinger I",
+                                        "Email": "Paris11@hotmail.com",
+                                        "Phonenumber": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Hikers"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": {
+                                            "Name": "Phil Turcotte",
+                                            "Email": "Estelle68@hotmail.com",
+                                            "Phonenumber": 3
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "A hiker has been successfully created"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    }
+                },
+                "summary": "Create a new trail",
+                "description": "Creates a new Hiker object"
+            }
+        },
+        "/hikers/{id}/": {
+            "summary": "Get specific Hiker",
+            "description": "Returns specific hiker",
+            "get": {
+                "tags": [
+                    "Hikers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired hiker",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "examples": {
+                                    "hikers 200 get by id request": {
+                                        "value": [
+                                            {
+                                                "_id": "6345125726f3a49ff97222d9",
+                                                "Name": "Edward Heaney"
+                                            },
+                                            {
+                                                "_id": "6345125726f3a49ff97222da",
+                                                "Name": "Bernard Flatley MD"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns details of a given hiker\n"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Hikers get by id 400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "Hiker under id not found": {
+                                        "value": "\"Hiker not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker was not found "
+                    }
+                },
+                "operationId": "hikersGetReqId",
+                "summary": "Get the details of a hiker",
+                "description": "Returns full details of given id hiker"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "EditReqBody": {
+                                    "value": {
+                                        "Name": "August von Mackensen",
+                                        "Email": "Paris11@hotmail.com",
+                                        "Phonenumber": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Hikers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired hiker",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": "\"Successfully deleted\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker successfully updated"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "404": {
+                                        "value": "\"Hiker not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker under given id not found"
+                    }
+                },
+                "operationId": "HikerPutReqId",
+                "summary": "Update the hiker under the given id"
+            },
+            "delete": {
+                "tags": [
+                    "Hikers"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired hiker",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "202": {
+                                        "value": "\"Successfully deleted\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker successfully deleted"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "\"invalid request\""
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "404": {
+                                        "value": "\"Hiker not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker delete 404"
+                    }
+                },
+                "summary": "Delete hiker under given id"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "id of the desired hiker",
+                    "schema": {
+                        "type": "number"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/hikes/": {
+            "summary": "get a list of all hikes",
+            "description": "Returns a list of Hikes",
+            "get": {
+                "tags": [
+                    "Hikes"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": [
+                                            {
+                                                "_id": "6345173acd35fc7237ceec83",
+                                                "Name": "Violet Dickens DDS"
+                                            },
+                                            {
+                                                "_id": "6345173acd35fc7237ceec84",
+                                                "Name": "Miss Wilbur Stamm DDS"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns a list of hikes"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hikes get all request 400"
+                    }
+                },
+                "summary": "get a list of all hikes",
+                "description": "Returns a list of all hikes in API"
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "examples": {
+                                "Create new hiker": {
+                                    "value": {
+                                        "Name": "Amber Hettinger I",
+                                        "Email": "Paris11@hotmail.com",
+                                        "Phonenumber": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Hikes"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": {
+                                            "Name": "Phil Turcotte",
+                                            "Email": "Estelle68@hotmail.com",
+                                            "Phonenumber": 3
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "A hiker has been successfully created"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    }
+                },
+                "summary": "Create a new trail",
+                "description": "Creates a new Hiker object"
+            }
+        },
+        "/hikes/{id}/": {
+            "summary": "Get specific hike",
+            "description": "Returns specific hike",
+            "get": {
+                "tags": [
+                    "Hikes"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired hike",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": {
+                                            "_id": "6345173acd35fc7237ceec83",
+                                            "Name": "Violet Dickens DDS",
+                                            "Organizer": "Shelia Kemmer",
+                                            "OrganizerEmail": "Citlalli_Casper@gmail.com",
+                                            "PlannedTrails": [
+                                                "Buckinghamshire"
+                                            ],
+                                            "Startinglocation": "71293 Domingo Trail"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Returns details of a given hike\n"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "404": {
+                                        "value": "\"Hike was not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hike was not found "
+                    }
+                },
+                "operationId": "hikesGetReqId",
+                "summary": "Get the details of a hike",
+                "description": "Returns full details of given id hike"
+            },
+            "put": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "examples": {
+                                "EditReqBody": {
+                                    "value": {
+                                        "Name": "August von Mackensen",
+                                        "Email": "Paris11@hotmail.com",
+                                        "Phonenumber": 1
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Hikes"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired hike",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "200": {
+                                        "value": "\"Successfully deleted\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hike successfully updated"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/error"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Invalid request"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "404": {
+                                        "value": "\"Hike not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hike under given id not found"
+                    }
+                },
+                "operationId": "HikesPutReqId",
+                "summary": "Update the hike under the given id"
+            },
+            "delete": {
+                "tags": [
+                    "Hikes"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "id of the desired hiker",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "202": {
+                                        "value": "\"Successfully deleted\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker successfully deleted"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "400": {
+                                        "value": "\"error message\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "\"invalid request\""
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "examples": {
+                                    "404": {
+                                        "value": "\"Hiker not found\""
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Hiker delete 404"
+                    }
+                },
+                "summary": "Delete hiker under given id"
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "id of the desired hike",
                     "schema": {
                         "type": "number"
                     },
