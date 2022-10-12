@@ -1,7 +1,27 @@
-.navbar a {
-    color: white;
+/*
+kombugreen #3c493f
+xanadu 7E8d85
+ash Grey b3bfb8
+Mint cream f0f7f4
+magic mint A2E3C4
+*/
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  overflow-y: hidden;
+  background-color: #f0f7f4;
 }
 
+.navbar {
+    background-color: #a2e3c4;
+}
+
+.navbar a {
+    color: black !important;
+}
 
 .container{
     padding: 0;
@@ -10,3 +30,39 @@
 .modal-lg{
     max-width: 30%;
 }
+
+#container .btn{
+    width: 10rem;
+    color:#3c493f;
+    border-color: #3c493f;
+}
+
+
+#container .btn:hover{
+    color:#a2e3c4;
+    background-color: #a2e3c4;
+    border-color: #3c493f;
+}
+
+/*
+TODO Javascript save button state
+*/
+
+.d-flex .btn{
+    color: #a2e3c4;
+    width: 10rem;
+}
+
+
+#Regions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8rem;
+}
+
+#container{
+    display: inline;
+    column-count: 3;
+}
+

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-success navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">RMK-API</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -114,24 +114,15 @@
               </div>
           </div>
         </div>
-    
-    
-        <div class="filter-container" id="app">
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <div class="btn-group-vertical">
-                <div v-for="(item, index) in regions" :key="index">
-                  <input type="checkbox" class="btn-check" :id="`btn${index}`" autocomplete="off">
-                  <label class="btn btn-outline-primary" :for="`btn${index}`">{{ item.region }}</label>
-                </div>
-              </div>
-            </ul>
+
+        <div id="Regions">
+          <div id="container">
+            <div id ="dropdown-btn"v-for="(item, index) in regions" :key="index">
+              <input type="checkbox" class="btn-check" :id="`btn${index}`" autocomplete="off">
+              <label class="btn btn-outline" :for="`btn${index}`">{{ item.region }}</label>
+            </div>
           </div>
         </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
@@ -157,7 +148,7 @@
                   trailInfoModal.show()
               }
           }*/
-      }).mount('#app')
+      }).mount('#container')
     </script>
 
 </body>
