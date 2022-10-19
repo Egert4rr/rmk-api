@@ -5,6 +5,9 @@ const MongoClient = require("mongodb").MongoClient;
 async function seedDB() {
     // Connection URL
     const uri = "mongodb://localhost:27017/trailsApiDb";
+    const counties = ["Harjumaa","Hiiumaa","Ida-Virumaa","Jõgevamaa", "Järvamaa",  "Läänemaa", 
+    "Lääne-Virumaa",  "Põlvamaa",  "Pärnumaa",  "Raplamaa",  "Saaremaa",  "Tartumaa",
+    "Valgamaa",  "Viljandimaa",  "Võrumaa"]   
 
     const client = new MongoClient(uri, {
         useNewUrlParser: true,
@@ -24,7 +27,7 @@ async function seedDB() {
             const title = faker.name.fullName();
             const distance = faker.random.numeric(2) + " km"
             const location =  faker.address.streetAddress(false)
-            const region =  faker.address.county()
+            const region = counties[Math.floor(Math.random() * 14)]
             const picture =  faker.image.abstract()
 
             let trail = {

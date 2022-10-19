@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon index.js",
+    "start": "concurrently \"npx nodemon index.js\" \"cd ../frontend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Egert4rr/rmk-api#readme",
   "dependencies": {
+    "concurrently": "^7.4.0",
     "body-parser": "^1.20.1",
     "class-transformer": "^0.5.1",
     "cors": "^2.8.5",
@@ -28,7 +29,8 @@
     "mongoose": "^6.6.0",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
-    "swagger-ui-express": "^4.5.0"
+    "swagger-ui-express": "^4.5.0",
+    "bcrypt": "^5.1.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0"

@@ -23,10 +23,17 @@ app.use(bodyParser.json());
 require("./Routes/trailRoutes")(app);
 require("./Routes/hikerRoutes")(app);
 require("./Routes/hikeRoutes")(app);
+require("./Routes/authRoutes")(app);
 
 
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// Handling errors
+app.use((err,req,res,next)=>{
+    console.log(err);
+    res.status(400).send({error:err.message})
+    //next(err)
+})
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/Views/index.html'));
