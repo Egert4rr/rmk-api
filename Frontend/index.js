@@ -23,7 +23,7 @@ app.use(helmet.contentSecurityPolicy({
             `${process.env.development?"'unsafe-eval'":"production"}`
         ],
         defaultSrc:[
-            "http://localhost:3030"
+            "http://localhost:3080"
         ]
     },
   }))

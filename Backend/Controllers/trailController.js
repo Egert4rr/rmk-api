@@ -78,44 +78,28 @@ exports.deleteById = function (req, res) {
 
 
 exports.getByRegion = function (req, res) {
-    let regions = []
+    const regions = [];
+
     try {
-        
+
         req.body.regions.forEach(element => {
             regions.push(element)
-        });
-
-        console.log(regions);
-
-    } catch (error) {
+        })
+    }
+    catch (error) {
         res.status(404).send("No regions found")
         return
     }
-    trail.find({}, (err, trail) => {
+
+    trail.find({ region: { $in: regions } }, (err, trail) => {
         if (err) {
             res.status(400).json(err);
         }
         else {
-            let trails = []
-            trail.forEach(element => {
-                regions.forEach(region => {
-                    if (element.region === region) {
-                        let newTrail = {
-                            _id: element._id,
-                            title: element.title,
-                            region: element.region,
-                            location: element.location,
-                            picture: element.picture
-                        }
-                        trails.push(newTrail);
-                    }
-
-                });
-
-            });
-
-            res.status(200).json( 
-                {filteredTrails: trails}
+            let trails = [];
+            trails.push(trail)
+            res.status(200).json(
+                { filteredTrails: trails }
             )
         }
     })
