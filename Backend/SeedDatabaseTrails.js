@@ -29,13 +29,15 @@ async function seedDB() {
             const location =  faker.address.streetAddress(false)
             const region = counties[Math.floor(Math.random() * 14)]
             const picture =  faker.image.abstract()
+            const tags = [{telkimisvõimalus:faker.datatype.boolean(),matkarada:faker.datatype.boolean(),lõkkekoht:faker.datatype.boolean()}]
 
             let trail = {
                 title: title,
                 distance: distance,
                 location: location,
                 region: region,
-                picture: picture
+                picture: picture,
+                tags:tags
             }
 
             trails.push(trail);

@@ -1,5 +1,5 @@
-import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
-const api_base = "http://localhost:3080"
+import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+const api_base = "http://localhost:3080";
 
 createApp({
     data() {
@@ -9,27 +9,32 @@ createApp({
                   {region: "Valgamaa"}, {region: "Viljandimaa"}, {region: "Võrumaa"}],
         checkedRegions:[],
         filteredTrails:[],
+        trailInModal:[],
         formRegions:[],
         loginModal:{},
         loginName:"",
         loginPass:"",
         loginError:"",
-        token:""
+        token:"",
+        isFiltered:false,
 
     }
     },
     async created() {
-        // this.games = await (await fetch(`${api_base}/trails`)).json()
+        this.isFiltered = false
         this.token = sessionStorage.getItem("token")===null?"":sessionStorage.getItem("token")
+        await this.getTrails()
         console.log("Created",this.token);
     },
     methods:{
-        /*getTrail: async function(id){
+        getTrail: async function(id){
             this.trailInModal = await (await fetch(`${api_base}/trails/${id}`)).json()
             let trailInfoModal = new bootstrap.Modal(document.getElementById("trailInfoModal"), {})
             trailInfoModal.show()
-        },*/
-
+        },
+        getTrails: async function(){
+            this.filteredTrails = await((await fetch(`${api_base}/trails`))).json()
+        },
         postSearch: async function() {
             const response = await fetch(`${api_base}/search/`,
             {
@@ -40,11 +45,16 @@ createApp({
             )
             const result = await response.json()
             if (response.ok) {
-                this.filteredTrails = result.filteredTrails
+                this.filteredTrails = [...result.filteredTrails]
                 console.log(this.filteredTrails);
+                this.isFiltered = true
             } else {
                 alert("no work")
             }
+        },
+
+        removeFilter: async function(){
+            this.isFiltered = false
         },
 
         showLogin: function(event) {
@@ -54,13 +64,17 @@ createApp({
             this.loginModal.show()
         },
         doLogIn: async function(){
+            let email;
             const response = await fetch(`${api_base}/login`,
                 {
                     method:"post",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ "email":this.loginName, "password":this.loginPass })
+                    body: JSON.stringify({ "email":this.loginName, "password":this.loginPass }),
                 }
             )
+            email = this.loginName
+            let pass = this.loginPass
+            console.log(email,pass);
             const result = await response.json()
             if(response.ok){                
                 if(result.success){

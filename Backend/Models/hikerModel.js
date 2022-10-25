@@ -9,8 +9,9 @@ const HikerSchema = new Schema({
     },
     email:{
         type:String,
-        required:"Email"
-    },
+        required:"Email",
+        unique : true
+        },
     phonenumber:{
         type:Number
     },

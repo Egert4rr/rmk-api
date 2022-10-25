@@ -32,6 +32,14 @@ async function seedDB() {
             hikers.push(hiker);
         }
 
+        let hiker = {
+            name: "admin",
+            email: "admin@admin.com",
+            phonenumber: 5566565,
+            password: "admin"
+        }
+        hikers.push(hiker)
+
         await hikerCollection.insertMany(hikers);
 
         console.log("Hikers seeded!")

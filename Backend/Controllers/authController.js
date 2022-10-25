@@ -6,9 +6,12 @@ const utils = require("../utils")
 
 exports.loginUser = async (req, res, next) => {
     let { email, password } = req.body;    
+
+    console.log(req.body);
     let existingHiker;
     try {
         existingHiker = await hiker.findOne({ email: email });
+        console.log(existingHiker);
     } catch (err) {
         console.log("Find: ",err);
         const error = new Error("Error! Something went wrong.");

@@ -22,7 +22,7 @@ async function seedDB() {
             const Organizer = faker.name.fullName();
             const OrganizerEmail = faker.internet.email();
             const PlannedTrails =  [faker.address.county()];
-            const StartDate = faker.date.betweens(faker.date.between())
+            const StartDate = faker.date.between(faker.date.between())
             const Startinglocation = faker.address.streetAddress(false);
 
             let hike = {
@@ -31,7 +31,7 @@ async function seedDB() {
                 OrganizerEmail: OrganizerEmail,
                 PlannedTrails: PlannedTrails,
                 StartDate: StartDate,
-                Startinglocation: Startinglocation
+                Startinglocation: Startinglocation,
             }
 
             hikes.push(hike);

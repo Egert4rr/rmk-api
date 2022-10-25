@@ -1,5 +1,6 @@
 const trail = require("../Models/trailModel")
-
+const path = require('path');
+const { Console } = require("console");
 
 
 
@@ -13,8 +14,11 @@ exports.getAll = function (req, res) {
             trail.forEach(element => {
                 let newTrail = {
                     _id: element._id,
-                    title: element.title
+                    title: element.title,
+                    tags: element.tags
                 }
+
+                console.log(newTrail);
                 trails.push(newTrail);
             });
 
@@ -91,13 +95,11 @@ exports.getByRegion = function (req, res) {
         return
     }
 
-    trail.find({ region: { $in: regions } }, (err, trail) => {
+    trail.find({ region: { $in: regions } }, (err, trails) => {
         if (err) {
             res.status(400).json(err);
         }
         else {
-            let trails = [];
-            trails.push(trail)
             res.status(200).json(
                 { filteredTrails: trails }
             )

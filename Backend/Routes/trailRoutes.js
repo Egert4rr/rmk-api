@@ -12,5 +12,4 @@ module.exports = function(app){
 
     app.route("/search")
         .post(trailsList.getByRegion)
-
-}
+    }

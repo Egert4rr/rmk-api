@@ -28,7 +28,8 @@ const HikeSchema = new Schema({
         type:String,
         required:"Start location is mandatory"
 
-    }
+    },
+
 
 });
 

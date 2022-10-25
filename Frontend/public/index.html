@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSS bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+<title>Document</title>
 </head>
 
 <body>
@@ -24,59 +24,22 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a v-if="checkedRegions.length !== 0" class="nav-link active" href="" aria-current="page"
+              @click="removeFilter">Remove Filters</a>
           </div>
         </div>
 
         <div class="d-flex">
-          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#loginModal">
+          <button v-if="token===''" @click="showLogin" type="button" class="btn btn-dark">
             Log in
           </button>
+          <button v-else class="btn btn-dark" @click="doLogOff" href="">log out</button>
         </div>
       </div>
     </nav>
 
-
-
-    <!--<div id="app">
-        <table id="trailsTable" class="table table-striped table-bordered">
-            <tr>
-                <th>title</th>
-                <th>id</th>
-            </tr>
-            <tr v-for="trail in trails">
-                <td @click="getTrail(trail._id)">{{ trail.title }}</td>
-                <td>{{ trail._id }}</td>
-            </tr>
-        </table>
-        <div class="modal fade modal-sm" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Trail Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                </button>
-              </div>
-              <div class="modal-body">
-                <table>
-                    <tr>
-                        <th>title:</th>
-                        <td style="margin-left: 1rem;">{{ trailInModal.title }}</td>
-                    </tr>
-                    <tr>
-                        <th>id: </th>
-                        <td>{{ trailInModal._id }}</td>
-                    </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
-    <div class="modal fade " id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="loginModal" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content ">
           <section class="col-sm-12  gradient-custom">
@@ -90,22 +53,25 @@
                       <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                       <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
-                      <div class="form-outline form-white mb-4">
-                        <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                        <label class="form-label" for="typeEmailX">Email</label>
-                      </div>
+                      <form class="form-group" @submit.prevent="doLogIn">
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="loginName" type="email" id="typeEmailX"
+                            class="form-control form-control-lg" />
+                          <label class="form-label" for="typeEmailX">Email</label>
+                        </div>
 
-                      <div class="form-outline form-white mb-4">
-                        <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                        <label class="form-label" for="typePasswordX">Password</label>
-                      </div>
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="loginPass" type="password" id="typePasswordX"
+                            class="form-control form-control-lg" />
+                          <label class="form-label" for="typePasswordX">Password</label>
+                        </div>
 
-                      <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p>
+                        <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p>
 
-                      <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
 
                     </div>
-
+                    </form>
                     <div>
                       <p class="mb-0">Don't have an account? <a href="#" class="text-white-50 fw-bold">Sign Up</a>
                       </p>
@@ -119,9 +85,9 @@
         </div>
       </div>
     </div>
+    <div class="omegaContainer" v-if="!isFiltered">
+      <form @submit.prevent="postSearch">
 
-    <form @submit.prevent="postSearch">
-      <div class="omegaContainer">
         <div id="regions">
           <div id="container">
             <div class="dropdown-btn" v-for="(item, index) in regions" :key="index">
@@ -135,11 +101,57 @@
         </div>
 
         <button type="submit" class="btn btn-primary submit-btn" value="Submit">Search</button>
+      </form>
+    </div>
 
+
+    <div class="list">
+      <table id="trailsTable" class="table table-striped table-bordered">
+        <tr>
+          <th>title</th>
+          <th>id</th>
+        </tr>
+        <tr v-for="trail in filteredTrails" :key="trail._id">
+          <td @click="getTrail(trail._id)">{{ trail.title }}</td>
+          <td v-for="tag" in trail.tags>{{}}
+        </td>
+        </tr>
+      </table>
+      <div class="modal fade modal-sm" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Trail Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+              </button>
+            </div>
+            <div class="modal-body">
+              <table>
+                <tr>
+                  <th>title:</th>
+                  <td style="margin-left: 1rem;">{{ trailInModal.title }}</td>
+                </tr>
+                <tr>
+                  <th>id: </th>
+                  <td>{{ trailInModal._id }}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </form>
 
+    </div>
   </div>
+  </div>
+
+
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
@@ -149,8 +161,6 @@
   <script type="module" src="rest-client.js" nonce="{{response.locals.nonce}}">
   </script>
 
-
-  <!-- <script src="Scripts/indexScript.js"> </script> -->
 </body>
 
-</html>
+</html> -->

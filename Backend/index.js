@@ -1,4 +1,5 @@
 const app = require('express')();
+const express = require('express')
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
@@ -25,8 +26,6 @@ require("./Routes/hikerRoutes")(app);
 require("./Routes/hikeRoutes")(app);
 require("./Routes/authRoutes")(app);
 
-
-
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Handling errors
 app.use((err,req,res,next)=>{
@@ -35,13 +34,8 @@ app.use((err,req,res,next)=>{
     //next(err)
 })
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/Views/index.html'));
-})
-app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, '/Views/SignUp.html'));
-})
 
+app.use(express.static('../Frontend/public'))
 app.listen(port, () =>  {
     console.log(`API up at: http://localhost:${port}`);
 });
