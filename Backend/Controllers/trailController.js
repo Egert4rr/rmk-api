@@ -15,7 +15,10 @@ exports.getAll = function (req, res) {
                 let newTrail = {
                     _id: element._id,
                     title: element.title,
-                    tags: element.tags
+                    tags: element.tags,
+                    picture:element.picture,
+                    region:element.region,
+                    distance:element.distance
                 }
 
                 console.log(newTrail);

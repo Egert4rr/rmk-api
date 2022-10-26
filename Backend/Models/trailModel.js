@@ -26,7 +26,19 @@ const TrailSchema = new Schema({
         required:"Picture is mandatory"
 
     },
-    tags:[{telkimisvõimalus:Boolean,matkarada:Boolean,lõkkekoht:Boolean,_id:false}]
+    tags:[
+        {
+            telkimisvõimalus:Boolean,
+            kattegaLõke:Boolean,
+            lõkkekoht:Boolean,
+            _id:false
+        }
+    ],
+    description:{
+        type:String,
+        required:"Description is mandatory"
+    }
+
 
 });
 

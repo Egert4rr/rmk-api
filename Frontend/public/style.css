@@ -73,3 +73,14 @@ TODO Javascript save button state
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
+.img-thumbnail{
+    width: 10rem;
+}
+
+.trailImage{
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}

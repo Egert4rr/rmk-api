@@ -28,8 +28,9 @@ async function seedDB() {
             const distance = faker.random.numeric(2) + " km"
             const location =  faker.address.streetAddress(false)
             const region = counties[Math.floor(Math.random() * 14)]
-            const picture =  faker.image.abstract()
-            const tags = [{telkimisvõimalus:faker.datatype.boolean(),matkarada:faker.datatype.boolean(),lõkkekoht:faker.datatype.boolean()}]
+            const picture =  faker.image.abstract(640,480,true)
+            const tags = [{telkimisvõimalus:faker.datatype.boolean(),kattegaLõke:faker.datatype.boolean(),lõkkekoht:faker.datatype.boolean()}]
+            const description = faker.lorem.paragraph()
 
             let trail = {
                 title: title,
@@ -37,7 +38,8 @@ async function seedDB() {
                 location: location,
                 region: region,
                 picture: picture,
-                tags:tags
+                tags:tags,
+                description:description
             }
 
             trails.push(trail);

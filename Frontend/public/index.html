@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,6 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/d419df19c6.js" crossorigin="anonymous"></script>
 <title>Document</title>
 </head>
 
@@ -106,17 +107,21 @@
 
 
     <div class="list">
-      <table id="trailsTable" class="table table-striped table-bordered">
-        <tr>
-          <th>title</th>
-          <th>id</th>
-        </tr>
-        <tr v-for="trail in filteredTrails" :key="trail._id">
-          <td @click="getTrail(trail._id)">{{ trail.title }}</td>
-          <td v-for="tag" in trail.tags>{{}}
-        </td>
-        </tr>
-      </table>
+      <div class="trailsListItem" @click="getTrail(trail._id)" v-for="trail in filteredTrails" :key="trail._id">
+        <div class="trailImage">
+          <img :src="trail.picture" class="img-thumbnail" alt="...">
+          <div class="text">
+            <h1 style="margin-left: 1rem;">{{trail.title}} ({{trail.distance}})</h1>
+            <h5 style="margin-left: 1rem;">{{trail.region}}</h5>
+            <div class="trailListIcons" style="margin-left: 1rem;">
+              <i class="fa fa-solid fa-house"></i>
+              <i class="fa fa-solid fa-house-fire"></i>
+              <i class="fa fa-solid fa-fire"></i>
+            </div>
+            
+          </div>
+        </div>
+      </div>
       <div class="modal fade modal-sm" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -158,9 +163,9 @@
     </script>
   <script type="importmap">{ "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }</script>
 
-  <script type="module" src="rest-client.js" nonce="{{response.locals.nonce}}">
-  </script>
+  <script type="module" src="rest-client.js" nonce="{{response.locals.nonce}}"></script>
+  
 
 </body>
 
-</html> -->
+</html> 

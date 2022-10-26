@@ -46,7 +46,6 @@ createApp({
             const result = await response.json()
             if (response.ok) {
                 this.filteredTrails = [...result.filteredTrails]
-                console.log(this.filteredTrails);
                 this.isFiltered = true
             } else {
                 alert("no work")
