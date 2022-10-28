@@ -20,8 +20,6 @@ exports.getAll = function (req, res) {
                     region:element.region,
                     distance:element.distance
                 }
-
-                console.log(newTrail);
                 trails.push(newTrail);
             });
 

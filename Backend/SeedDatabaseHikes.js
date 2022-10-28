@@ -1,10 +1,11 @@
 const { faker } = require('@faker-js/faker');
+require('dotenv').config();
 const MongoClient = require("mongodb").MongoClient;
 
 
 async function seedDB() {
     // Connection URL
-    const uri = "mongodb://localhost:27017/trailsApiDb";
+    const uri = process.env.DBCONNECTIONSTRING;
 
     const client = new MongoClient(uri, {
         useNewUrlParser: true,

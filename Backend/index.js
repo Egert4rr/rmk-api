@@ -11,9 +11,12 @@ const bodyParser = require("body-parser");
 
 app.use(cors());
 
-require("../Backend/SeedDatabaseTrails");
-require("../Backend/SeedDatabaseHikers");
-require("../Backend/SeedDatabaseHikes");
+if (process.env.development) {
+    require("./SeedDatabaseTrails");
+    require("./SeedDatabaseHikers");
+    require("./SeedDatabaseHikes");
+}
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DBCONNECTIONSTRING);

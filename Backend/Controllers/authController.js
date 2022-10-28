@@ -17,9 +17,9 @@ exports.loginUser = async (req, res, next) => {
         const error = new Error("Error! Something went wrong.");
         return next(error);
     }
-    if (!existingHiker || !utils.verifyPassword(password,existingHiker.password)) {
-        console.log("User: ",existingHiker);
-        console.log("Pass: ",password);
+    console.log("User: ",existingHiker.password);
+    console.log("Pass: ",password);
+    if (!existingHiker || !await utils.verifyPassword(password,existingHiker.password)) {
         const error = new Error("Wrong details please check at once");
         return next(error);
     }
