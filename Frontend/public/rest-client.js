@@ -1,5 +1,5 @@
 import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-const api_base = "http://localhost:3080"; // <-- Enter api_base here
+const api_base = "http://localhost:3080"; // <-- Enter api_base here "http://localhost:{backendport}"
 
 createApp({
     data() {
