@@ -114,9 +114,10 @@
             <h1 style="margin-left: 1rem;">{{trail.title}} ({{trail.distance}})</h1>
             <h5 style="margin-left: 1rem;">{{trail.region}}</h5>
             <div class="trailListIcons" style="margin-left: 1rem;">
-              <i class="fa fa-solid fa-house"></i>
-              <i class="fa fa-solid fa-house-fire"></i>
-              <i class="fa fa-solid fa-fire"></i>
+            
+              <i v-if = "trail.tags[0].telkimisvõimalus === true" class="fa fa-solid fa-house"></i>
+              <i v-if = "trail.tags[0].kattegaLõke === true" class ="fa fa-solid fa-house-fire"></i>
+              <i v-if = "trail.tags[0].lõkkekoht === true" class="fa fa-solid fa-fire"></i>
             </div>
             
           </div>

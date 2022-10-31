@@ -24,7 +24,7 @@ app.use(helmet.contentSecurityPolicy({
             `${process.env.development?"'unsafe-eval'":"production"}`
         ],
         defaultSrc:[
-            "http://localhost:3080"
+            "http://localhost:3000"
         ],
         imgSrc:[
           "https://loremflickr.com/640/480/abstract",
@@ -33,13 +33,14 @@ app.use(helmet.contentSecurityPolicy({
         ],
         connectSrc:[
           "'self'",
-          "http://localhost:3080",
+          "http://localhost:3000",
           "https://ka-f.fontawesome.com/releases/v6.2.0/css/free-v4-shims.min.css",
           "https://ka-f.fontawesome.com/releases/v6.2.0/css/free-v5-shims.min.css",
           "https://ka-f.fontawesome.com/releases/v6.2.0/css/free.min.css",
           "https://ka-f.fontawesome.com/releases/v6.2.0/css/free-v5-font-face.min.css",
           "https://ka-f.fontawesome.com/releases/v6.2.0/css/free-v4-font-face.min.css"
         ]
+      
     },
   }))
 app.use(express.static('public'))
