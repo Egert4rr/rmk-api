@@ -14,8 +14,14 @@ async function seedDB() {
     try {
         await client.connect();
         
-        const hikeCollection = await client.db("trailsApiDb").collection("hikes");
-        hikeCollection.drop();
+        let hikeCollection
+        try {
+            hikeCollection = await client.db().collection("hikes");
+            await hikeCollection.drop();
+        }
+        catch {
+            
+        }
 
         let hikes = [];
         for (let index = 0; index < 100; index++) {

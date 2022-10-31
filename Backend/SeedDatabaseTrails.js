@@ -18,8 +18,14 @@ async function seedDB() {
         await client.connect();
         console.log("Connected correctly to server");
 
-        const trailCollection = await client.db("trailsApiDb").collection("trails");
-        trailCollection.drop();
+        let trailCollection;
+        try {
+            trailCollection = await client.db().collection("trails");
+            await trailCollection.drop();
+        }
+        catch {
+            
+        }
 
         // make a bunch of time series data
 

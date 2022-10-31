@@ -14,8 +14,15 @@ async function seedDB() {
     try {
         await client.connect();
 
-        const hikerCollection = await client.db().collection("hikers");
-        hikerCollection.drop();
+        let hikerCollection
+
+        try {
+            hikerCollection = await client.db().collection("hikers");
+            await hikerCollection.drop();
+        }
+        catch {
+
+        }
 
         let hikers = [];
         const pass = await utils.hashPassword("admin")
@@ -52,6 +59,7 @@ async function seedDB() {
     }
 
 };
+
 
 seedDB();
         
