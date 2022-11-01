@@ -5,13 +5,15 @@ ash Grey b3bfb8
 Mint cream f0f7f4
 magic mint A2E3C4
 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 html {
-  height: 100%;
+    height: 100%;
 }
+
 body {
-  min-height: 100%;
-  background-color: #f0f7f4;
+    min-height: 100%;
+    background-color: #f0f7f4;
 }
 
 .navbar {
@@ -22,32 +24,28 @@ body {
     color: black !important;
 }
 
-.container{
+.container {
     padding: 0;
 }
 
-.modal-lg{
+.modal-lg {
     max-width: 30%;
 }
 
-#container .btn{
+#container .btn {
     width: 10rem;
-    color:#3c493f;
+    color: #3c493f;
     border-color: #3c493f;
 }
 
 
-#container .btn:hover{
-    color:#a2e3c4;
+#container .btn:hover {
+    color: #a2e3c4;
     background-color: #a2e3c4;
     border-color: #3c493f;
 }
 
-/*
-TODO Javascript save button state
-*/
-
-.d-flex .btn{
+.d-flex .btn {
     color: #a2e3c4;
     width: 10rem;
 }
@@ -60,12 +58,12 @@ TODO Javascript save button state
     margin-top: 8rem;
 }
 
-#container{
+#container {
     display: inline;
     column-count: 3;
 }
 
-.submit-btn{
+.submit-btn {
     position: relative;
     margin-top: 5rem;
     top: 50%;
@@ -74,13 +72,51 @@ TODO Javascript save button state
     transform: translate(-50%, -50%);
 }
 
-.img-thumbnail{
+.img-thumbnail {
     width: 10rem;
 }
 
-.trailImage{
+.trailImage {
     display: flex;
     flex-direction: row;
     margin-left: 1rem;
     margin-bottom: 0.5rem;
 }
+
+.fa {
+    position: relative;
+}
+
+.fa .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: 'Roboto', sans-serif;
+}
+
+.fa .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  .fa:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

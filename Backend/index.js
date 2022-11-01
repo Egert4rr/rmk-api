@@ -34,7 +34,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use((err,req,res,next)=>{
     console.log(err);
     res.status(400).send({error:err.message})
-    //next(err)
+    next(err)
 })
 
 

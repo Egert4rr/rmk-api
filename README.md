@@ -10,6 +10,7 @@
     * To set up and run the project you need to create the ".env" file in both Backend and Frontend.
     * Follow the ".env.example" file for the correct setup of ".env" files.
     * Find and open the rest-client.js file. Add the correct api_base
+    * Find and open the index.js file in the frontend folder and change the port to the backend port in places with "// Here"
     * When successfully configured open the project with the terminal in both frontend and backend, then install packages with "npm i".
     * Then start with "npm start"
 

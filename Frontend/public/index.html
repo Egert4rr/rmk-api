@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="et">
 
 <head>
   <meta charset="UTF-8">
@@ -116,9 +116,15 @@
             <h5 style="margin-left: 1rem;">{{trail.region}}</h5>
             <div class="trailListIcons" style="margin-left: 1rem;">
             
-              <i v-if = "trail.tags[0].telkimisvõimalus === true" class="fa fa-solid fa-house"></i>
-              <i v-if = "trail.tags[0].kattegaLõke === true" class ="fa fa-solid fa-house-fire"></i>
-              <i v-if = "trail.tags[0].lõkkekoht === true" class="fa fa-solid fa-fire"></i>
+              <i v-if = "trail.tags[0].telkimisvõimalus === true" class="fa fa-solid fa-house" >
+                <span class="tooltiptext">Telkimis koht</span>
+              </i>
+              <i v-if = "trail.tags[0].kattegaLõke === true" class ="fa fa-solid fa-house-fire" style="margin-left: 0.5rem;">
+              <span class="tooltiptext">Kattega lõke</span>
+              </i>
+              <i v-if = "trail.tags[0].lõkkekoht === true" class="fa fa-solid fa-fire" style="margin-left: 0.5rem;">
+              <span class="tooltiptext">Lõkkekoht</span>
+              </i>
             </div>
             
           </div>
@@ -159,14 +165,18 @@
 
 
 
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
-    </script>
+  </script>
+  
   <script type="importmap">{ "imports": { "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js" } }</script>
 
   <script type="module" src="rest-client.js" nonce="{{response.locals.nonce}}"></script>
   
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  </script>
 
 </body>
 
