@@ -55,18 +55,18 @@
                       <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
                       <form class="form-group" @submit.prevent="doLogIn">
-                          <div class="form-outline form-white mb-4">
-                            <input v-model="loginName" type="email" id="typeLoginEmailX"
-                              class="form-control form-control-lg" />
-                            <label class="form-label" for="typeLoginEmailX">Email</label>
-                          </div>
-  
-                          <div class="form-outline form-white mb-4">
-                            <input v-model="loginPass" type="password" id="typeLoginPasswordX"
-                              class="form-control form-control-lg" />
-                            <label class="form-label" for="typeLoginPasswordX">Password</label>
-                          </div>
-  
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="loginName" type="email" id="typeLoginEmailX"
+                            class="form-control form-control-lg" />
+                          <label class="form-label" for="typeLoginEmailX">Email</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="loginPass" type="password" id="typeLoginPasswordX"
+                            class="form-control form-control-lg" />
+                          <label class="form-label" for="typeLoginPasswordX">Password</label>
+                        </div>
+
 
                         <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p>
 
@@ -75,7 +75,8 @@
                     </div>
 
                     <div>
-                      <p class="mb-0">Don't have an account? <a @click="showSignUp" href="" class="text-white-50 fw-bold">Sign Up</a>
+                      <p class="mb-0">Don't have an account? <a @click="showSignUp" href=""
+                          class="text-white-50 fw-bold">Sign Up</a>
                       </p>
                     </div>
 
@@ -103,11 +104,10 @@
                       <h2 class="fw-bold mb-2 text-uppercase">Sign up</h2>
                       <p class="text-white-50 mb-5">Please enter your name, email, and password!</p>
                       <form class="form-group" @submit.prevent="doSignUp">
-                  
+
 
                         <div class="form-outline form-white mb-4">
-                          <input v-model="SignUpName" type="text" id="typeNameX"
-                            class="form-control form-control-lg" />
+                          <input v-model="SignUpName" type="text" id="typeNameX" class="form-control form-control-lg" />
                           <label class="form-label" for="typeNameX">Name</label>
                         </div>
 
@@ -165,7 +165,7 @@
     <div class="list">
       <div class="trailsListItem" @click="getTrail(trail._id)" v-for="trail in filteredTrails" :key="trail._id">
         <div class="trailImage">
-          <img :src="trail.picture" class="img-thumbnail" alt="...">
+          <img :src="trail.picture" class="img-thumbnail" alt="trail image">
           <div class="text">
             <h1 style="margin-left: 1rem;">{{trail.title}} ({{trail.distance}})</h1>
             <h5 style="margin-left: 1rem;">{{trail.region}}</h5>
@@ -185,27 +185,54 @@
 
           </div>
         </div>
+        <hr>
       </div>
-      <div class="modal fade modal-sm" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      <div class="modal fade modal-xl" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Trail Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-              </button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <table>
-                <tr>
-                  <th>title:</th>
-                  <td style="margin-left: 1rem;">{{ trailInModal.title }}</td>
-                </tr>
-                <tr>
-                  <th>id: </th>
-                  <td>{{ trailInModal._id }}</td>
-                </tr>
-              </table>
+              <div class="trailInfo">
+                <table class="infoTable">
+                  <tr>
+                    <td><h2>{{ trailInModal.title }} ({{ trailInModal.distance}})</h2></td>
+                  </tr>
+                  <tr>
+                    <td><h4 class="infoH4">{{ trailInModal.region }}</h4></td>
+                  </tr>
+                  <tr>
+                    <td>Trail length: {{ trailInModal.distance }}</td>
+                  </tr>
+                  <tr v-if="trailInModal.tags[0].telkimisvõimalus">
+                    <td>has camping options</td>
+                  </tr>
+                  <tr v-if="trailInModal.tags[0].kattegaLõke">
+                    <td>has a covered fire place</td>
+                  </tr>
+                  <tr v-if="trailInModal.tags[0].lõkkekoht">
+                    <td>has a fire place</td>
+                  </tr>
+                  <tr>
+                    <td><h5 class="infoH5">Description:</h5></td>
+                  </tr>
+                  <tr>
+                    <td>{{ trailInModal.description }}</td>
+                  </tr>
+
+                </table>
+
+              </div>
+              <div class="trailPicture">
+                <img :src="trailInModal.picture" class="trailImg" alt="trail image">
+                <div class="trailLocation">
+                  <h5>Location: {{ trailInModal.location }}</h5>
+                </div>
+                
+              </div>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

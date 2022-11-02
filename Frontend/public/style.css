@@ -7,6 +7,7 @@ magic mint A2E3C4
 */
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+
 html {
     height: 100%;
 }
@@ -17,7 +18,7 @@ body {
 }
 
 .navbar {
-    background-color: #a2e3c4;
+    background-color: #7AB189;
 }
 
 .navbar a {
@@ -40,13 +41,13 @@ body {
 
 
 #container .btn:hover {
-    color: #a2e3c4;
-    background-color: #a2e3c4;
+    color: #7AB189;
+    background-color: #7AB189;
     border-color: #3c493f;
 }
 
 .d-flex .btn {
-    color: #a2e3c4;
+    color: #7AB189;
     width: 10rem;
 }
 
@@ -114,9 +115,40 @@ body {
     border-width: 5px;
     border-style: solid;
     border-color: #555 transparent transparent transparent;
-  }
-  
-  .fa:hover .tooltiptext {
+}
+
+.fa:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
-  }
+}
+
+.submit-btn {
+    background-color: #3c493f !important;
+}
+
+.trailInfo {
+    width: 65%;
+    float: left;
+}
+
+.infoH4 {
+    margin-bottom: 1rem;
+}
+
+.infoH5 {
+    font-weight: bold;
+    margin-top: 0.8rem;
+}
+
+.trailPicture {
+    width: 35%;
+    float: left;
+}
+
+.trailImg {
+    width: 100%;
+}
+
+.trailLocation {
+    margin-top: 1.5rem;
+}

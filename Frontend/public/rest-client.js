@@ -9,7 +9,7 @@ createApp({
             { region: "Valgamaa" }, { region: "Viljandimaa" }, { region: "Võrumaa" }],
             checkedRegions: [],
             filteredTrails: [],
-            trailInModal: [],
+            trailInModal: {"_id": "","title": "","tags": [{"telkimisvõimalus": false,"kattegaLõke": false,"lõkkekoht": false}],"picture": "","region": "","distance": ""},
             formRegions: [],
             loginModal: {},
             signUpModal: {},
@@ -21,15 +21,16 @@ createApp({
             SignUpName: "",
             SignUpEmail: "",
             SignUpPassword: "",
-            SignUpConfPassword: ""
+            SignUpConfPassword: "",
+            tags: []
 
         }
     },
+
     async created() {
         this.isFiltered = false
         this.token = sessionStorage.getItem("token") === null ? "" : sessionStorage.getItem("token")
         await this.getTrails()
-        console.log("Created", this.token);
     },
     methods: {
         getTrail: async function (id) {
@@ -80,19 +81,19 @@ createApp({
             let password = this.SignUpPassword;
             let confPassword = this.SignUpConfPassword;
             let name = this.SignUpName;
-            if(password === confPassword && this.SignUpEmail !== ""){
-                const response = await fetch(`${api_base}/register`,{
+            if (password === confPassword && this.SignUpEmail !== "") {
+                const response = await fetch(`${api_base}/register`, {
                     method: "post",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({"name":name,"email":this.SignUpEmail,"password":password}),
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "name": name, "email": this.SignUpEmail, "password": password }),
                 })
                 const result = await response.json()
-                if (response.ok){
-                    if(result.success){
+                if (response.ok) {
+                    if (result.success) {
                         this.signUpModal.hide();
                     }
                 }
-                else{
+                else {
                     this.loginError = result.error;
                 }
 
@@ -100,7 +101,6 @@ createApp({
 
         },
         doLogIn: async function () {
-            let email;
             const response = await fetch(`${api_base}/login`,
                 {
                     method: "post",
@@ -108,9 +108,6 @@ createApp({
                     body: JSON.stringify({ "email": this.loginName, "password": this.loginPass }),
                 }
             )
-            email = this.loginName
-            let pass = this.loginPass
-            console.log(email, pass);
             const result = await response.json()
             if (response.ok) {
                 if (result.success) {
