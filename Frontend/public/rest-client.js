@@ -15,7 +15,7 @@ createApp({
             signUpModal: {},
             loginName: "",
             loginPass: "",
-            loginError: "",
+            loginError: null,
             token: "",
             isFiltered: false,
             SignUpName: "",
@@ -33,6 +33,9 @@ createApp({
         await this.getTrails()
     },
     methods: {
+        resetLoginError: function () {
+            this.loginError = null
+        },
         getTrail: async function (id) {
             this.trailInModal = await (await fetch(`${api_base}/trails/${id}`)).json()
             let trailInfoModal = new bootstrap.Modal(document.getElementById("trailInfoModal"), {})
@@ -122,8 +125,8 @@ createApp({
         doLogOff: function () {
             this.loginName = ""
             this.loginPass = ""
-            this.loginError = ""
             this.token = ""
+            this.loginError = null
             sessionStorage.removeItem("token")
         }
     }

@@ -152,3 +152,7 @@ body {
 .trailLocation {
     margin-top: 1.5rem;
 }
+
+.loginErrorMsg {
+    color: red;
+}

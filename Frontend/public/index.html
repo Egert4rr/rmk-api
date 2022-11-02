@@ -54,21 +54,19 @@
                       <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                       <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
+                      <p v-if="loginError != null" class="loginErrorMsg">✱ Incorrect credentials</p>
                       <form class="form-group" @submit.prevent="doLogIn">
-                        <div class="form-outline form-white mb-4">
+                        <div class="form-outline form-white mb-4" >
                           <input v-model="loginName" type="email" id="typeLoginEmailX"
-                            class="form-control form-control-lg" />
+                            class="form-control form-control-lg" @click="resetLoginError"/>
                           <label class="form-label" for="typeLoginEmailX">Email</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="loginPass" type="password" id="typeLoginPasswordX"
-                            class="form-control form-control-lg" />
+                            class="form-control form-control-lg" @click="resetLoginError"/>
                           <label class="form-label" for="typeLoginPasswordX">Password</label>
                         </div>
-
-
-                        <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#">Forgot password?</a></p>
 
                         <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                       </form>
