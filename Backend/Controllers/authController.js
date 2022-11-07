@@ -51,6 +51,7 @@ exports.registerUser = async (req, res, next) => {
         email,
         phonenumber,
         password,
+        isAdmin: false
     });
     try {
         await newHiker.save()

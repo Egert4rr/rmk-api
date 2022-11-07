@@ -18,8 +18,10 @@ const HikerSchema = new Schema({
     password:{
         type:String,
         required:"Password is mandatory"
+    },
+    isAdmin:{
+        type:Boolean,
     }
-    
 
 });
 /*

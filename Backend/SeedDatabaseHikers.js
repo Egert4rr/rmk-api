@@ -36,19 +36,29 @@ async function seedDB() {
                 name: name,
                 email: email,
                 phonenumber: phonenumber,
-                password: password
+                password: password,
+                isAdmin: false
             }
 
             hikers.push(hiker);
         }
 
-        let hiker = {
+        let hikerAdmin = {
             name: "admin",
             email: "admin@admin.com",
             phonenumber: 5566565,
-            password: await utils.hashPassword("admin")
+            password: await utils.hashPassword("admin"),
+            isAdmin: true
         }
-        hikers.push(hiker)
+        hikers.push(hikerAdmin)
+        let hikerTest = {
+            name: "test",
+            email: "test@test.com",
+            phonenumber: 5566565,
+            password: await utils.hashPassword("test"),
+            isAdmin: false
+        }
+        hikers.push(hikerTest)
 
         await hikerCollection.insertMany(hikers);
 
