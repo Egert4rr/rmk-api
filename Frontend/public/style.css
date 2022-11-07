@@ -156,3 +156,22 @@ body {
 .loginErrorMsg {
     color: red;
 }
+
+
+.modal-content{
+    background-color: #343a40!important;
+}
+
+.modal-footer{
+    text-decoration: none;
+}
+
+
+.modal-content{
+    color: #f0f7f4 !important;
+}
+
+.btn-link {
+    text-decoration: none !important;
+    color: black !important;
+}

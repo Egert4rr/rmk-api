@@ -25,9 +25,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a v-if="checkedRegions.length !== 0" class="nav-link active" href="" aria-current="page"
+            <a v-if="checkedRegions.length !== 0" class="nav-link active" href=""
               @click="removeFilter">Remove Filters</a>
           </div>
+          <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
+
         </div>
 
         <div class="d-flex">
@@ -38,6 +40,9 @@
         </div>
       </div>
     </nav>
+
+
+    <!-- Login modal-->
 
     <div class="modal fade" id="loginModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="loginModal" aria-hidden="true">
@@ -56,15 +61,15 @@
 
                       <p v-if="loginError != null" class="loginErrorMsg">✱ Incorrect credentials</p>
                       <form class="form-group" @submit.prevent="doLogIn">
-                        <div class="form-outline form-white mb-4" >
+                        <div class="form-outline form-white mb-4">
                           <input v-model="loginName" type="email" id="typeLoginEmailX"
-                            class="form-control form-control-lg" @click="resetLoginError"/>
+                            class="form-control form-control-lg" @click="resetLoginError" />
                           <label class="form-label" for="typeLoginEmailX">Email</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="loginPass" type="password" id="typeLoginPasswordX"
-                            class="form-control form-control-lg" @click="resetLoginError"/>
+                            class="form-control form-control-lg" @click="resetLoginError" />
                           <label class="form-label" for="typeLoginPasswordX">Password</label>
                         </div>
 
@@ -87,6 +92,8 @@
       </div>
     </div>
 
+
+    <!--sign up modal-->
     <div class="modal fade" id="signUpModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="signUpModal" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -189,17 +196,19 @@
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+
             <div class="modal-body">
               <div class="trailInfo">
                 <table class="infoTable">
                   <tr>
-                    <td><h2>{{ trailInModal.title }} ({{ trailInModal.distance}})</h2></td>
+                    <td>
+                      <h2>{{ trailInModal.title }} ({{ trailInModal.distance}})</h2>
+                    </td>
                   </tr>
                   <tr>
-                    <td><h4 class="infoH4">{{ trailInModal.region }}</h4></td>
+                    <td>
+                      <h4 class="infoH4">{{ trailInModal.region }}</h4>
+                    </td>
                   </tr>
                   <tr>
                     <td>Trail length: {{ trailInModal.distance }}</td>
@@ -214,7 +223,9 @@
                     <td>has a fire place</td>
                   </tr>
                   <tr>
-                    <td><h5 class="infoH5">Description:</h5></td>
+                    <td>
+                      <h5 class="infoH5">Description:</h5>
+                    </td>
                   </tr>
                   <tr>
                     <td>{{ trailInModal.description }}</td>
@@ -228,7 +239,7 @@
                 <div class="trailLocation">
                   <h5>Location: {{ trailInModal.location }}</h5>
                 </div>
-                
+
               </div>
 
             </div>
@@ -238,9 +249,22 @@
           </div>
         </div>
       </div>
-
     </div>
-  </div>
+
+    <div class="modal fade modal-xl" id="profileModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
   </div>
 
 

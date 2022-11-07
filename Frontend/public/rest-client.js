@@ -10,9 +10,11 @@ createApp({
             checkedRegions: [],
             filteredTrails: [],
             trailInModal: {"_id": "","title": "","tags": [{"telkimisvõimalus": false,"kattegaLõke": false,"lõkkekoht": false}],"picture": "","region": "","distance": ""},
+            hikerInModal: {},
             formRegions: [],
             loginModal: {},
             signUpModal: {},
+            profileModal: {},
             loginName: "",
             loginPass: "",
             loginError: null,
@@ -42,7 +44,12 @@ createApp({
             trailInfoModal.show()
         },
         getTrails: async function () {
-            this.filteredTrails = await ((await fetch(`${api_base}/trails`))).json()
+            this.filteredTrails = await (await fetch(`${api_base}/trails`)).json()
+        },
+        getProfile: async function () {
+            this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`))
+            this.profileModal = new bootstrap.Modal(document.getElementById("profileModal"), {})
+            this.profileModal.show()
         },
         postSearch: async function () {
             if (this.checkedRegions.length !== 0) {
@@ -79,7 +86,6 @@ createApp({
             this.signUpModal = new bootstrap.Modal(document.getElementById("signUpModal"), {})
             this.signUpModal.show()
         },
-
         doSignUp: async function () {
             let password = this.SignUpPassword;
             let confPassword = this.SignUpConfPassword;
