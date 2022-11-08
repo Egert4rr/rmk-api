@@ -24,8 +24,9 @@ createApp({
             SignUpEmail: "",
             SignUpPassword: "",
             SignUpConfPassword: "",
-            tags: []
-
+            tags: [],
+            profileEmailChangeIsHidden: false,
+            profilePhonenumberChangeIsHidden: false
         }
     },
 
@@ -47,7 +48,7 @@ createApp({
             this.filteredTrails = await (await fetch(`${api_base}/trails`)).json()
         },
         getProfile: async function () {
-            this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`))
+            this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
             this.profileModal = new bootstrap.Modal(document.getElementById("profileModal"), {})
             this.profileModal.show()
         },
@@ -134,6 +135,34 @@ createApp({
             this.token = ""
             this.loginError = null
             sessionStorage.removeItem("token")
+        },
+        profileHideStateEmail: function () {
+            if (!this.profileEmailChangeIsHidden) {
+                this.profileEmailChangeIsHidden = true
+            }
+            else {this.profileEmailChangeIsHidden = false}
+        },
+        profileHideStatePhonenumber: function () {
+            if (!this.profilePhonenumberChangeIsHidden) {
+                this.profilePhonenumberChangeIsHidden = true
+            }
+            else {this.profilePhonenumberChangeIsHidden = false}
+        },
+
+        doChangeCredentials: function(){
+
+/*
+
+            const response = await fetch(`${api_base}/edit/${this.hikerInModal._id}`,
+            {
+                method: "put",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({"email":})
+
+            }
+            )
+
+            */
         }
     }
 }).mount('#app')

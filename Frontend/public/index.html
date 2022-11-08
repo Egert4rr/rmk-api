@@ -192,6 +192,8 @@
         </div>
         <hr>
       </div>
+
+      <!--Details Model-->
       <div class="modal fade modal-xl" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -251,11 +253,48 @@
       </div>
     </div>
 
-    <div class="modal fade modal-xl" id="profileModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    <!-- Profile Modal -->
+    <div class="modal fade modal-md" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-body">
+
+              <table>
+                <tr>
+                  <td>
+                    <h2>{{ hikerInModal.name }}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <form class="form-group">
+                    <td>
+                    <div v-if="!profileEmailChangeIsHidden" class="profile-change-flex">
+                      <h4 class="profile-h4">{{ hikerInModal.email }}</h4>
+                      <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"class="btn btn-link">Change</button>]</div>
+                    </div>
+                    <div v-else class="profile-email-form">
+                      <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                  </td>
+                </tr>
+                  <td>
+                    <div v-if="!profilePhonenumberChangeIsHidden" class="profile-change-flex">
+                      <h4  class="profile-h4">Phonenumber: {{ hikerInModal.phonenumber }}</h4>
+                      <div class="profile-ChangeBtn">[<button  @click="profileHideStatePhonenumber" type="button" class="btn btn-link">Change</button>]</div>
+                    </div>
+
+                    <div v-else class="profile-phonenumber-form">
+                      <label for="exampleFormControlInput2" class="form-label">Email address</label>
+                      <input type="number" class="form-control" id="exampleFormControlInput2" placeholder="56565656">
+                    </div>
+                    
+                  </td>
+                </form>
+                </tr>
+
+              </table>
 
             </div>
             <div class="modal-footer">
