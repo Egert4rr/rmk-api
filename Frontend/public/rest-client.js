@@ -26,11 +26,16 @@ createApp({
             SignUpConfPassword: "",
             tags: [],
             profileEmailChangeIsHidden: false,
-            profilePhonenumberChangeIsHidden: false
+            profilePhonenumberChangeIsHidden: false,
+            profileEmail:"",
+            profilePhonenumber:"",
         }
     },
 
     async created() {
+        if (this.hikerInModal.name == "" || this.hikerInModal.name == null || this.hikerInModal.name == undefined) {
+            this.token == ""
+        }
         this.isFiltered = false
         this.token = sessionStorage.getItem("token") === null ? "" : sessionStorage.getItem("token")
         await this.getTrails()
@@ -152,7 +157,7 @@ createApp({
             this.profileEmailChangeIsHidden = false
             this.profilePhonenumberChangeIsHidden = false
         },
-        doChangeCredentials: function () {
+        doChangeCredentialsEmail: function () {
             /*
             const response = await fetch(`${api_base}/edit/${this.hikerInModal._id}`,
             {
@@ -161,8 +166,8 @@ createApp({
                 body: JSON.stringify({"email":})
 
             }
-            )
-            */
+            )*/
+            
         }
     }
 }).mount('#app')

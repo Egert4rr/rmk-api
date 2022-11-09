@@ -15,7 +15,6 @@
 
 <body>
   <div id="app">
-
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">RMK-API</a>
@@ -25,8 +24,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a v-if="checkedRegions.length !== 0" class="nav-link active" href=""
-              @click="removeFilter">Remove Filters</a>
+            <a v-if="checkedRegions.length !== 0" class="nav-link active" href="" @click="removeFilter">Remove
+              Filters</a>
           </div>
           <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
 
@@ -255,54 +254,64 @@
 
     <!-- Profile Modal -->
     <div class="modal fade modal-md" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1"
-        aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
+      aria-labelledby="staticBackdrop" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
 
-              <table>
-                <tr>
-                  <td>
-                    <h2>{{ hikerInModal.name }}</h2>
-                  </td>
-                </tr>
-                <tr>
-                  <form class="form-group">
-                    <td>
-                    <div v-if="!profileEmailChangeIsHidden" class="profile-change-flex">
-                      <h4 class="profile-h4">{{ hikerInModal.email }}</h4>
-                      <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"class="btn btn-link">Change</button>]</div>
-                    </div>
+            <table>
+              <tr>
+                <td>
+                  <h2>{{ hikerInModal.name }}</h2>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div v-if="!profileEmailChangeIsHidden" class="profile-change-flex">
+                    <h4 class="profile-h4">{{ hikerInModal.email }}</h4>
+                    <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"
+                        class="btn btn-link">Change</button>]</div>
+                  </div>
+                  <form class="form-group" @submit.prevent="">
                     <div v-if="profileEmailChangeIsHidden" class="profile-email-form">
                       <label for="exampleFormControlInput1" class="form-label">Email address:</label>
-                      <input type="email" class="form-control" id="exampleFormControlInput1" :placeholder="hikerInModal.email">
+                      <input type="email" class="form-control" v-model="profileEmail" id="exampleFormControlInput1"
+                        :placeholder="hikerInModal.email">
+                        <button type="button" class="btn btn-outline-success">✓</button>
                     </div>
-                  </td>
-                </tr>
-                  <td>
-                    <div v-if="!profilePhonenumberChangeIsHidden" class="profile-change-flex">
-                      <h4  class="profile-h4">Phonenumber: {{ hikerInModal.phonenumber }}</h4>
-                      <div class="profile-ChangeBtn">[<button  @click="profileHideStatePhonenumber" type="button" class="btn btn-link">Change</button>]</div>
-                    </div>
+                  </form>
 
-                    <div v-else class="profile-phonenumber-form">
-                      <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
-                      <input type="number" class="form-control" id="exampleFormControlInput2" :placeholder="hikerInModal.phonenumber">
-                    </div>
-                    
-                  </td>
+                </td>
+              </tr>
+              <td>
+                <div v-if="!profilePhonenumberChangeIsHidden" class="profile-change-flex">
+                  <h4 class="profile-h4">Phonenumber: {{ hikerInModal.phonenumber }}</h4>
+                  <div class="profile-ChangeBtn">[<button @click="profileHideStatePhonenumber" type="button"
+                      class="btn btn-link">Change</button>]</div>
+                </div>
+                <form class="form-group" @submit.prevent="">
+                  <div v-if="profilePhonenumberChangeIsHidden" class="profile-phonenumber-form">
+                    <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
+                    <input type="text" class="form-control" v-model="profilePhonenumber" id="exampleFormControlInput2"
+                      :placeholder="hikerInModal.phonenumber">
+                      <button type="button" class="btn btn-outline-success">✓</button>
+                  </div>
                 </form>
-                </tr>
 
-              </table>
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="profileResetHideState">Close</button>
-            </div>
+              </td>
+              </tr>
+
+            </table>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              @click="profileResetHideState">Close</button>
           </div>
         </div>
       </div>
+    </div>
 
   </div>
 
