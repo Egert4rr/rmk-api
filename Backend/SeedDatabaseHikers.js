@@ -29,7 +29,7 @@ async function seedDB() {
         for (let index = 0; index < 100; index++) {
             const name = faker.name.fullName();
             const email = faker.internet.email();
-            const phonenumber = faker.random.numeric(Math.random(7,8))
+            const phonenumber = faker.random.numeric(Math.random(7,8)).toString()
             const password = pass
 
             let hiker = {
@@ -46,7 +46,7 @@ async function seedDB() {
         let hikerAdmin = {
             name: "admin",
             email: "admin@admin.com",
-            phonenumber: 5566565,
+            phonenumber: "5566565",
             password: await utils.hashPassword("admin"),
             isAdmin: true
         }
@@ -54,7 +54,7 @@ async function seedDB() {
         let hikerTest = {
             name: "test",
             email: "test@test.com",
-            phonenumber: 5566565,
+            phonenumber: "5566565",
             password: await utils.hashPassword("test"),
             isAdmin: false
         }

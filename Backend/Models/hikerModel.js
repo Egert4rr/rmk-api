@@ -13,7 +13,8 @@ const HikerSchema = new Schema({
         unique : true
         },
     phonenumber:{
-        type:Number
+        type:String,
+        require:"Phonenumber is mandatory"
     },
     password:{
         type:String,
@@ -24,13 +25,6 @@ const HikerSchema = new Schema({
     }
 
 });
-/*
-HikerSchema.pre('save', async function (next) {
-    const salt = await bcrypt.genSalt()
-    this.password = await bcrypt.hash(this.password, salt)
-    next()
-})
-*/
 
 module.exports = mongoose.model('hiker',HikerSchema);
 

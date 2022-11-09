@@ -148,11 +148,12 @@ createApp({
             }
             else {this.profilePhonenumberChangeIsHidden = false}
         },
-
-        doChangeCredentials: function(){
-
-/*
-
+        profileResetHideState: function () {
+            this.profileEmailChangeIsHidden = false
+            this.profilePhonenumberChangeIsHidden = false
+        },
+        doChangeCredentials: function () {
+            /*
             const response = await fetch(`${api_base}/edit/${this.hikerInModal._id}`,
             {
                 method: "put",
@@ -161,7 +162,6 @@ createApp({
 
             }
             )
-
             */
         }
     }

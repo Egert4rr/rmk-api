@@ -273,9 +273,9 @@
                       <h4 class="profile-h4">{{ hikerInModal.email }}</h4>
                       <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"class="btn btn-link">Change</button>]</div>
                     </div>
-                    <div v-else class="profile-email-form">
-                      <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <div v-if="profileEmailChangeIsHidden" class="profile-email-form">
+                      <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+                      <input type="email" class="form-control" id="exampleFormControlInput1" :placeholder="hikerInModal.email">
                     </div>
                   </td>
                 </tr>
@@ -286,8 +286,8 @@
                     </div>
 
                     <div v-else class="profile-phonenumber-form">
-                      <label for="exampleFormControlInput2" class="form-label">Email address</label>
-                      <input type="number" class="form-control" id="exampleFormControlInput2" placeholder="56565656">
+                      <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
+                      <input type="number" class="form-control" id="exampleFormControlInput2" :placeholder="hikerInModal.phonenumber">
                     </div>
                     
                   </td>
@@ -298,7 +298,7 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="profileResetHideState">Close</button>
             </div>
           </div>
         </div>

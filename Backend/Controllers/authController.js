@@ -44,12 +44,12 @@ exports.loginUser = async (req, res, next) => {
         })
 }
 exports.registerUser = async (req, res, next) => {
-    let { name, email, phonenumber, password } = req.body;
+    let { name, email, password } = req.body;
     password = await utils.hashPassword(password)
     const newHiker = hiker({
         name,
         email,
-        phonenumber,
+        phonenumber:"",
         password,
         isAdmin: false
     });

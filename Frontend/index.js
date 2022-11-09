@@ -24,7 +24,7 @@ app.use(helmet.contentSecurityPolicy({
             `${process.env.development?"'unsafe-eval'":"production"}`
         ],
         defaultSrc:[
-            "http://localhost:3030" // Here
+            "http://localhost:3000" // Here
         ],
         imgSrc:[
           "https://loremflickr.com/640/480/abstract",
