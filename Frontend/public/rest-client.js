@@ -9,7 +9,7 @@ createApp({
             { region: "Valgamaa" }, { region: "Viljandimaa" }, { region: "Võrumaa" }],
             checkedRegions: [],
             filteredTrails: [],
-            trailInModal: {"_id": "","title": "","tags": [{"telkimisvõimalus": false,"kattegaLõke": false,"lõkkekoht": false}],"picture": "","region": "","distance": ""},
+            trailInModal: { "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" },
             hikerInModal: {},
             formRegions: [],
             loginModal: {},
@@ -27,15 +27,12 @@ createApp({
             tags: [],
             profileEmailChangeIsHidden: false,
             profilePhonenumberChangeIsHidden: false,
-            profileEmail:"",
-            profilePhonenumber:"",
+            profileEmail: "",
+            profilePhonenumber: "",
         }
     },
 
     async created() {
-        if (this.hikerInModal.name == "" || this.hikerInModal.name == null || this.hikerInModal.name == undefined) {
-            this.token == ""
-        }
         this.isFiltered = false
         this.token = sessionStorage.getItem("token") === null ? "" : sessionStorage.getItem("token")
         await this.getTrails()
@@ -145,29 +142,51 @@ createApp({
             if (!this.profileEmailChangeIsHidden) {
                 this.profileEmailChangeIsHidden = true
             }
-            else {this.profileEmailChangeIsHidden = false}
+            else { this.profileEmailChangeIsHidden = false }
         },
         profileHideStatePhonenumber: function () {
             if (!this.profilePhonenumberChangeIsHidden) {
                 this.profilePhonenumberChangeIsHidden = true
             }
-            else {this.profilePhonenumberChangeIsHidden = false}
+            else { this.profilePhonenumberChangeIsHidden = false }
         },
         profileResetHideState: function () {
             this.profileEmailChangeIsHidden = false
             this.profilePhonenumberChangeIsHidden = false
         },
-        doChangeCredentialsEmail: function () {
-            /*
-            const response = await fetch(`${api_base}/edit/${this.hikerInModal._id}`,
-            {
-                method: "put",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({"email":})
-
+        doChangeCredentialsEmail: async function () {
+            if (this.profileEmail != this.hikerInModal.email && this.profileEmail != "") {
+                const response = await fetch(`${api_base}/hikers/${this.hikerInModal._id}`, {
+                    method: "put",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "email": this.profileEmail })
+                })
+                if(response.ok){
+                    this.hikerInModal.email = this.profileEmail
+                    this.profileEmail = ""
+                    this.profileHideStateEmail()
+                } else {alert("something went wrong when saving changes")}
+            } else {
+                this.profileEmail = ""
+                this.profileHideStateEmail()
             }
-            )*/
-            
-        }
+        },
+        doChangeCredentialsPhonenumber: async function () {
+            if (this.profilePhonenumber != this.hikerInModal.phonenumber && this.profilePhonenumber != "") {
+                const response = await fetch(`${api_base}/hikers/${this.hikerInModal._id}`, {
+                    method: "put",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "phonenumber": this.profilePhonenumber })
+                })
+                if(response.ok){
+                    this.hikerInModal.phonenumber = this.profilePhonenumber
+                    this.profilePhonenumber = ""
+                    this.profileHideStatePhonenumber()
+                } else {alert("something went wrong when saving changes")}
+            } else {
+                this.profilePhonenumber = ""
+                this.profileHideStatePhonenumber()
+            }
+        },
     }
 }).mount('#app')

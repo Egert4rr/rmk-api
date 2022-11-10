@@ -258,7 +258,6 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body">
-
             <table>
               <tr>
                 <td>
@@ -272,12 +271,12 @@
                     <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"
                         class="btn btn-link">Change</button>]</div>
                   </div>
-                  <form class="form-group" @submit.prevent="">
-                    <div v-if="profileEmailChangeIsHidden" class="profile-email-form">
-                      <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+                  <form v-if="profileEmailChangeIsHidden" class="form-group" @submit.prevent="doChangeCredentialsEmail">
+                    <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+                    <div class="d-flex profile-email-form">
                       <input type="email" class="form-control" v-model="profileEmail" id="exampleFormControlInput1"
                         :placeholder="hikerInModal.email">
-                        <button type="button" class="btn btn-outline-success">✓</button>
+                      <button type="submit" class="btn btn-outline-success">✓</button>
                     </div>
                   </form>
 
@@ -289,12 +288,13 @@
                   <div class="profile-ChangeBtn">[<button @click="profileHideStatePhonenumber" type="button"
                       class="btn btn-link">Change</button>]</div>
                 </div>
-                <form class="form-group" @submit.prevent="">
-                  <div v-if="profilePhonenumberChangeIsHidden" class="profile-phonenumber-form">
-                    <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
+                <form v-if="profilePhonenumberChangeIsHidden" class="form-group"
+                  @submit.prevent="doChangeCredentialsPhonenumber">
+                  <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
+                  <div class="d-flex profile-phonenumber-form">
                     <input type="text" class="form-control" v-model="profilePhonenumber" id="exampleFormControlInput2"
                       :placeholder="hikerInModal.phonenumber">
-                      <button type="button" class="btn btn-outline-success">✓</button>
+                    <button type="submit" class="btn btn-outline-success">✓</button>
                   </div>
                 </form>
 
