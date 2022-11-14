@@ -198,3 +198,12 @@ body {
     text-decoration: underline !important;
 }
 
+.deleteAcoount {
+    display: flex;
+    float: left;
+}
+
+.modalProfileClose {
+    display: flex;
+    float: right;
+}

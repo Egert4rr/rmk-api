@@ -29,6 +29,7 @@ createApp({
             profilePhonenumberChangeIsHidden: false,
             profileEmail: "",
             profilePhonenumber: "",
+            deleteAccountIsHidden: false,
         }
     },
 
@@ -136,6 +137,7 @@ createApp({
             this.loginPass = ""
             this.token = ""
             this.loginError = null
+            this.deleteAccountIsHidden = false
             sessionStorage.removeItem("token")
         },
         profileHideStateEmail: function () {
@@ -153,6 +155,21 @@ createApp({
         profileResetHideState: function () {
             this.profileEmailChangeIsHidden = false
             this.profilePhonenumberChangeIsHidden = false
+            this.deleteAccountIsHidden = false
+        },
+        doDeleteAccount: async function () {
+            if (!this.deleteAccountIsHidden) {
+                this.deleteAccountIsHidden = true
+            } else {
+                const response = await fetch(`${api_base}/hikers/${this.hikerInModal._id}`, {
+                    method: "delete"
+                })
+                if (response.ok) {
+                    console.log("deleted account successfully")
+                    this.doLogOff()
+                } else { alert("something went wrong when deleting") }
+            }
+
         },
         doChangeCredentialsEmail: async function () {
             if (this.profileEmail != this.hikerInModal.email && this.profileEmail != "") {
@@ -161,11 +178,11 @@ createApp({
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ "email": this.profileEmail })
                 })
-                if(response.ok){
+                if (response.ok) {
                     this.hikerInModal.email = this.profileEmail
                     this.profileEmail = ""
                     this.profileHideStateEmail()
-                } else {alert("something went wrong when saving changes")}
+                } else { alert("something went wrong when saving changes") }
             } else {
                 this.profileEmail = ""
                 this.profileHideStateEmail()
@@ -178,11 +195,11 @@ createApp({
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ "phonenumber": this.profilePhonenumber })
                 })
-                if(response.ok){
+                if (response.ok) {
                     this.hikerInModal.phonenumber = this.profilePhonenumber
                     this.profilePhonenumber = ""
                     this.profileHideStatePhonenumber()
-                } else {alert("something went wrong when saving changes")}
+                } else { alert("something went wrong when saving changes") }
             } else {
                 this.profilePhonenumber = ""
                 this.profileHideStatePhonenumber()

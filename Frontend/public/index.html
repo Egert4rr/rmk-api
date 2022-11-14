@@ -297,8 +297,6 @@
                     <button type="submit" class="btn btn-outline-success">✓</button>
                   </div>
                 </form>
-
-
               </td>
               </tr>
 
@@ -306,8 +304,16 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-              @click="profileResetHideState">Close</button>
+            <div class="w-100">
+              <div class="deleteAcoount">
+                <button v-if="!deleteAccountIsHidden" type="button" class="btn btn-danger" @click="doDeleteAccount">Delete account</button>
+                <div v-if="deleteAccountIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
+                    class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteAccount" data-bs-dismiss="modal">YES</button></div>
+              </div>
+              <button type="button" class="btn btn-secondary modalProfileClose" data-bs-dismiss="modal"
+                @click="profileResetHideState">Close</button>
+            </div>
+
           </div>
         </div>
       </div>
