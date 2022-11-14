@@ -94,22 +94,26 @@ createApp({
             let password = this.SignUpPassword;
             let confPassword = this.SignUpConfPassword;
             let name = this.SignUpName;
-            if (password === confPassword && this.SignUpEmail !== "") {
-                const response = await fetch(`${api_base}/register`, {
-                    method: "post",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ "name": name, "email": this.SignUpEmail, "password": password }),
-                })
-                const result = await response.json()
-                if (response.ok) {
-                    if (result.success) {
-                        this.signUpModal.hide();
+            let email = this.SignUpEmail;
+            if (password != "" && confPassword != "" && name != "" && email != "") {
+                if (password === confPassword) {
+                    const response = await fetch(`${api_base}/register`, {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ "name": name, "email": email, "password": password }),
+                    })
+                    const result = await response.json()
+                    if (response.ok) {
+                        if (result.success) {
+                            this.signUpModal.hide();
+                        }
+                    } else {
+                        this.loginError = result.error;
+                        console.log(this.loginError);
                     }
                 }
-                else {
-                    this.loginError = result.error;
-                }
-
+            } else {
+                this.loginError = "unfilled"
             }
 
         },

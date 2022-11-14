@@ -49,16 +49,22 @@ exports.registerUser = async (req, res, next) => {
     const newHiker = hiker({
         name,
         email,
-        phonenumber:"",
+        phonenumber: "",
         password,
         isAdmin: false
     });
     try {
         await newHiker.save()
     } catch (e) {
-        console.log("Save: ", e);
-        const error = new Error("Error! Something went wrong.")
-        return next(error)
+        let error = e
+        if (error.toString().includes("duplicate key error")) {
+            error = new Error("emailDupe")
+            return next(error)
+        } else {
+            error = new Error("Error! something went wrong.")
+            return next(error)
+        }
+
     }
     let token;
     try {
@@ -68,7 +74,6 @@ exports.registerUser = async (req, res, next) => {
             { expiresIn: "1h" }
         );
     } catch (err) {
-        console.log("Token: ", err);
         const error = new Error("Error! Something went wrong.")
         return next(error);
     }

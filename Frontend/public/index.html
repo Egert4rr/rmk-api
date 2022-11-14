@@ -107,33 +107,34 @@
 
                       <h2 class="fw-bold mb-2 text-uppercase">Sign up</h2>
                       <p class="text-white-50 mb-5">Please enter your name, email, and password!</p>
+
+                      <p v-if="loginError != null && loginError != 'emailDupe'" class="loginErrorMsg">✱ Incorrect credentials</p>
+                      <p v-if="loginError == 'emailDupe'" class="loginErrorMsg">✱ Email already in use</p>
                       <form class="form-group" @submit.prevent="doSignUp">
-
-
                         <div class="form-outline form-white mb-4">
-                          <input v-model="SignUpName" type="text" id="typeNameX" class="form-control form-control-lg" />
+                          <input v-model="SignUpName" type="text" id="typeNameX" class="form-control form-control-lg" @click="resetLoginError"/>
                           <label class="form-label" for="typeNameX">Name</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="SignUpEmail" type="email" id="typeEmailX"
-                            class="form-control form-control-lg" />
+                            class="form-control form-control-lg" @click="resetLoginError"/>
                           <label class="form-label" for="typeEmailX">Email</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="SignUpPassword" type="password" id="typePasswordX"
-                            class="form-control form-control-lg" />
+                            class="form-control form-control-lg" @click="resetLoginError"/>
                           <label class="form-label" for="typePasswordX">Password</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="SignUpConfPassword" type="password" id="typeConfPasswordX"
-                            class="form-control form-control-lg" />
+                            class="form-control form-control-lg" @click="resetLoginError"/>
                           <label class="form-label" for="typeConfPasswordX">Confirm password</label>
                         </div>
 
-                        <button class="btn btn-outline-light btn-lg px-5" type="submit" value="Submit">Sign up</button>
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Sign up</button>
                       </form>
                     </div>
                   </div>
