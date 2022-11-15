@@ -30,6 +30,10 @@ const HikeSchema = new Schema({
 
     },
 
+    Regions:{
+        type:String,
+    }
+
 
 });
 

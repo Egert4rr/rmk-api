@@ -1,5 +1,5 @@
 import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-const api_base = "http://localhost:3000"; // <-- Enter api_base here "http://localhost:{backendport}"
+const api_base = "http://localhost:3030"; // <-- Enter api_base here "http://localhost:{backendport}"
 
 createApp({
     data() {
@@ -9,6 +9,7 @@ createApp({
             { region: "Valgamaa" }, { region: "Viljandimaa" }, { region: "Võrumaa" }],
             checkedRegions: [],
             filteredTrails: [],
+            filteredHikes: [],
             trailInModal: { "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" },
             hikerInModal: {},
             formRegions: [],
@@ -24,6 +25,7 @@ createApp({
             SignUpEmail: "",
             SignUpPassword: "",
             SignUpConfPassword: "",
+            selectedFilter:"Trail",
             tags: [],
             profileEmailChangeIsHidden: false,
             profilePhonenumberChangeIsHidden: false,
@@ -37,6 +39,7 @@ createApp({
         this.isFiltered = false
         this.token = sessionStorage.getItem("token") === null ? "" : sessionStorage.getItem("token")
         await this.getTrails()
+        await this.getHikes()
     },
     methods: {
         resetLoginError: function () {
@@ -50,6 +53,9 @@ createApp({
         getTrails: async function () {
             this.filteredTrails = await (await fetch(`${api_base}/trails`)).json()
         },
+        getHikes: async function(){
+            this.filteredHikes = await (await fetch(`${api_base}/hikes`)).json()
+        },
         getProfile: async function () {
             this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
             this.profileModal = new bootstrap.Modal(document.getElementById("profileModal"), {})
@@ -57,7 +63,8 @@ createApp({
         },
         postSearch: async function () {
             if (this.checkedRegions.length !== 0) {
-                const response = await fetch(`${api_base}/search/`,
+                if(this.selectedFilter === "Trail"){
+                    const response = await fetch(`${api_base}/search/`,
                     {
                         method: "post",
                         headers: { "Content-Type": "application/json" },
@@ -71,6 +78,26 @@ createApp({
                 } else {
                     alert("no work")
                 }
+                }
+                else{
+                    const response = await fetch(`${api_base}/searchHike/`,
+                    {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ "regions": this.checkedRegions })
+                    }
+                )
+                const result = await response.json()
+                if (response.ok) {
+                    console.log(this.filteredHikes)
+                    this.filteredHikes = [...result.filteredHikes]
+                    this.isFiltered = true
+                } else {
+                    alert("no work")
+                }
+
+                }
+               
             }
 
         },
@@ -209,5 +236,19 @@ createApp({
                 this.profileHideStatePhonenumber()
             }
         },
+
+        doChangeFilter: async function(){
+
+        if(this.selectedFilter === "Trail"){
+            this.selectedFilter = "Hike"
+
+        }
+        else{
+            this.selectedFilter = "Trail"
+        }
+
+        console.log(this.selectedFilter)
+            
+        }
     }
 }).mount('#app')

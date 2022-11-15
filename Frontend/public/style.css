@@ -56,7 +56,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 8rem;
+    margin-top: 4rem;
 }
 
 #container {
@@ -124,6 +124,7 @@ body {
 
 .submit-btn {
     background-color: #3c493f !important;
+    border: none;
 }
 
 .trailInfo {
@@ -206,4 +207,7 @@ body {
 .modalProfileClose {
     display: flex;
     float: right;
+}
+.submitbtn{
+    margin-left: 0.5rem;
 }

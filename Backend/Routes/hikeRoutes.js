@@ -8,5 +8,9 @@ module.exports = function(app){
     app.route("/hikes/:id")
         .get(hikeList.getById)        //read
         .put(hikeList.editById)       //update
-        .delete(hikeList.deleteById)  //delete
+        .delete(hikeList.deleteById)  //delet
+
+
+        app.route("/searchHike")
+        .post(hikeList.getByRegion)
 }

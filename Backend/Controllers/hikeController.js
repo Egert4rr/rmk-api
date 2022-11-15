@@ -10,7 +10,13 @@ exports.getAll = function(req,res){
             hike.forEach(element => {
                 let newHike = {
                     _id: element._id,
-                    Name: element.Name
+                    Name: element.Name,
+                    Organizer:element.Organizer,
+                    OrganizerEmail:element.OrganizerEmail,
+                    PlannedTrails:element.PlannedTrails,
+                    StartDate:element.StartDate,
+                    Startinglocation:element.Startinglocation,
+                    Regions:element.Regions,
                 }
                 hikes.push(newHike);
             });
@@ -71,6 +77,30 @@ exports.deleteById = function(req,res){
         }else {
             console.log(result);
             res.status(202).json("Successfully deleted")
+        }
+    })
+}
+
+exports.getByRegion = function(req,res){
+    const regions = [];
+    try {
+        req.body.regions.forEach(element => {
+            regions.push(element)
+        })
+    }
+    catch (error) {
+        res.status(404).send("No regions found")
+        return
+    }
+
+    hike.find({ Regions: { $in: regions } }, (err, hikes) => {
+        if (err) {
+            res.status(400).json(err);
+        }
+        else {
+            res.status(200).json(
+                { filteredHikes: hikes }
+            )
         }
     })
 }

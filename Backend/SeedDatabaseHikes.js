@@ -4,6 +4,10 @@ const MongoClient = require("mongodb").MongoClient;
 
 
 async function seedDB() {
+    const counties = ["Harjumaa","Hiiumaa","Ida-Virumaa","Jõgevamaa", "Järvamaa",  "Läänemaa", 
+    "Lääne-Virumaa",  "Põlvamaa",  "Pärnumaa",  "Raplamaa",  "Saaremaa",  "Tartumaa",
+    "Valgamaa",  "Viljandimaa",  "Võrumaa"]   
+
     // Connection URL
     const uri = process.env.DBCONNECTIONSTRING;
 
@@ -29,6 +33,7 @@ async function seedDB() {
             const Organizer = faker.name.fullName();
             const OrganizerEmail = faker.internet.email();
             const PlannedTrails =  [faker.address.county()];
+            const Regions = counties[Math.floor(Math.random() * 14)]
             const StartDate = faker.date.between(faker.date.between())
             const Startinglocation = faker.address.streetAddress(false);
 
@@ -36,6 +41,7 @@ async function seedDB() {
                 Name: Name,
                 Organizer: Organizer,
                 OrganizerEmail: OrganizerEmail,
+                Regions: Regions,
                 PlannedTrails: PlannedTrails,
                 StartDate: StartDate,
                 Startinglocation: Startinglocation,

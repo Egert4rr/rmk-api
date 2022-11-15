@@ -10,7 +10,8 @@ exports.getAll = function(req,res){
             hiker.forEach(element => {
                 let newHiker = {
                     _id: element._id,
-                    Name: element.Name
+                    Name: element.Name,
+
                 }
                 hikers.push(newHiker);
             });

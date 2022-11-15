@@ -146,6 +146,9 @@
       </div>
     </div>
 
+    <button type="submit"  v-if="!isFiltered" class="btn btn-primary submit-btn" @click="doChangeFilter" value="selectedFilter">{{this.selectedFilter}}</button>
+
+
     <div class="omegaContainer" v-if="!isFiltered">
       <form @submit.prevent="postSearch">
 
@@ -168,7 +171,8 @@
 
 
     <div class="list">
-      <div class="trailsListItem" @click="getTrail(trail._id)" v-for="trail in filteredTrails" :key="trail._id">
+
+      <div v-if="selectedFilter === 'Trail'" class="trailsListItem" @click="getTrail(trail._id)" v-for="trail in filteredTrails" :key="trail._id">
         <div class="trailImage">
           <img :src="trail.picture" class="img-thumbnail" alt="trail image">
           <div class="text">
@@ -191,6 +195,19 @@
           </div>
         </div>
         <hr>
+      </div>
+
+
+      <div v-else class="hikeslistItem" v-for="hike in filteredHikes" :key="hike._id">
+        <div class="hikeImage">
+          <div class="text">
+            <h1 style="margin-left: 1rem;">{{hike.Organizer}}</h1>
+            <h1 style="margin-left: 1rem;">{{hike.Name}}</h1>
+            <h5 style="margin-left: 1rem;">{{hike.Regions}}</h5>
+          </div>
+        </div>
+        <hr>
+
       </div>
 
       <!--Details Model-->
@@ -277,7 +294,7 @@
                     <div class="d-flex profile-email-form">
                       <input type="email" class="form-control" v-model="profileEmail" id="exampleFormControlInput1"
                         :placeholder="hikerInModal.email">
-                      <button type="submit" class="btn btn-outline-success">✓</button>
+                      <button type="submit" class="btn btn-outline-success submitbtn">✓</button>
                     </div>
                   </form>
 
@@ -295,7 +312,7 @@
                   <div class="d-flex profile-phonenumber-form">
                     <input type="text" class="form-control" v-model="profilePhonenumber" id="exampleFormControlInput2"
                       :placeholder="hikerInModal.phonenumber">
-                    <button type="submit" class="btn btn-outline-success">✓</button>
+                    <button type="submit" class="btn btn-outline-success submitbtn">✓</button>
                   </div>
                 </form>
               </td>
