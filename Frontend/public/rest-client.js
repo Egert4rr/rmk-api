@@ -12,6 +12,7 @@ createApp({
             filteredHikes: [],
             trailInModal: { "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" },
             hikerInModal: {},
+            hikeInModal:{"_id":"", "Name":"","Organizer":"","OrganizerEmail":"","PlannedTrails":[""],"StartDate":new Date(0),"Startindlocation":"","Regions":[]},
             formRegions: [],
             loginModal: {},
             signUpModal: {},
@@ -49,6 +50,11 @@ createApp({
             this.trailInModal = await (await fetch(`${api_base}/trails/${id}`)).json()
             let trailInfoModal = new bootstrap.Modal(document.getElementById("trailInfoModal"), {})
             trailInfoModal.show()
+        },
+        getHike: async function(id){
+            this.hikeInModal = await (await fetch(`${api_base}/hikes/${id}`)).json()
+            let hikeInfoModal = new bootstrap.Modal(document.getElementById("hikeInfoModal"), {})
+            hikeInfoModal.show()
         },
         getTrails: async function () {
             this.filteredTrails = await (await fetch(`${api_base}/trails`)).json()
@@ -102,7 +108,7 @@ createApp({
 
         },
 
-        removeFilter: async function () {
+        removeFilter: function () {
             this.isFiltered = false
         },
 
@@ -237,18 +243,8 @@ createApp({
             }
         },
 
-        doChangeFilter: async function(){
-
-        if(this.selectedFilter === "Trail"){
-            this.selectedFilter = "Hike"
-
-        }
-        else{
-            this.selectedFilter = "Trail"
-        }
-
-        console.log(this.selectedFilter)
-            
+        doChangeFilter: function(filter){
+            this.selectedFilter = filter
         }
     }
 }).mount('#app')

@@ -56,7 +56,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
 #container {
@@ -66,7 +66,7 @@ body {
 
 .submit-btn {
     position: relative;
-    margin-top: 5rem;
+    margin-top: 3rem;
     top: 50%;
     left: 50%;
     -ms-transform: translate(-50%, -50%);
@@ -210,4 +210,21 @@ body {
 }
 .submitbtn{
     margin-left: 0.5rem;
+}
+
+
+.hike-regions{
+    display: inline;
+}
+
+.hike-regions h2{
+    margin-left: 1rem;
+    display: inline;
+}
+
+.trailsListItem{
+    cursor: pointer;
+}
+.hikeslistItem{
+    cursor: pointer;
 }

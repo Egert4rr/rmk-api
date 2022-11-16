@@ -108,29 +108,31 @@
                       <h2 class="fw-bold mb-2 text-uppercase">Sign up</h2>
                       <p class="text-white-50 mb-5">Please enter your name, email, and password!</p>
 
-                      <p v-if="loginError != null && loginError != 'emailDupe'" class="loginErrorMsg">✱ Incorrect credentials</p>
+                      <p v-if="loginError != null && loginError != 'emailDupe'" class="loginErrorMsg">✱ Incorrect
+                        credentials</p>
                       <p v-if="loginError == 'emailDupe'" class="loginErrorMsg">✱ Email already in use</p>
                       <form class="form-group" @submit.prevent="doSignUp">
                         <div class="form-outline form-white mb-4">
-                          <input v-model="SignUpName" type="text" id="typeNameX" class="form-control form-control-lg" @click="resetLoginError"/>
+                          <input v-model="SignUpName" type="text" id="typeNameX" class="form-control form-control-lg"
+                            @click="resetLoginError" />
                           <label class="form-label" for="typeNameX">Name</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
-                          <input v-model="SignUpEmail" type="email" id="typeEmailX"
-                            class="form-control form-control-lg" @click="resetLoginError"/>
+                          <input v-model="SignUpEmail" type="email" id="typeEmailX" class="form-control form-control-lg"
+                            @click="resetLoginError" />
                           <label class="form-label" for="typeEmailX">Email</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="SignUpPassword" type="password" id="typePasswordX"
-                            class="form-control form-control-lg" @click="resetLoginError"/>
+                            class="form-control form-control-lg" @click="resetLoginError" />
                           <label class="form-label" for="typePasswordX">Password</label>
                         </div>
 
                         <div class="form-outline form-white mb-4">
                           <input v-model="SignUpConfPassword" type="password" id="typeConfPasswordX"
-                            class="form-control form-control-lg" @click="resetLoginError"/>
+                            class="form-control form-control-lg" @click="resetLoginError" />
                           <label class="form-label" for="typeConfPasswordX">Confirm password</label>
                         </div>
 
@@ -146,7 +148,16 @@
       </div>
     </div>
 
-    <button type="submit"  v-if="!isFiltered" class="btn btn-primary submit-btn" @click="doChangeFilter" value="selectedFilter">{{this.selectedFilter}}</button>
+    <div class="m-4">
+      <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" data-bs-toggle="tab" @click="doChangeFilter('Trail')">Trails</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-bs-toggle="tab" @click="doChangeFilter('Hike')">Hikes</a>
+        </li>
+      </ul>
+    </div>
 
 
     <div class="omegaContainer" v-if="!isFiltered">
@@ -171,15 +182,14 @@
 
 
     <div class="list">
-
-      <div v-if="selectedFilter === 'Trail'" class="trailsListItem" @click="getTrail(trail._id)" v-for="trail in filteredTrails" :key="trail._id">
+      <div v-if="selectedFilter === 'Trail'" class="trailsListItem" @click="getTrail(trail._id)"
+        v-for="trail in filteredTrails" :key="trail._id">
         <div class="trailImage">
           <img :src="trail.picture" class="img-thumbnail" alt="trail image">
           <div class="text">
             <h1 style="margin-left: 1rem;">{{trail.title}} ({{trail.distance}})</h1>
             <h5 style="margin-left: 1rem;">{{trail.region}}</h5>
             <div class="trailListIcons" style="margin-left: 1rem;">
-
               <i v-if="trail.tags[0].telkimisvõimalus === true" class="fa fa-solid fa-house">
                 <span class="tooltiptext">Telkimis koht</span>
               </i>
@@ -198,19 +208,23 @@
       </div>
 
 
-      <div v-else class="hikeslistItem" v-for="hike in filteredHikes" :key="hike._id">
-        <div class="hikeImage">
+      <div v-if="selectedFilter === 'Hike'" class="hikeslistItem" @click="getHike(hike._id) "
+        v-for="hike in filteredHikes" :key="hike._id">
+        <div class="hikeImage ">
           <div class="text">
-            <h1 style="margin-left: 1rem;">{{hike.Organizer}}</h1>
             <h1 style="margin-left: 1rem;">{{hike.Name}}</h1>
-            <h5 style="margin-left: 1rem;">{{hike.Regions}}</h5>
+            <div class="hike-regions">
+              <h2 v-for="region in hike.Regions">{{region}}</h2>
+            </div>
+            <h5 style="margin-left: 1rem; margin-top: 1rem;">{{hike.Organizer}}</h1>
+
           </div>
         </div>
         <hr>
 
       </div>
 
-      <!--Details Model-->
+      <!--Trails detail Model-->
       <div class="modal fade modal-xl" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -324,20 +338,77 @@
           <div class="modal-footer">
             <div class="w-100">
               <div class="deleteAcoount">
-                <button v-if="!deleteAccountIsHidden" type="button" class="btn btn-danger" @click="doDeleteAccount">Delete account</button>
+                <button v-if="!deleteAccountIsHidden" type="button" class="btn btn-danger"
+                  @click="doDeleteAccount">Delete account</button>
                 <div v-if="deleteAccountIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
-                    class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteAccount" data-bs-dismiss="modal">YES</button></div>
+                    class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteAccount"
+                    data-bs-dismiss="modal">YES</button></div>
               </div>
               <button type="button" class="btn btn-secondary modalProfileClose" data-bs-dismiss="modal"
                 @click="profileResetHideState">Close</button>
             </div>
 
           </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade modal-xl" id="hikeInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdrop" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="hikeInfo">
+              <table class="infoTable">
+                <tr>
+                  <td>
+                    <h4>Hike's name: {{ hikeInModal.Name }}</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h2>Organizer's name {{hikeInModal.Organizer}}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h2>Organizer's email {{hikeInModal.OrganizerEmail}}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h2>Start Date: {{hikeInModal.StartDate}}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h2>Start Location: {{hikeInModal.Startinglocation}}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for trail in hikeInModal.PlannedTrails>
+                    <h2>{{trail}}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td v-for region in hikeInModal.Regions>
+                    <h2>{{region}}</h2>
+                  </td>
+                <tr>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
+
+
 
 
 
