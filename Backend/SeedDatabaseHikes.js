@@ -32,10 +32,11 @@ async function seedDB() {
             const Name = faker.name.fullName();
             const Organizer = faker.name.fullName();
             const OrganizerEmail = faker.internet.email();
-            const PlannedTrails =  [faker.address.county()];
-            const Regions = [counties[Math.floor(Math.random() * 14)],"test"]
+            const PlannedTrails =  [];
+            const Regions = [counties[Math.floor(Math.random() * 14)],"Harjumaa"]
             const StartDate = faker.date.between(faker.date.between())
             const Startinglocation = faker.address.streetAddress(false);
+            
 
             let hike = {
                 Name: Name,

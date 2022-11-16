@@ -17,8 +17,8 @@ const HikeSchema = new Schema({
     },
 
     PlannedTrails:{
-        type:Array,
-        required:"trails are mandatory"
+        type: Schema.Types.ObjectId,
+        ref:"trail"
     },
     StartDate:{
         type:Date,
