@@ -8,26 +8,21 @@ const HikeSchema = new Schema({
     },
 
     Organizer:{
-        type:String,
-        required:"Organizer is mandatory"
-    },
-    OrganizerEmail:{
-        type:String,
-        required:"Organizer email is mandatory"
+        type:Schema.Types.ObjectId,
+        //required:"Organizer is mandatory"
     },
 
     PlannedTrails:{
-        type: Schema.Types.ObjectId,
-        ref:"trail"
+        type: [Schema.Types.ObjectId],
+        //required:"At least one trail is mandatory"
     },
     StartDate:{
         type:Date,
-        //required:"Start Date is mandatory"
+        required:"Start Date is mandatory"
     },
     Startinglocation:{
         type:String,
         required:"Start location is mandatory"
-
     },
 
     Regions:{

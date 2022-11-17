@@ -1,5 +1,6 @@
 const { faker } = require('@faker-js/faker');
 require('dotenv').config();
+const hiker = require("./Models/hikerModel")
 const MongoClient = require("mongodb").MongoClient;
 
 
@@ -28,10 +29,9 @@ async function seedDB() {
         }
 
         let hikes = [];
+
         for (let index = 0; index < 100; index++) {
             const Name = faker.name.fullName();
-            const Organizer = faker.name.fullName();
-            const OrganizerEmail = faker.internet.email();
             const PlannedTrails =  [];
             const Regions = [counties[Math.floor(Math.random() * 14)],"Harjumaa"]
             const StartDate = faker.date.between(faker.date.between())
@@ -40,8 +40,6 @@ async function seedDB() {
 
             let hike = {
                 Name: Name,
-                Organizer: Organizer,
-                OrganizerEmail: OrganizerEmail,
                 Regions: Regions,
                 PlannedTrails: PlannedTrails,
                 StartDate: StartDate,

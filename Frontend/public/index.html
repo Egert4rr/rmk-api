@@ -28,7 +28,7 @@
               Filters</a>
           </div>
           <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
-
+          <button v-if="token" class="btn btn-link" >Your hikes</button>
         </div>
 
         <div class="d-flex">
@@ -214,7 +214,7 @@
           <div class="text">
             <h1 style="margin-left: 1rem;">{{hike.Name}}</h1>
             <div class="hike-regions">
-              <h2 v-for="region in hike.Regions">{{region}}</h2>
+              <h2 v-for="region in hike.Regions">{{region}},</h2>
             </div>
             <h5 style="margin-left: 1rem; margin-top: 1rem;">{{hike.Organizer}}</h1>
 

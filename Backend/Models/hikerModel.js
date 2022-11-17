@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const HikerSchema = new Schema({
     name:{
         type:String,
-        required:"Name is mandatory"
+        required:"Name is mandatory",
     },
     email:{
         type:String,

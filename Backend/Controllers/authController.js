@@ -7,7 +7,6 @@ const utils = require("../utils")
 exports.loginUser = async (req, res, next) => {
     let { email, password } = req.body;
 
-    console.log(req.body);
     let existingHiker;
     try {
         existingHiker = await hiker.findOne({ email: email });
