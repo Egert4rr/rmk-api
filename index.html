@@ -1,12 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
+
 <body>
-    
+
+    <nav class="navbar sticky-top navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Universal Features Manual
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#Universal-Start">Start</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" style="margin-bottom: 0.5rem;" href="#Universal-Searching"><b>SEARCHING</b></a></li>
+                            <li><a class="dropdown-item" href="#Universl-TrailsnHikes">Trails and Hikes</a></li>
+                            <li><a class="dropdown-item" href="#Universal-Filters">Filter</a></li>
+                            <li><a class="dropdown-item" href="#Universal-SingleInfo">Single Trail or Hike</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            User-Account Manual
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Start</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" style="margin-bottom: 0.5rem;" href="#"><b>MAKING AN ACCOUNT</b></a></li>
+                            <li><a class="dropdown-item" href="#">Registration</a></li>
+                            <li><a class="dropdown-item" href="#">Logging in</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" style="margin-bottom: 0.5rem;" href="#"><b>PROFILE</b></a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Changing Account Details</a></li>
+                            <li><a class="dropdown-item" href="#">Deleting account</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Admin-Account Manual
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item disabled" href="#">Start</a></li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item disabled" style="margin-bottom: 0.5rem;" href="#"><b>MANAGING TRAILS</b></a></li>
+                            <li><a class="dropdown-item disabled" href="#">Finding Trails</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Adding Trails</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Updating Trails</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Deleting Trails</a></li>
+                            
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item disabled" style="margin-bottom: 0.5rem;" href="#"><b>MANAGING HIKES</b></a></li>
+                            <li><a class="dropdown-item disabled" href="#">Finding Hikes</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Updating Hikes</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Deleting Hikes</a></li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item disabled" style="margin-bottom: 0.5rem;" href="#"><b>MANAGING USERS</b></a></li>
+                            <li><a class="dropdown-item disabled" href="#">Finding Users</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Updating Users</a></li>
+                            <li><a class="dropdown-item disabled" href="#">Deleting Users</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div style="margin: auto; width: 60%;">
+
+        <div>
+            <h1 id="Universal-Start" class="text-center" style="margin-top: 4rem; margin-bottom: 2rem;"><b>Universal Features Manual</b></h1>
+
+            <h2 id="Universal-Searching"><b>Searching</b></h2>
+            <h3 style="margin-top: 2rem;" id="Universl-TrailsnHikes">Trails and Hikes</h3>
+            <p style="margin-top: 2rem;">On the main page there are two tab buttons Trails and Hikes. Depending on which one is selected your search result change to either trails or hikes.</p>
+            <img style="margin-top: 1rem;" src="" alt="[Image of the main page with a ring around the tab buttons]">
+
+            <h3 style="margin-top: 4rem;" id="Universal-Filters">Filter</h3>
+            <p style="margin-top: 2rem;">In the highlighted area of the picture is the region filtering. Clicking on any region will make it active.</p>
+            <p>When all desired regions are selected clicking the Search button will filter the search to show only hikes or trails in a certain region.</p>
+            <img style="margin-top: 1rem;" src="" alt="[Image showing where the buttons are and how they look active]">
+            <p style="margin-top: 2rem;">If you wish to reset the filters there should now be a button on the navbar for resetting the filters</p>
+            <img style="margin-top: 1rem;" src="" alt="[Image showing where the reset filters button is]">
+
+            <h3 style="margin-top: 5rem;" id="Universal-SingleInfo">Single Trail or Hike</h3>
+            <p style="margin-top: 2rem;">To get more details about a single trail of hike you simply click on the trail or hike</p>
+            <img style="margin-top: 1rem;" src="" alt="[Image showing where tto click]">
+            <p style="margin-top: 2rem;">After click on a trail or hike a modal/popup will appear with all the details. If you wish to close the modal/popup click outside the area or click on close</p>
+            <img style="margin-top: 1rem;" src="" alt="[Image of the modal showing where to click to close it]">
+        </div>
+
+        <div>
+            <h1 id="User-Account-Start" class="text-center" style="margin-top: 4rem; margin-bottom: 2rem;"><b>User-Account Manual</b></h1>
+
+            <h2 id="User-Account-MakingAccount"><b>Making An Account</b></h2>
+            
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
