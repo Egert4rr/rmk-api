@@ -12,11 +12,12 @@ createApp({
             filteredHikes: [],
             trailInModal: { "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" },
             hikerInModal: {},
-            hikeInModal:{"_id":"", "Name":"","Organizer":"","OrganizerEmail":"","PlannedTrails":[""],"StartDate":new Date(0),"Startindlocation":"","Regions":[]},
+            hikeInModal: { "_id": "", "Name": "", "Organizer": "", "PlannedTrails": [{ "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" }], "StartDate": new Date(0), "Startinglocation": "", "Regions": [""] },
             formRegions: [],
             loginModal: {},
             signUpModal: {},
             profileModal: {},
+            HikeModal: {},
             loginName: "",
             loginPass: "",
             loginError: null,
@@ -26,13 +27,19 @@ createApp({
             SignUpEmail: "",
             SignUpPassword: "",
             SignUpConfPassword: "",
-            selectedFilter:"Trail",
+            selectedFilter: "Trail",
             tags: [],
             profileEmailChangeIsHidden: false,
             profilePhonenumberChangeIsHidden: false,
             profileEmail: "",
             profilePhonenumber: "",
             deleteAccountIsHidden: false,
+            name: "",
+            startingDate: "",
+            Startinglocation: "",
+            dropdownHikesList:[],
+
+
         }
     },
 
@@ -43,6 +50,8 @@ createApp({
         await this.getHikes()
     },
     methods: {
+
+
         resetLoginError: function () {
             this.loginError = null
         },
@@ -51,7 +60,7 @@ createApp({
             let trailInfoModal = new bootstrap.Modal(document.getElementById("trailInfoModal"), {})
             trailInfoModal.show()
         },
-        getHike: async function(id){
+        getHike: async function (id) {
             this.hikeInModal = await (await fetch(`${api_base}/hikes/${id}`)).json()
             let hikeInfoModal = new bootstrap.Modal(document.getElementById("hikeInfoModal"), {})
             hikeInfoModal.show()
@@ -59,7 +68,7 @@ createApp({
         getTrails: async function () {
             this.filteredTrails = await (await fetch(`${api_base}/trails`)).json()
         },
-        getHikes: async function(){
+        getHikes: async function () {
             this.filteredHikes = await (await fetch(`${api_base}/hikes`)).json()
         },
         getProfile: async function () {
@@ -69,41 +78,41 @@ createApp({
         },
         postSearch: async function () {
             if (this.checkedRegions.length !== 0) {
-                if(this.selectedFilter === "Trail"){
+                if (this.selectedFilter === "Trail") {
                     const response = await fetch(`${api_base}/search/`,
-                    {
-                        method: "post",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ "regions": this.checkedRegions })
+                        {
+                            method: "post",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ "regions": this.checkedRegions })
+                        }
+                    )
+                    const result = await response.json()
+                    if (response.ok) {
+                        this.filteredTrails = [...result.filteredTrails]
+                        this.isFiltered = true
+                    } else {
+                        alert("no work")
                     }
-                )
-                const result = await response.json()
-                if (response.ok) {
-                    this.filteredTrails = [...result.filteredTrails]
-                    this.isFiltered = true
-                } else {
-                    alert("no work")
                 }
-                }
-                else{
+                else {
                     const response = await fetch(`${api_base}/searchHike/`,
-                    {
-                        method: "post",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ "regions": this.checkedRegions })
+                        {
+                            method: "post",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ "regions": this.checkedRegions })
+                        }
+                    )
+                    const result = await response.json()
+                    if (response.ok) {
+                        console.log(this.filteredHikes)
+                        this.filteredHikes = [...result.filteredHikes]
+                        this.isFiltered = true
+                    } else {
+                        alert("no work")
                     }
-                )
-                const result = await response.json()
-                if (response.ok) {
-                    console.log(this.filteredHikes)
-                    this.filteredHikes = [...result.filteredHikes]
-                    this.isFiltered = true
-                } else {
-                    alert("no work")
-                }
 
                 }
-               
+
             }
 
         },
@@ -111,7 +120,10 @@ createApp({
         removeFilter: function () {
             this.isFiltered = false
         },
-
+        showHike: function () {
+            this.HikeModal = new bootstrap.Modal(document.getElementById("createHikeModal"), {})
+            this.HikeModal.show()
+        },
         showLogin: function (event) {
             event.preventDefault()
             this.loginModal = new bootstrap.Modal(document.getElementById("loginModal"), {})
@@ -123,6 +135,31 @@ createApp({
             this.signUpModal = new bootstrap.Modal(document.getElementById("signUpModal"), {})
             this.signUpModal.show()
         },
+
+        createHike: async function () {
+            let name = this.name;
+            let startingDate = this.startingDate
+            let startinglocation = this.Startinglocation
+            let organizer = JSON.parse(window.atob(this.token.split('.')[1])).userId
+            const response = await fetch(`${api_base}/hikes`,
+            {
+                method:"post",
+                headers:{"Content-Type": "application/json"},
+                body: JSON.stringify({"Name": name, "Organizer": organizer, "PlannedTrails": [],"StartDate":startingDate,"Startinglocation":startinglocation, "Regions": []})
+            })
+            const result = await response.json()
+            if (response.ok){
+                if(result.success){
+                    this.HikeModal.hide();
+                }
+            }
+            else{
+                this.loginError = result.error;
+                console.log(this.loginError)
+            }
+            
+        },
+
         doSignUp: async function () {
             let password = this.SignUpPassword;
             let confPassword = this.SignUpConfPassword;
@@ -162,11 +199,28 @@ createApp({
             if (response.ok) {
                 if (result.success) {
                     this.token = result.data.token
+                    this.getUserHikes()
                     sessionStorage.setItem("token", this.token);
                     this.loginModal.hide()
                 }
             } else {
                 this.loginError = result.error
+            }
+        },
+        getUserHikes: async function () {
+            const tokenUserId = JSON.parse(window.atob(this.token.split('.')[1])).userId
+            console.log(tokenUserId)
+            const userHikesResponse = await fetch(`${api_base}/getHikesbyUser`,
+                {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "userId": tokenUserId })
+                })
+            const userHikesResult = await userHikesResponse.json()
+            if (userHikesResponse.ok) {
+                if (userHikesResult.success) {
+                    this.dropdownHikesList = userHikesResult.dropdownHikesList
+                }
             }
         },
         doLogOff: function () {
@@ -175,6 +229,7 @@ createApp({
             this.token = ""
             this.loginError = null
             this.deleteAccountIsHidden = false
+            this.dropdownHikesList = []
             sessionStorage.removeItem("token")
         },
         profileHideStateEmail: function () {
@@ -243,7 +298,7 @@ createApp({
             }
         },
 
-        doChangeFilter: function(filter){
+        doChangeFilter: function (filter) {
             this.selectedFilter = filter
         }
     }

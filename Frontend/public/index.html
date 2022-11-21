@@ -28,7 +28,8 @@
               Filters</a>
           </div>
           <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
-          <button v-if="token" class="btn btn-link" >Your hikes</button>
+          <button v-if="token" class="btn btn-link">Your hikes</button>
+          <button v-if="token" @click="showHike" class="btn btn-link">Create a hike</button>
         </div>
 
         <div class="d-flex">
@@ -39,6 +40,53 @@
         </div>
       </div>
     </nav>
+
+
+    <!-- Create a hike modal-->
+
+    <div class="modal fade" id="createHikeModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="createHikeModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+          <section class="col-sm-12  gradient-custom">
+            <div class="container">
+              <div class="col-6 col-md-2 col-lg-2 col-xl-12">
+                <div class="card bg-dark text-white">
+                  <div class="card-body p-5 text-center">
+                    <div class="mb-md-5 mt-md-4 pb-5">
+
+                      <form class="form-group" @submit.prevent="createHike">
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="name" type="text" id="typeName" class="form-control form-control-lg"
+                            @click="resetLoginError" />
+                          <label class="form-label" for="typeName">Name</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="startingDate" type="datetime-local" id="startDate"
+                            class="form-control form-control-lg" @click="resetLoginError" />
+                          <label class="form-label" for="startDate">Starting Date</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="Startinglocation" type="text" id="startingLocation"
+                            class="form-control form-control-lg" @click="resetLoginError" />
+                          <label class="form-label" for="startingLocation">Starting Location</label>
+                        </div>
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Create a hike</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+
+
 
 
     <!-- Login modal-->
@@ -277,6 +325,18 @@
 
             </div>
             <div class="modal-footer">
+              <div class="AddHike">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" value="Select hike">
+
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li v-for="hike in dropdownHikesList"><button class="dropdown-item" type="button">{{hike}}</button></li>
+                  </ul>
+                </div>
+                <button v-if="token" type="button" class="btn btn-danger" @click="">Add to hike</button>
+              </div>
+
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
@@ -387,15 +447,15 @@
                   </td>
                 </tr>
                 <tr>
-                  <td v-for trail in hikeInModal.PlannedTrails>
-                    <h2>{{trail}}</h2>
+                  <td v-for="trail in hikeInModal.PlannedTrails">
+                    <h2>{{trail.title}}</h2>
                   </td>
                 </tr>
                 <tr>
-                  <td v-for region in hikeInModal.Regions>
+                  <td v-for="region in hikeInModal.Regions">
                     <h2>{{region}}</h2>
                   </td>
-                <tr>
+                </tr>
               </table>
             </div>
           </div>

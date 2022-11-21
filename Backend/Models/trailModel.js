@@ -34,10 +34,6 @@ const TrailSchema = new Schema({
             _id:false
         }
     ],
-    hike:{
-        type:Schema.Types.ObjectId,
-        ref:"hike"
-    },
     description:{
         type:String,
         required:"Description is mandatory"

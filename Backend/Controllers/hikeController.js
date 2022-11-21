@@ -12,7 +12,6 @@ exports.getAll = function(req,res){
                     _id: element._id,
                     Name: element.Name,
                     Organizer:element.Organizer,
-                    OrganizerEmail:element.OrganizerEmail,
                     PlannedTrails:element.PlannedTrails,
                     StartDate:element.StartDate,
                     Startinglocation:element.Startinglocation,
@@ -30,10 +29,10 @@ exports.createNew = (req,res) =>{
     const newHike = new hike({
         Name: req.body.Name,
         Organizer: req.body.Organizer,
-        OrganizerEmail: req.body.OrganizerEmail,
         PlannedTrails: req.body.PlannedTrails,
         StartDate: req.body.StartDate,
-        Startinglocation: req.body.Startinglocation
+        Startinglocation: req.body.Startinglocation,
+        Regions: req.body.Regions
     })
     newHike.save((err,hike)=>{
         if(err){
@@ -100,6 +99,22 @@ exports.getByRegion = function(req,res){
         else {
             res.status(200).json(
                 { filteredHikes: hikes }
+            )
+        }
+    })
+}
+
+exports.getByUser = function(req,res){
+    const user = req.body.userId
+
+    hike.find({ Organizer:  user  }, (err, hikes) => {
+        console.log(hikes)
+        if (err) {
+            res.status(400).json(err);
+        }
+        else {
+            res.status(200).json(
+                { dropdownHikesList: hikes }
             )
         }
     })

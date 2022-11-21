@@ -13,7 +13,7 @@ const HikeSchema = new Schema({
     },
 
     PlannedTrails:{
-        type: [Schema.Types.ObjectId],
+        type: [Schema.Types.ObjectId]
         //required:"At least one trail is mandatory"
     },
     StartDate:{

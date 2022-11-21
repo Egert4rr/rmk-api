@@ -10,7 +10,9 @@ module.exports = function(app){
         .put(hikeList.editById)       //update
         .delete(hikeList.deleteById)  //delet
 
-
-        app.route("/searchHike")
+    app.route("/searchHike")
         .post(hikeList.getByRegion)
+
+    app.route("/getHikesbyUser")
+        .post(hikeList.getByUser)
 }
