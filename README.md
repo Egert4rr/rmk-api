@@ -5,6 +5,7 @@
 * Our application currently lets users do CRUD operations to hikers,hikes and trails
     
 * Application uses node.js with some packages to help make development smooth as possible.
+* Project also uses mongoDB, make sure its correctly installed and the service is working
 
     # Setting up
     * To set up and run the project you need to create the ".env" file in both Backend and Frontend.
@@ -24,3 +25,6 @@
     * on your browser go to "http://localhost:{BackendPort}/"
 
     
+    # Debugging
+    * If "connect ECONNREFUSED" error shows up, make sure mongo is working
+    * If it doesnt work then change every field from "localhost" to 0.0.0.0(except rest-client.js)
