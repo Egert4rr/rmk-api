@@ -27,4 +27,4 @@
     
     # Debugging
     * If "connect ECONNREFUSED" error shows up, make sure mongo is working
-    * If it doesnt work then change every field from "localhost" to 0.0.0.0(except rest-client.js)
+    * If it service does work and still error occurs, change every field from "localhost" to 0.0.0.0(except rest-client.js)

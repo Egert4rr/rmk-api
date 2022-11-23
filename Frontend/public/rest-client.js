@@ -148,10 +148,9 @@ createApp({
                 body: JSON.stringify({"Name": name, "Organizer": organizer, "PlannedTrails": [],"StartDate":startingDate,"Startinglocation":startinglocation, "Regions": []})
             })
             const result = await response.json()
+            console.log(result)
             if (response.ok){
-                if(result.success){
-                    this.HikeModal.hide();
-                }
+                this.HikeModal.hide();
             }
             else{
                 this.loginError = result.error;
