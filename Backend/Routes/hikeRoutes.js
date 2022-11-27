@@ -15,4 +15,7 @@ module.exports = function(app){
 
     app.route("/getHikesbyUser")
         .post(hikeList.getByUser)
+    
+    app.route("/addUserHike")
+        .post(hikeList.addUserHike)
 }

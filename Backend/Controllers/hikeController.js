@@ -119,3 +119,27 @@ exports.getByUser = function(req,res){
         }
     })
 }
+
+
+exports.addUserHike = function(req,res){
+
+    //otsi hike id'ga kasutades modalin
+      hike.findById(req.body.hikeId,(err,result)=>{
+        console.log(req.body.hikeId)
+
+        if(err){
+            console.log(result)
+            res.status(400).json(err.message)
+        }
+        if(result === null){
+            console.log(result)
+            res.status(404).json("Hike not found")
+        }
+        else{
+            const id = {Organizer:req.body.userId};
+            result.findOneAndUpdate(id);
+        } 
+    })
+   
+
+}
