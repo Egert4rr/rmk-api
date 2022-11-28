@@ -26,11 +26,29 @@ exports.getAll = function(req,res){
 }
 
 exports.createNew = (req,res) =>{
+    const startDate = new Date(req.body.StartDate)
+    let dateMinutes = startDate.getMinutes();
+    let dateMonth = startDate.getMonth()
+    let dateDay = startDate.getDate()
+    let dateHours = startDate.getHours()
+    if (dateMinutes < 10) {
+        dateMinutes = "0" + dateMinutes
+    }
+    if (dateMonth < 10) {
+        dateMonth = "0" + dateMonth
+    }
+    if (dateDay < 10) {
+        dateDay = "0" + dateDay
+    }
+    if (dateHours < 10) {
+        dateHours = "0" + dateHours
+    }
+    const DateString = `${startDate.getFullYear()}.${dateMonth}.${dateDay} ${dateHours}:${dateMinutes}`
     const newHike = new hike({
         Name: req.body.Name,
         Organizer: req.body.Organizer,
         PlannedTrails: req.body.PlannedTrails,
-        StartDate: req.body.StartDate,
+        StartDate: DateString,
         Startinglocation: req.body.Startinglocation,
         Regions: req.body.Regions
     })
@@ -123,21 +141,27 @@ exports.getByUser = function(req,res){
 
 exports.addUserHike = function(req,res){
 
+    console.log("add User hike controller")
     //otsi hike id'ga kasutades modalin
       hike.findById(req.body.hikeId,(err,result)=>{
-        console.log(req.body.hikeId)
-
         if(err){
             console.log(result)
             res.status(400).json(err.message)
         }
         if(result === null){
-            console.log(result)
             res.status(404).json("Hike not found")
         }
         else{
-            const id = {Organizer:req.body.userId};
-            result.findOneAndUpdate(id);
+            const id = req.body.trailId
+            const region = req.body.region
+            
+            let regions = result.Regions
+            let trails = result.PlannedTrails
+            regions.push(region)
+            trails.push(id)
+            result.updateOne({PlannedTrails:trails, Regions:regions});
+            result.save()
+            console.log(result)
         } 
     })
    

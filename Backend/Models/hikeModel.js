@@ -17,7 +17,7 @@ const HikeSchema = new Schema({
         //required:"At least one trail is mandatory"
     },
     StartDate:{
-        type:Date,
+        type:String,
         required:"Start Date is mandatory"
     },
     Startinglocation:{

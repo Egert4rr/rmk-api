@@ -327,13 +327,14 @@
             <div class="modal-footer">
               <div class="AddHike">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" value="Select hike">
 
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li v-for="hike in dropdownHikesList"><button class="dropdown-item" type="button">{{hike}}</button></li>
-                  </ul>
+                  <select v-model="dropDownhikeId" class="form-select" aria-label="Default select example">
+                    <option selected>Nothing selected</option>
+                    <option v-for= "hike in dropdownHikesList" :value=hike._id>{{hike.Name}}</option>
+                  </select>
                 </div>
+
+
                 <button v-if="token" type="button" class="btn btn-danger" @click="addUserHike">Add to hike</button>
               </div>
 
@@ -413,7 +414,8 @@
         </div>
       </div>
     </div>
-
+    
+<!-- hike modal-->
     <div class="modal fade modal-xl" id="hikeInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdrop" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -428,12 +430,12 @@
                 </tr>
                 <tr>
                   <td>
-                    <h2>Organizer's name {{hikeInModal.Organizer}}</h2>
+                    <h2>Organizer's name: {{hikeModalOrganizerName}}</h2>
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <h2>Organizer's email {{hikeInModal.OrganizerEmail}}</h2>
+                    <h2>Organizer's email: {{hikeModalOrganizerEmail}}</h2>
                   </td>
                 </tr>
                 <tr>

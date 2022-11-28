@@ -38,7 +38,9 @@ createApp({
             startingDate: "",
             Startinglocation: "",
             dropdownHikesList:[],
-
+            dropDownhikeId: "",
+            hikeModalOrganizerName: "",
+            hikeModalOrganizerEmail: ""
 
         }
     },
@@ -57,11 +59,22 @@ createApp({
         },
         getTrail: async function (id) {
             this.trailInModal = await (await fetch(`${api_base}/trails/${id}`)).json()
+            if(this.token !== ""){
+                await this.getUserHikes()
+            }
             let trailInfoModal = new bootstrap.Modal(document.getElementById("trailInfoModal"), {})
+           
             trailInfoModal.show()
         },
         getHike: async function (id) {
             this.hikeInModal = await (await fetch(`${api_base}/hikes/${id}`)).json()
+            if(this.token !== ""){
+                await this.getUserHikes()
+            }
+            const HikerOrganizer = await (await fetch(`${api_base}/hikers/${this.hikeInModal.Organizer}`)).json()
+            this.hikeModalOrganizerName = HikerOrganizer.name
+            this.hikeModalOrganizerEmail = HikerOrganizer.email
+
             let hikeInfoModal = new bootstrap.Modal(document.getElementById("hikeInfoModal"), {})
             hikeInfoModal.show()
         },
@@ -196,7 +209,7 @@ createApp({
             )
             const result = await response.json()
             if (response.ok) {
-                if (result.success) {z
+                if (result.success) {
                     this.token = result.data.token
                     this.getUserHikes()
                     sessionStorage.setItem("token", this.token);
@@ -207,25 +220,23 @@ createApp({
             }
         },
 
-        // addUserHike : async function(){ˇ
-
-        //     // tee et lisab hike'idele traile vms
-        //     const id = this.trailInModal._id;
-        //     const response = await fetch(`${api_base}/addUserHike`,{
-        //         method: "post",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify({ "hikeId": id })
-        //     })
-        //     const result = await response.json()
-        //     console.log(id)
-        //     if (response.ok){
-        //         console.log(result)
-        //     }
+        addUserHike: async function () {
+            let trailId = this.trailInModal._id;
+            const response = await fetch(`${api_base}/addUserHike`,
+            {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ "hikeId": this.dropDownhikeId,"trailId":trailId, "region":this.trailInModal.region})
+            })
+            const result = await response.json()
+            if (response.ok){
+                console.log(result)
+            }
             
-        // },
+        },
+
         getUserHikes: async function () {
             const tokenUserId = JSON.parse(window.atob(this.token.split('.')[1])).userId
-            console.log(tokenUserId)
             const userHikesResponse = await fetch(`${api_base}/getHikesbyUser`,
                 {
                     method: "post",
@@ -233,11 +244,12 @@ createApp({
                     body: JSON.stringify({ "userId": tokenUserId })
                 })
             const userHikesResult = await userHikesResponse.json()
-            if (userHikesResponse.ok) {
+                if (userHikesResponse.ok) {
                     this.dropdownHikesList = userHikesResult.dropdownHikesList
                 
-            }
+                }
         },
+
         doLogOff: function () {
             this.loginName = ""
             this.loginPass = ""

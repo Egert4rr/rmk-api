@@ -34,7 +34,7 @@ async function seedDB() {
             const Name = faker.name.fullName();
             const PlannedTrails =  [];
             const Regions = [counties[Math.floor(Math.random() * 14)],"Harjumaa"]
-            const StartDate = faker.date.between(faker.date.between())
+            const StartDate = faker.date.between(faker.date.between()).toDateString()
             const Startinglocation = faker.address.streetAddress(false);
             
 
