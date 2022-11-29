@@ -28,7 +28,6 @@
               Filters</a>
           </div>
           <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
-          <button v-if="token" class="btn btn-link">Your hikes</button>
           <button v-if="token" @click="showHike" class="btn btn-link">Create a hike</button>
         </div>
 
@@ -204,6 +203,9 @@
         <li class="nav-item">
           <a href="#" class="nav-link" data-bs-toggle="tab" @click="doChangeFilter('Hike')">Hikes</a>
         </li>
+        <li class="nav-item" v-if="token">
+          <a href="#" class="nav-link" data-bs-toggle="tab" @click="doChangeFilter('yourHike')">Your Hikes</a>
+        </li>
       </ul>
     </div>
 
@@ -271,6 +273,23 @@
         <hr>
 
       </div>
+
+      <div v-if="selectedFilter === 'yourHike'" class="hikeslistItem" @click="getHike(hike._id)"
+        v-for="hike in dropdownHikesList" :key="hike._id">
+        <div class="hikeImage ">
+          <div class="text">
+            <h1 style="margin-left: 1rem;">{{hike.Name}}</h1>
+            <div class="hike-regions">
+              <h2 v-for="region in hike.Regions">{{region}},</h2>
+            </div>
+            <h5 style="margin-left: 1rem; margin-top: 1rem;">{{hike.StartDate}}</h1>
+
+          </div>
+        </div>
+        <hr>
+
+      </div>
+
 
       <!--Trails detail Model-->
       <div class="modal fade modal-xl" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
@@ -398,15 +417,15 @@
           </div>
           <div class="modal-footer">
             <div class="w-100">
-              <div class="deleteAcoount">
+              <div class="ModaldeleteFN">
                 <button v-if="!deleteAccountIsHidden" type="button" class="btn btn-danger"
                   @click="doDeleteAccount">Delete account</button>
                 <div v-if="deleteAccountIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
                     class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteAccount"
                     data-bs-dismiss="modal">YES</button></div>
               </div>
-              <button type="button" class="btn btn-secondary modalProfileClose" data-bs-dismiss="modal"
-                @click="profileResetHideState">Close</button>
+              <button type="button" class="btn btn-secondary modalClose" data-bs-dismiss="modal"
+                @click="resetHideState">Close</button>
             </div>
 
           </div>
@@ -416,7 +435,7 @@
     </div>
     
 <!-- hike modal-->
-    <div class="modal fade modal-xl" id="hikeInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    <div class="modal fade modal-xl" id="hikeInfoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdrop" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -462,7 +481,17 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <div class="w-100">
+              <div class="ModaldeleteFN">
+                <button v-if="!deleteHikeIsHidden" type="button" class="btn btn-danger" 
+                  @click="doDeleteHike">Delete Hike</button>
+                <div v-if="deleteHikeIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
+                    class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteHike"
+                    data-bs-dismiss="modal">YES</button></div>
+              </div>
+              <button type="button" class="btn btn-secondary modalClose" data-bs-dismiss="modal"
+                @click="resetHideState">Close</button>
+            </div>
           </div>
         </div>
       </div>

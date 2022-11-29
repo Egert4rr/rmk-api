@@ -199,12 +199,12 @@ body {
     text-decoration: underline !important;
 }
 
-.deleteAcoount {
+.ModaldeleteFN {
     display: flex;
     float: left;
 }
 
-.modalProfileClose {
+.modalClose {
     display: flex;
     float: right;
 }

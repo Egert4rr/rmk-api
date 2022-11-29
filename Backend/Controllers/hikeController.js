@@ -126,7 +126,6 @@ exports.getByUser = function(req,res){
     const user = req.body.userId
 
     hike.find({ Organizer:  user  }, (err, hikes) => {
-        console.log(hikes)
         if (err) {
             res.status(400).json(err);
         }
@@ -145,7 +144,6 @@ exports.addUserHike = function(req,res){
     //otsi hike id'ga kasutades modalin
       hike.findById(req.body.hikeId,(err,result)=>{
         if(err){
-            console.log(result)
             res.status(400).json(err.message)
         }
         if(result === null){
@@ -161,7 +159,6 @@ exports.addUserHike = function(req,res){
             trails.push(id)
             result.updateOne({PlannedTrails:trails, Regions:regions});
             result.save()
-            console.log(result)
         } 
     })
    

@@ -37,10 +37,11 @@ createApp({
             name: "",
             startingDate: "",
             Startinglocation: "",
-            dropdownHikesList:[],
+            dropdownHikesList: [],
             dropDownhikeId: "",
             hikeModalOrganizerName: "",
-            hikeModalOrganizerEmail: ""
+            hikeModalOrganizerEmail: "",
+            deleteHikeIsHidden: false
 
         }
     },
@@ -50,6 +51,9 @@ createApp({
         this.token = sessionStorage.getItem("token") === null ? "" : sessionStorage.getItem("token")
         await this.getTrails()
         await this.getHikes()
+        if (this.token) {
+            await this.getUserHikes()
+        }
     },
     methods: {
 
@@ -59,16 +63,16 @@ createApp({
         },
         getTrail: async function (id) {
             this.trailInModal = await (await fetch(`${api_base}/trails/${id}`)).json()
-            if(this.token !== ""){
+            if (this.token !== "") {
                 await this.getUserHikes()
             }
             let trailInfoModal = new bootstrap.Modal(document.getElementById("trailInfoModal"), {})
-           
+
             trailInfoModal.show()
         },
         getHike: async function (id) {
             this.hikeInModal = await (await fetch(`${api_base}/hikes/${id}`)).json()
-            if(this.token !== ""){
+            if (this.token !== "") {
                 await this.getUserHikes()
             }
             const HikerOrganizer = await (await fetch(`${api_base}/hikers/${this.hikeInModal.Organizer}`)).json()
@@ -155,21 +159,23 @@ createApp({
             let startinglocation = this.Startinglocation
             let organizer = JSON.parse(window.atob(this.token.split('.')[1])).userId
             const response = await fetch(`${api_base}/hikes`,
-            {
-                method:"post",
-                headers:{"Content-Type": "application/json"},
-                body: JSON.stringify({"Name": name, "Organizer": organizer, "PlannedTrails": [],"StartDate":startingDate,"Startinglocation":startinglocation, "Regions": []})
-            })
+                {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "Name": name, "Organizer": organizer, "PlannedTrails": [], "StartDate": startingDate, "Startinglocation": startinglocation, "Regions": [] })
+                })
             const result = await response.json()
             console.log(result)
-            if (response.ok){
+            if (response.ok) {
                 this.HikeModal.hide();
+                this.getHikes();
+                this.getUserHikes();
             }
-            else{
+            else {
                 this.loginError = result.error;
                 console.log(this.loginError)
             }
-            
+
         },
 
         doSignUp: async function () {
@@ -211,8 +217,8 @@ createApp({
             if (response.ok) {
                 if (result.success) {
                     this.token = result.data.token
-                    this.getUserHikes()
                     sessionStorage.setItem("token", this.token);
+                    this.getUserHikes()
                     this.loginModal.hide()
                 }
             } else {
@@ -223,20 +229,21 @@ createApp({
         addUserHike: async function () {
             let trailId = this.trailInModal._id;
             const response = await fetch(`${api_base}/addUserHike`,
-            {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ "hikeId": this.dropDownhikeId,"trailId":trailId, "region":this.trailInModal.region})
-            })
+                {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ "hikeId": this.dropDownhikeId, "trailId": trailId, "region": this.trailInModal.region })
+                })
             const result = await response.json()
-            if (response.ok){
+            if (response.ok) {
                 console.log(result)
             }
-            
+
         },
 
         getUserHikes: async function () {
             const tokenUserId = JSON.parse(window.atob(this.token.split('.')[1])).userId
+
             const userHikesResponse = await fetch(`${api_base}/getHikesbyUser`,
                 {
                     method: "post",
@@ -244,10 +251,10 @@ createApp({
                     body: JSON.stringify({ "userId": tokenUserId })
                 })
             const userHikesResult = await userHikesResponse.json()
-                if (userHikesResponse.ok) {
-                    this.dropdownHikesList = userHikesResult.dropdownHikesList
-                
-                }
+            if (userHikesResponse.ok) {
+                this.dropdownHikesList = userHikesResult.dropdownHikesList
+
+            }
         },
 
         doLogOff: function () {
@@ -271,10 +278,11 @@ createApp({
             }
             else { this.profilePhonenumberChangeIsHidden = false }
         },
-        profileResetHideState: function () {
+        resetHideState: function () {
             this.profileEmailChangeIsHidden = false
             this.profilePhonenumberChangeIsHidden = false
             this.deleteAccountIsHidden = false
+            this.deleteHikeIsHidden = false
         },
         doDeleteAccount: async function () {
             if (!this.deleteAccountIsHidden) {
@@ -286,6 +294,22 @@ createApp({
                 if (response.ok) {
                     console.log("deleted account successfully")
                     this.doLogOff()
+                } else { alert("something went wrong when deleting") }
+            }
+
+        },
+        doDeleteHike: async function () {
+            if (!this.deleteHikeIsHidden) {
+                this.deleteHikeIsHidden = true
+            } else {
+                const response = await fetch(`${api_base}/hikes/${this.hikeInModal._id}`, {
+                    method: "delete"
+                })
+                if (response.ok) {
+                    console.log("deleted hike successfully")
+                    this.getHikes()
+                    this.getUserHikes()
+                    this.deleteHikeIsHidden = false
                 } else { alert("something went wrong when deleting") }
             }
 
