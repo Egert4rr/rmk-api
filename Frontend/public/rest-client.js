@@ -12,12 +12,14 @@ createApp({
             filteredHikes: [],
             trailInModal: { "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" },
             hikerInModal: {},
+            selectedHiker: {},
             hikeInModal: { "_id": "", "Name": "", "Organizer": "", "PlannedTrails": [{ "_id": "", "title": "", "tags": [{ "telkimisvõimalus": false, "kattegaLõke": false, "lõkkekoht": false }], "picture": "", "region": "", "distance": "" }], "StartDate": new Date(0), "Startinglocation": "", "Regions": [""] },
             formRegions: [],
             loginModal: {},
             signUpModal: {},
             profileModal: {},
             HikeModal: {},
+            hikers: [],
             loginName: "",
             loginPass: "",
             loginError: null,
@@ -41,23 +43,28 @@ createApp({
             dropDownhikeId: "",
             hikeModalOrganizerName: "",
             hikeModalOrganizerEmail: "",
-            deleteHikeIsHidden: false
+            deleteHikeIsHidden: false,
+            isAdmin: false,
+            adminHikerIsSelected: false
 
         }
     },
 
     async created() {
+        this.adminHikerIsSelected = false
         this.isFiltered = false
         this.token = sessionStorage.getItem("token") === null ? "" : sessionStorage.getItem("token")
         await this.getTrails()
         await this.getHikes()
         if (this.token) {
             await this.getUserHikes()
+            await this.getHikers()
+            this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
         }
+
+
     },
     methods: {
-
-
         resetLoginError: function () {
             this.loginError = null
         },
@@ -82,6 +89,9 @@ createApp({
             let hikeInfoModal = new bootstrap.Modal(document.getElementById("hikeInfoModal"), {})
             hikeInfoModal.show()
         },
+        getHikers: async function () {
+            this.hikers = await (await fetch(`${api_base}/hikers`)).json()
+        },
         getTrails: async function () {
             this.filteredTrails = await (await fetch(`${api_base}/trails`)).json()
         },
@@ -91,6 +101,12 @@ createApp({
         getProfile: async function () {
             this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
             this.profileModal = new bootstrap.Modal(document.getElementById("profileModal"), {})
+            this.profileModal.show()
+        },
+        getAdminSelectedHiker: async function (id) {
+            this.selectedHiker = await (await fetch(`${api_base}/hikers/${id}`)).json()
+            this.profileModal = new bootstrap.Modal(document.getElementById("profileModal"), {})
+            this.adminHikerIsSelected = true
             this.profileModal.show()
         },
         postSearch: async function () {
@@ -219,7 +235,12 @@ createApp({
                     this.token = result.data.token
                     sessionStorage.setItem("token", this.token);
                     this.getUserHikes()
+                    this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
                     this.loginModal.hide()
+                    if (this.hikerInModal.isAdmin) {
+                        await this.getHikers()
+                    }
+
                 }
             } else {
                 this.loginError = result.error
@@ -283,18 +304,32 @@ createApp({
             this.profilePhonenumberChangeIsHidden = false
             this.deleteAccountIsHidden = false
             this.deleteHikeIsHidden = false
+            this.selectedHiker = {}
+            this.adminHikerIsSelected = false
         },
         doDeleteAccount: async function () {
             if (!this.deleteAccountIsHidden) {
                 this.deleteAccountIsHidden = true
             } else {
-                const response = await fetch(`${api_base}/hikers/${this.hikerInModal._id}`, {
-                    method: "delete"
-                })
-                if (response.ok) {
-                    console.log("deleted account successfully")
-                    this.doLogOff()
-                } else { alert("something went wrong when deleting") }
+                if (this.adminHikerIsSelected == false) {
+                    const response = await fetch(`${api_base}/hikers/${this.hikerInModal._id}`, {
+                        method: "delete"
+                    })
+                    if (response.ok) {
+                        console.log("deleted account successfully")
+                        this.doLogOff()
+                    } else { alert("something went wrong when deleting") }
+                } else {
+                    const response = await fetch(`${api_base}/hikers/${this.selectedHiker._id}`, {
+                        method: "delete"
+                    })
+                    if (response.ok) {
+                        console.log("deleted account successfully")
+                        this.deleteAccountIsHidden = false
+                        await this.getHikers()
+                    } else { alert("something went wrong when deleting") }
+                }
+
             }
 
         },

@@ -10,8 +10,8 @@ exports.getAll = function(req,res){
             hiker.forEach(element => {
                 let newHiker = {
                     _id: element._id,
-                    Name: element.Name,
-
+                    name: element.name,
+                    email: element.email
                 }
                 hikers.push(newHiker);
             });
@@ -72,3 +72,5 @@ exports.deleteById = function(req,res){
         }
     })
 }
+
+

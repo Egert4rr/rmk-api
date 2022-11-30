@@ -29,6 +29,7 @@
           </div>
           <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
           <button v-if="token" @click="showHike" class="btn btn-link">Create a hike</button>
+
         </div>
 
         <div class="d-flex">
@@ -36,6 +37,9 @@
             Log in
           </button>
           <button v-else class="btn btn-dark" @click="doLogOff" href="">log out</button>
+
+
+
         </div>
       </div>
     </nav>
@@ -43,8 +47,8 @@
 
     <!-- Create a hike modal-->
 
-    <div class="modal fade" id="createHikeModal" data-keyboard="false" tabindex="-1"
-      aria-labelledby="createHikeModal" aria-hidden="true">
+    <div class="modal fade" id="createHikeModal" data-keyboard="false" tabindex="-1" aria-labelledby="createHikeModal"
+      aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content ">
           <section class="col-sm-12  gradient-custom">
@@ -206,6 +210,9 @@
         <li class="nav-item" v-if="token">
           <a href="#" class="nav-link" data-bs-toggle="tab" @click="doChangeFilter('yourHike')">Your Hikes</a>
         </li>
+        <li class="nav-item" v-if="hikerInModal.isAdmin">
+          <a href="#" class="nav-link" data-bs-toggle="tab" @click="doChangeFilter('admin')">User management</a>
+        </li>
       </ul>
     </div>
 
@@ -287,7 +294,20 @@
           </div>
         </div>
         <hr>
+      </div>
 
+      <div v-if="selectedFilter === 'admin'" class="hikeslistItem" @click="getAdminSelectedHiker(hiker._id)"
+        v-for="hiker in hikers" :key="hiker._id">
+        <div class="hikeImage ">
+          <div class="text">
+            <h1 style="margin-left: 1rem;">{{hiker.name}}</h1>
+            <div class="hike-regions">
+            </div>
+            <h5 style="margin-left: 1rem; margin-top: 1rem;">{{hiker.email}}</h1>
+
+          </div>
+        </div>
+        <hr>
       </div>
 
 
@@ -349,7 +369,7 @@
 
                   <select v-model="dropDownhikeId" class="form-select" aria-label="Default select example">
                     <option selected>Nothing selected</option>
-                    <option v-for= "hike in dropdownHikesList" :value=hike._id>{{hike.Name}}</option>
+                    <option v-for="hike in dropdownHikesList" :value=hike._id>{{hike.Name}}</option>
                   </select>
                 </div>
 
@@ -370,51 +390,83 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body">
-            <table>
-              <tr>
+
+            <!-- default profile modal -->
+
+            <div v-if="adminHikerIsSelected == false">
+              <table>
+                <tr>
+                  <td>
+                    <h2>{{ hikerInModal.name }}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div v-if="!profileEmailChangeIsHidden" class="profile-change-flex">
+                      <h4 class="profile-h4">{{ hikerInModal.email }}</h4>
+                      <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"
+                          class="btn btn-link">Change</button>]</div>
+                    </div>
+                    <form v-if="profileEmailChangeIsHidden" class="form-group"
+                      @submit.prevent="doChangeCredentialsEmail">
+                      <label for="exampleFormControlInput1" class="form-label">Email address:</label>
+                      <div class="d-flex profile-email-form">
+                        <input type="email" class="form-control" v-model="profileEmail" id="exampleFormControlInput1"
+                          :placeholder="hikerInModal.email">
+                        <button type="submit" class="btn btn-outline-success submitbtn">✓</button>
+                      </div>
+                    </form>
+
+                  </td>
+                </tr>
                 <td>
-                  <h2>{{ hikerInModal.name }}</h2>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div v-if="!profileEmailChangeIsHidden" class="profile-change-flex">
-                    <h4 class="profile-h4">{{ hikerInModal.email }}</h4>
-                    <div class="profile-ChangeBtn">[<button @click="profileHideStateEmail" type="button"
+                  <div v-if="!profilePhonenumberChangeIsHidden" class="profile-change-flex">
+                    <h4 class="profile-h4">Phonenumber: {{ hikerInModal.phonenumber }}</h4>
+                    <div class="profile-ChangeBtn">[<button @click="profileHideStatePhonenumber" type="button"
                         class="btn btn-link">Change</button>]</div>
                   </div>
-                  <form v-if="profileEmailChangeIsHidden" class="form-group" @submit.prevent="doChangeCredentialsEmail">
-                    <label for="exampleFormControlInput1" class="form-label">Email address:</label>
-                    <div class="d-flex profile-email-form">
-                      <input type="email" class="form-control" v-model="profileEmail" id="exampleFormControlInput1"
-                        :placeholder="hikerInModal.email">
+                  <form v-if="profilePhonenumberChangeIsHidden" class="form-group"
+                    @submit.prevent="doChangeCredentialsPhonenumber">
+                    <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
+                    <div class="d-flex profile-phonenumber-form">
+                      <input type="text" class="form-control" v-model="profilePhonenumber" id="exampleFormControlInput2"
+                        :placeholder="hikerInModal.phonenumber">
                       <button type="submit" class="btn btn-outline-success submitbtn">✓</button>
                     </div>
                   </form>
-
                 </td>
-              </tr>
-              <td>
-                <div v-if="!profilePhonenumberChangeIsHidden" class="profile-change-flex">
-                  <h4 class="profile-h4">Phonenumber: {{ hikerInModal.phonenumber }}</h4>
-                  <div class="profile-ChangeBtn">[<button @click="profileHideStatePhonenumber" type="button"
-                      class="btn btn-link">Change</button>]</div>
-                </div>
-                <form v-if="profilePhonenumberChangeIsHidden" class="form-group"
-                  @submit.prevent="doChangeCredentialsPhonenumber">
-                  <label for="exampleFormControlInput2" class="form-label">Phonenumber:</label>
-                  <div class="d-flex profile-phonenumber-form">
-                    <input type="text" class="form-control" v-model="profilePhonenumber" id="exampleFormControlInput2"
-                      :placeholder="hikerInModal.phonenumber">
-                    <button type="submit" class="btn btn-outline-success submitbtn">✓</button>
+                </tr>
+
+              </table>
+            </div>
+
+            <!-- Admin has selected a hiker from user management -->
+
+            <div v-if="adminHikerIsSelected">
+              <table>
+                <tr>
+                  <td>
+                    <h2>{{ selectedHiker.name }}</h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="profile-change-flex">
+                      <h4 class="profile-h4">Email: {{ selectedHiker.email }}</h4>
+                  </td>
+                </tr>
+                <td>
+                  <div v-if="!profilePhonenumberChangeIsHidden" class="profile-change-flex">
+                    <h4 class="profile-h4">Phonenumber: {{ selectedHiker.phonenumber }}</h4>
                   </div>
-                </form>
-              </td>
-              </tr>
+                </td>
+                </tr>
 
-            </table>
-
+              </table>
+            </div>
           </div>
+
+
           <div class="modal-footer">
             <div class="w-100">
               <div class="ModaldeleteFN">
@@ -433,8 +485,8 @@
         </div>
       </div>
     </div>
-    
-<!-- hike modal-->
+
+    <!-- hike modal-->
     <div class="modal fade modal-xl" id="hikeInfoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="staticBackdrop" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -483,8 +535,8 @@
           <div class="modal-footer">
             <div class="w-100">
               <div class="ModaldeleteFN">
-                <button v-if="!deleteHikeIsHidden" type="button" class="btn btn-danger" 
-                  @click="doDeleteHike">Delete Hike</button>
+                <button v-if="!deleteHikeIsHidden" type="button" class="btn btn-danger" @click="doDeleteHike">Delete
+                  Hike</button>
                 <div v-if="deleteHikeIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
                     class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteHike"
                     data-bs-dismiss="modal">YES</button></div>
