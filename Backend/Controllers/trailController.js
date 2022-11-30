@@ -34,13 +34,17 @@ exports.createNew = (req, res) => {
         distance: req.body.distance,
         location: req.body.location,
         region: req.body.region,
-        picture: req.body.picture
+        picture: req.body.picture,
+        tags: req.body.tags,
+        description:req.body.description
     })
     newTrail.save((err, trail) => {
         if (err) {
             res.status(400).send(err)
         }
-        else { res.status(200).send(trail) }
+        else { 
+            console.log(trail)
+            res.status(200).send(trail) }
     })
 }
 

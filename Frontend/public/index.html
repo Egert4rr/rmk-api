@@ -29,6 +29,7 @@
           </div>
           <button v-if="token" type="button" class="btn btn-link" @click="getProfile">Profile</button>
           <button v-if="token" @click="showHike" class="btn btn-link">Create a hike</button>
+          <button v-if="hikerInModal.isAdmin" @click="showAddTrail" class="btn btn-link">Add Trails</button>
 
         </div>
 
@@ -48,9 +49,9 @@
     <!-- Create a hike modal-->
 
     <div class="modal fade" id="createHikeModal" data-keyboard="false" tabindex="-1" aria-labelledby="createHikeModal"
-      aria-hidden="true">
+      aria-hidden="true" >
       <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
+        <div class="modal-content">
           <section class="col-sm-12  gradient-custom">
             <div class="container">
               <div class="col-6 col-md-2 col-lg-2 col-xl-12">
@@ -89,7 +90,92 @@
     </div>
 
 
+    <!-- Add Trail modal -->
+    <div class="modal fade" id="addTrailModal" data-keyboard="false" tabindex="-1" aria-labelledby="addTrailModal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+          <section class="col-sm-12  gradient-custom">
+            <div class="container">
+              <div class="col-6 col-md-2 col-lg-2 col-xl-12">
+                <div class="card bg-dark text-white">
+                  <div class="card-body p-5 text-center">
+                    <div class="mb-md-5 mt-md-4 pb-5">
 
+
+                      <form class="form-group"  @submit.prevent="addTrail">
+
+                        <div  class="form-outline form-white mb-4" v-if="">
+                          <input v-model="addTrailTitle" type="text" id="Title" class="form-control form-control-lg"/>
+                          <label class="form-label" for="Title">Title</label>
+                        </div>
+                        
+
+
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="addTrailDistance" type="text" id="Distance"
+                            class="form-control form-control-lg"/>
+                          <label class="form-label" for="Distance">Distance</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="addTrailLocation" type="text" id="Location"
+                            class="form-control form-control-lg"/>
+                          <label class="form-label" for="Location">Location</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="addTrailRegion" type="text" id="Region"
+                            class="form-control form-control-lg"/>
+                          <label class="form-label" for="Region">Region</label>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-check">
+                          <input v-model="addTrailTV" class="form-check-input" type="checkbox" value="" id="TV">
+                          <label class="form-check-label" for="TV">
+                            Telkimisvõimalus
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input v-model="addTrailKL" class="form-check-input" type="checkbox" value="" id="KL">
+                          <label class="form-check-label" for="KL">
+                            Kattega Lõke
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input v-model="addTrailLK" class="form-check-input" type="checkbox" value="" id="LK">
+                          <label class="form-check-label" for="LK">
+                            Lõkkekoht
+                          </label>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-outline form-white mb-4">
+                          <input v-model="addTrailPicture" type="text" id="Picture"
+                            class="form-control form-control-lg"/>
+                          <label class="form-label" for="Picture">Picture (URL)</label>
+                        </div>
+
+                        <div class="form-outline form-white mb-4">
+                          <textarea v-model="addTrailDescription" class="form-control" id="Description" rows="3"></textarea>
+                          <label class="form-label" for="Description">Description</label>
+                        </div>
+
+                        <button class="btn btn-outline-light btn-lg px-5" type="submit">Add Trail</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
 
 
     <!-- Login modal-->
@@ -312,7 +398,7 @@
 
 
       <!--Trails detail Model-->
-      <div class="modal fade modal-xl" id="trailInfoModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      <div class="modal fade modal-xl" id="trailInfoModal" data-bs-backdrop="static" data-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdrop" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -322,8 +408,12 @@
                 <table class="infoTable">
                   <tr>
                     <td>
-                      <h2>{{ trailInModal.title }} ({{ trailInModal.distance}})</h2>
-                    </td>
+                      <div v-if="!trailTitleChangeIsHidden" class="profile-change-flex">
+                        <h4 class="profile-h4">{{ trailInModal.title }}</h4>
+                        
+                      </div>
+
+                      </td>
                   </tr>
                   <tr>
                     <td>
@@ -350,35 +440,39 @@
                   <tr>
                     <td>{{ trailInModal.description }}</td>
                   </tr>
-
                 </table>
-
               </div>
+
               <div class="trailPicture">
                 <img :src="trailInModal.picture" class="trailImg" alt="trail image">
                 <div class="trailLocation">
                   <h5>Location: {{ trailInModal.location }}</h5>
                 </div>
-
               </div>
 
             </div>
-            <div class="modal-footer">
-              <div class="AddHike">
-                <div class="btn-group">
 
-                  <select v-model="dropDownhikeId" class="form-select" aria-label="Default select example">
+            <div class="modal-footer">
+              <div class="AddHike" v-if="token">
+                <div class="btn-group">
+                  <select v-model="dropDownhikeId" class="form-select">
                     <option selected>Nothing selected</option>
                     <option v-for="hike in dropdownHikesList" :value=hike._id>{{hike.Name}}</option>
                   </select>
                 </div>
-
-
-                <button v-if="token" type="button" class="btn btn-danger" @click="addUserHike">Add to hike</button>
+                <button v-if="token" type="button" class="btn btn-success" @click="addUserHike">Add to hike</button>
               </div>
+              <button @click="resetHideState" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <div v-if ="hikerInModal.isAdmin" class="ModaldeleteFN">
+                <button v-if="!deleteAccountIsHidden" type="button" class="btn btn-danger"
+                  @click="doDeleteAccount">Delete Trail</button>
+                <div v-if="deleteAccountIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
+                    class="btn btn-danger" style="margin-left: 0.5rem;" @click="doDeleteTrail"
+                    data-bs-dismiss="modal">YES</button></div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -461,7 +555,6 @@
                   </div>
                 </td>
                 </tr>
-
               </table>
             </div>
           </div>

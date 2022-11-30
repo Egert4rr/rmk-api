@@ -19,6 +19,7 @@ createApp({
             signUpModal: {},
             profileModal: {},
             HikeModal: {},
+            AddTrailModal: {},
             hikers: [],
             loginName: "",
             loginPass: "",
@@ -45,7 +46,21 @@ createApp({
             hikeModalOrganizerEmail: "",
             deleteHikeIsHidden: false,
             isAdmin: false,
-            adminHikerIsSelected: false
+            adminHikerIsSelected: false,
+
+            addTrailTitle: "",
+            addTrailDistance: "",
+            addTrailLocation: "",
+            addTrailRegion: "",
+            addTrailPicture: "",
+            addTrailDescription: "",
+            addTrailTV: false,
+            addTrailKL: false,
+            addTrailLK: false,
+
+
+            trailTitleChangeIsHidden: false,
+            trailName:""
 
         }
     },
@@ -157,6 +172,7 @@ createApp({
             this.HikeModal = new bootstrap.Modal(document.getElementById("createHikeModal"), {})
             this.HikeModal.show()
         },
+
         showLogin: function (event) {
             event.preventDefault()
             this.loginModal = new bootstrap.Modal(document.getElementById("loginModal"), {})
@@ -168,7 +184,10 @@ createApp({
             this.signUpModal = new bootstrap.Modal(document.getElementById("signUpModal"), {})
             this.signUpModal.show()
         },
-
+        showAddTrail: function () {
+            this.AddTrailModal = new bootstrap.Modal(document.getElementById("addTrailModal"), {})
+            this.AddTrailModal.show()
+        },
         createHike: async function () {
             let name = this.name;
             let startingDate = this.startingDate
@@ -192,6 +211,38 @@ createApp({
                 console.log(this.loginError)
             }
 
+        },
+
+        doDeleteTrail:async function(){
+            if (!this.deleteAccountIsHidden) {
+                this.deleteAccountIsHidden = true
+            } else {
+                const response = await fetch(`${api_base}/trails/${this.trailInModal._id}`, {
+                    method: "delete"
+                })
+                if (response.ok) {
+                    console.log("deleted trail successfully")
+                    this.getHikes()
+                    this.getUserHikes()
+                    this.deleteAccountIsHidden = false
+                } else { alert("something went wrong when deleting") }
+            }
+        },
+        addTrail: async function () {
+
+            const response = await fetch(`${api_base}/trails`, {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ "title": this.addTrailTitle, "distance": this.addTrailDistance, "location": this.addTrailLocation, "region": this.addTrailRegion, "picture": this.addTrailPicture, "tags": [{ "telkimisvõimalus":this.addTrailTV, "kattegaLõke": this.addTrailKL, "lõkkekoht": this.addTrailLK }], "description": this.addTrailDescription })
+            })
+            const result = await response.json()
+            if(response.ok){
+                this.AddTrailModal.hide()
+            }
+            else{
+                this.loginError = result.error
+                console.log(this.loginError)
+            }
         },
 
         doSignUp: async function () {
@@ -293,6 +344,14 @@ createApp({
             }
             else { this.profileEmailChangeIsHidden = false }
         },
+        trailHideStateTitle: function(){
+            if(!this.trailTitleChangeIsHidden){
+                this.trailTitleChangeIsHidden = true
+            }else{
+                this.trailTitleChangeIsHidden = false
+            }
+        },
+
         profileHideStatePhonenumber: function () {
             if (!this.profilePhonenumberChangeIsHidden) {
                 this.profilePhonenumberChangeIsHidden = true
