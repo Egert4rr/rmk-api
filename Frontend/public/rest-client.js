@@ -57,11 +57,9 @@ createApp({
             addTrailTV: false,
             addTrailKL: false,
             addTrailLK: false,
-
-
             trailTitleChangeIsHidden: false,
-            trailName:""
-
+            trailName:"",
+            hikeTrailName:[]
         }
     },
 
@@ -76,6 +74,8 @@ createApp({
             await this.getHikers()
             this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
         }
+        this.hikeTrailName = []
+
 
 
     },
@@ -102,6 +102,7 @@ createApp({
             this.hikeModalOrganizerEmail = HikerOrganizer.email
 
             let hikeInfoModal = new bootstrap.Modal(document.getElementById("hikeInfoModal"), {})
+            await this.filterUserTrail()
             hikeInfoModal.show()
         },
         getHikers: async function () {
@@ -168,10 +169,23 @@ createApp({
         removeFilter: function () {
             this.isFiltered = false
         },
-        showHike: function () {
+        showHike: async function () {
             this.HikeModal = new bootstrap.Modal(document.getElementById("createHikeModal"), {})
             this.HikeModal.show()
         },
+
+        filterUserTrail: async function(){
+            this.hikeTrailName = []
+            for (let i = 0; i < this.filteredTrails.length; i++) {
+                for (let j = 0; j < this.hikeInModal.PlannedTrails.length; j++) {
+                    if (this.filteredTrails[i]._id === this.hikeInModal.PlannedTrails[j]) {
+                        this.hikeTrailName.push(this.filteredTrails[i].title) 
+                   }
+                }
+            }
+        },
+
+
 
         showLogin: function (event) {
             event.preventDefault()

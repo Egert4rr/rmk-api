@@ -102,10 +102,9 @@
                   <div class="card-body p-5 text-center">
                     <div class="mb-md-5 mt-md-4 pb-5">
 
-
                       <form class="form-group"  @submit.prevent="addTrail">
 
-                        <div  class="form-outline form-white mb-4" v-if="">
+                        <div  class="form-outline form-white mb-4">
                           <input v-model="addTrailTitle" type="text" id="Title" class="form-control form-control-lg"/>
                           <label class="form-label" for="Title">Title</label>
                         </div>
@@ -304,7 +303,7 @@
 
 
     <div class="omegaContainer" v-if="!isFiltered">
-      <form @submit.prevent="postSearch">
+      <form @submit.prevent="postSearch" v-if="selectedFilter == 'Trail' || selectedFilter == 'Hike' || selectedFilter == 'yourHike'">
 
         <div id="regions">
           <div id="container">
@@ -359,7 +358,6 @@
             <div class="hike-regions">
               <h2 v-for="region in hike.Regions">{{region}},</h2>
             </div>
-            <h5 style="margin-left: 1rem; margin-top: 1rem;">{{hike.Organizer}}</h1>
 
           </div>
         </div>
@@ -412,7 +410,6 @@
                         <h4 class="profile-h4">{{ trailInModal.title }}</h4>
                         
                       </div>
-
                       </td>
                   </tr>
                   <tr>
@@ -589,7 +586,7 @@
               <table class="infoTable">
                 <tr>
                   <td>
-                    <h4>Hike's name: {{ hikeInModal.Name }}</h4>
+                    <h2>Hike's name: {{ hikeInModal.Name }}</h4>
                   </td>
                 </tr>
                 <tr>
@@ -613,13 +610,15 @@
                   </td>
                 </tr>
                 <tr>
-                  <td v-for="trail in hikeInModal.PlannedTrails">
-                    <h2>{{trail.title}}</h2>
+                  <td>
+                    <h2 class = "modalRegion">trail(s): </h2>
+
+                    <h2 class = "modalRegion" v-for = "name in hikeTrailName">{{name}}</h2>
                   </td>
                 </tr>
                 <tr>
-                  <td v-for="region in hikeInModal.Regions">
-                    <h2>{{region}}</h2>
+                  <td>
+                    <h2 class ="modalRegion" v-for="region in hikeInModal.Regions">{{region}}</h2>
                   </td>
                 </tr>
               </table>

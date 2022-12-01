@@ -228,3 +228,12 @@ body {
 .hikeslistItem{
     cursor: pointer;
 }
+
+.infoTable{
+    width: 100%;
+}
+
+.modalRegion{
+    display: inline;
+    margin-right: 1rem;
+}
