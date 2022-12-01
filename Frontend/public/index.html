@@ -135,19 +135,19 @@
                         <div class="form-check">
                           <input v-model="addTrailTV" class="form-check-input" type="checkbox" value="" id="TV">
                           <label class="form-check-label" for="TV">
-                            Telkimisvõimalus
+                            Camping possibility
                           </label>
                         </div>
                         <div class="form-check">
                           <input v-model="addTrailKL" class="form-check-input" type="checkbox" value="" id="KL">
                           <label class="form-check-label" for="KL">
-                            Kattega Lõke
+                            Campfire with cover
                           </label>
                         </div>
                         <div class="form-check">
                           <input v-model="addTrailLK" class="form-check-input" type="checkbox" value="" id="LK">
                           <label class="form-check-label" for="LK">
-                            Lõkkekoht
+                            Fire place
                           </label>
                         </div>
 
@@ -626,7 +626,7 @@
           </div>
           <div class="modal-footer">
             <div class="w-100">
-              <div class="ModaldeleteFN">
+              <div class="ModaldeleteFN" v-if="hikerInModal._id == hikeInModal.Organizer">
                 <button v-if="!deleteHikeIsHidden" type="button" class="btn btn-danger" @click="doDeleteHike">Delete
                   Hike</button>
                 <div v-if="deleteHikeIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"

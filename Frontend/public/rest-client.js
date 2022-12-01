@@ -379,6 +379,7 @@ createApp({
             this.deleteHikeIsHidden = false
             this.selectedHiker = {}
             this.adminHikerIsSelected = false
+            this.hikerInModal = {}
         },
         doDeleteAccount: async function () {
             if (!this.deleteAccountIsHidden) {

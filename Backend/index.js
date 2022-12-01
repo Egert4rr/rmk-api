@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 
 app.use(cors());
 
-if (process.env.development) {
+if (process.env.development == "true") {
     require("./SeedDatabaseTrails");
     require("./SeedDatabaseHikers");
     require("./SeedDatabaseHikes");
