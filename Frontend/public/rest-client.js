@@ -58,8 +58,8 @@ createApp({
             addTrailKL: false,
             addTrailLK: false,
             trailTitleChangeIsHidden: false,
-            trailName:"",
-            hikeTrailName:[]
+            trailName: "",
+            hikeTrailName: []
         }
     },
 
@@ -74,7 +74,6 @@ createApp({
             await this.getHikers()
             this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
         }
-        this.hikeTrailName = []
 
 
 
@@ -174,13 +173,13 @@ createApp({
             this.HikeModal.show()
         },
 
-        filterUserTrail: async function(){
+        filterUserTrail: async function () {
             this.hikeTrailName = []
             for (let i = 0; i < this.filteredTrails.length; i++) {
                 for (let j = 0; j < this.hikeInModal.PlannedTrails.length; j++) {
                     if (this.filteredTrails[i]._id === this.hikeInModal.PlannedTrails[j]) {
-                        this.hikeTrailName.push(this.filteredTrails[i].title) 
-                   }
+                        this.hikeTrailName.push(this.filteredTrails[i].title)
+                    }
                 }
             }
         },
@@ -227,7 +226,7 @@ createApp({
 
         },
 
-        doDeleteTrail:async function(){
+        doDeleteTrail: async function () {
             if (!this.deleteAccountIsHidden) {
                 this.deleteAccountIsHidden = true
             } else {
@@ -247,13 +246,13 @@ createApp({
             const response = await fetch(`${api_base}/trails`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ "title": this.addTrailTitle, "distance": this.addTrailDistance, "location": this.addTrailLocation, "region": this.addTrailRegion, "picture": this.addTrailPicture, "tags": [{ "telkimisvõimalus":this.addTrailTV, "kattegaLõke": this.addTrailKL, "lõkkekoht": this.addTrailLK }], "description": this.addTrailDescription })
+                body: JSON.stringify({ "title": this.addTrailTitle, "distance": this.addTrailDistance, "location": this.addTrailLocation, "region": this.addTrailRegion, "picture": this.addTrailPicture, "tags": [{ "telkimisvõimalus": this.addTrailTV, "kattegaLõke": this.addTrailKL, "lõkkekoht": this.addTrailLK }], "description": this.addTrailDescription })
             })
             const result = await response.json()
-            if(response.ok){
+            if (response.ok) {
                 this.AddTrailModal.hide()
             }
-            else{
+            else {
                 this.loginError = result.error
                 console.log(this.loginError)
             }
@@ -303,6 +302,7 @@ createApp({
                     this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
                     this.loginModal.hide()
                     if (this.hikerInModal.isAdmin) {
+                        this.isAdmin = this.hikerInModal.isAdmin
                         await this.getHikers()
                     }
 
@@ -350,6 +350,8 @@ createApp({
             this.loginError = null
             this.deleteAccountIsHidden = false
             this.dropdownHikesList = []
+            this.hikerInModal = {}
+            this.isAdmin = false
             sessionStorage.removeItem("token")
         },
         profileHideStateEmail: function () {
@@ -358,10 +360,10 @@ createApp({
             }
             else { this.profileEmailChangeIsHidden = false }
         },
-        trailHideStateTitle: function(){
-            if(!this.trailTitleChangeIsHidden){
+        trailHideStateTitle: function () {
+            if (!this.trailTitleChangeIsHidden) {
                 this.trailTitleChangeIsHidden = true
-            }else{
+            } else {
                 this.trailTitleChangeIsHidden = false
             }
         },
@@ -379,7 +381,6 @@ createApp({
             this.deleteHikeIsHidden = false
             this.selectedHiker = {}
             this.adminHikerIsSelected = false
-            this.hikerInModal = {}
         },
         doDeleteAccount: async function () {
             if (!this.deleteAccountIsHidden) {
@@ -411,15 +412,18 @@ createApp({
             if (!this.deleteHikeIsHidden) {
                 this.deleteHikeIsHidden = true
             } else {
-                const response = await fetch(`${api_base}/hikes/${this.hikeInModal._id}`, {
-                    method: "delete"
-                })
-                if (response.ok) {
-                    console.log("deleted hike successfully")
-                    this.getHikes()
-                    this.getUserHikes()
-                    this.deleteHikeIsHidden = false
-                } else { alert("something went wrong when deleting") }
+                if ((this.hikeInModal.Organizer === this.hikerInModal._id || this.isAdmin) && this.hikerInModal._id != undefined) {
+                    const response = await fetch(`${api_base}/hikes/${this.hikeInModal._id}`, {
+                        method: "delete"
+                    })
+                    if (response.ok) {
+                        console.log("deleted hike successfully")
+                        this.getHikes()
+                        this.getUserHikes()
+                        this.deleteHikeIsHidden = false
+                    } else { alert("something went wrong when deleting") }
+                }
+
             }
 
         },

@@ -626,7 +626,7 @@
           </div>
           <div class="modal-footer">
             <div class="w-100">
-              <div class="ModaldeleteFN" v-if="hikerInModal._id == hikeInModal.Organizer">
+              <div class="ModaldeleteFN" v-if="(hikerInModal._id === hikeInModal.Organizer || isAdmin) && hikerInModal._id != undefined">
                 <button v-if="!deleteHikeIsHidden" type="button" class="btn btn-danger" @click="doDeleteHike">Delete
                   Hike</button>
                 <div v-if="deleteHikeIsHidden" style="margin-left: 1.5rem;">Are you sure? <button type="button"
