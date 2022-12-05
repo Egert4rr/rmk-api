@@ -73,11 +73,10 @@ createApp({
             await this.getUserHikes()
             await this.getHikers()
             this.hikerInModal = await (await fetch(`${api_base}/hikers/${JSON.parse(window.atob(this.token.split('.')[1])).userId}`)).json()
+            this.isAdmin = this.hikerInModal.isAdmin
         }
-
-
-
     },
+
     methods: {
         resetLoginError: function () {
             this.loginError = null
