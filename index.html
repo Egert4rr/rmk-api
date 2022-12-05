@@ -8,6 +8,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 
 <body>
@@ -58,6 +59,13 @@
                             <li><a class="dropdown-item" href="#User-Account-Details">Profile</a></li>
                             <li><a class="dropdown-item" href="#User-Account-ChangingDetails">Changing Account Details</a></li>
                             <li><a class="dropdown-item" href="#User-Account-AccDeletion">Deleting account</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" style="margin-bottom: 0.5rem;" href="#User-Account-Hikes"><b>HIKES</b></a></li>
+                            <li><a class="dropdown-item" href="#User-Account-MakeHike">Make a hike</a></li>
+                            <li><a class="dropdown-item" href="#User-Account-ViewYourHike">View your hike(s)</a></li>
+                            <li><a class="dropdown-item" href="#User-Account-DeleteYourHike">Delete your hike</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -74,7 +82,6 @@
                             <li><a class="dropdown-item disabled" style="margin-bottom: 0.5rem;" href="#"><b>MANAGING TRAILS</b></a></li>
                             <li><a class="dropdown-item disabled" href="#">Finding Trails</a></li>
                             <li><a class="dropdown-item disabled" href="#">Adding Trails</a></li>
-                            <li><a class="dropdown-item disabled" href="#">Updating Trails</a></li>
                             <li><a class="dropdown-item disabled" href="#">Deleting Trails</a></li>
                             
                             <li>
@@ -82,7 +89,6 @@
                             </li>
                             <li><a class="dropdown-item disabled" style="margin-bottom: 0.5rem;" href="#"><b>MANAGING HIKES</b></a></li>
                             <li><a class="dropdown-item disabled" href="#">Finding Hikes</a></li>
-                            <li><a class="dropdown-item disabled" href="#">Updating Hikes</a></li>
                             <li><a class="dropdown-item disabled" href="#">Deleting Hikes</a></li>
 
                             <li>
@@ -90,7 +96,6 @@
                             </li>
                             <li><a class="dropdown-item disabled" style="margin-bottom: 0.5rem;" href="#"><b>MANAGING USERS</b></a></li>
                             <li><a class="dropdown-item disabled" href="#">Finding Users</a></li>
-                            <li><a class="dropdown-item disabled" href="#">Updating Users</a></li>
                             <li><a class="dropdown-item disabled" href="#">Deleting Users</a></li>
                         </ul>
                     </li>
@@ -107,20 +112,20 @@
             <h2 id="Universal-Searching"><b>Searching</b></h2>
             <h3 style="margin-top: 2rem;" id="Universl-TrailsnHikes">Trails and Hikes</h3>
             <p style="margin-top: 2rem;">On the main page there are two tab buttons Trails and Hikes. Depending on which one is selected your search result change to either trails or hikes.</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the main page with a ring around the tab buttons]">
+            <img style="margin-top: 1rem;" src="images/1image.png" alt="[Image of the main page with a ring around the tab buttons]">
 
             <h3 style="margin-top: 4rem;" id="Universal-Filters">Filter</h3>
             <p style="margin-top: 2rem;">In the highlighted area of the picture is the region filtering. Clicking on any region will make it active.</p>
             <p>When all desired regions are selected clicking the Search button will filter the search to show only hikes or trails in a certain region.</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image showing where the buttons are and how they look active]">
+            <img style="margin-top: 1rem;" src="images/2image.png" alt="[Image showing where the buttons are and how they look active]">
             <p style="margin-top: 2rem;">If you wish to reset the filters there should now be a button on the navbar for resetting the filters</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image showing where the reset filters button is]">
+            <img style="margin-top: 1rem;" src="images/3image.png" alt="[Image showing where the reset filters button is]">
 
             <h3 style="margin-top: 5rem;" id="Universal-SingleInfo">Single Trail or Hike</h3>
-            <p style="margin-top: 2rem;">To get more details about a single trail of hike you simply click on the trail or hike</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image showing where tto click]">
+            <p style="margin-top: 2rem;">To get more details about a single trail or hike you simply click on the trail or hike</p>
+            <img style="margin-top: 1rem;" src="images/4image.png" alt="[Image showing where to click]">
             <p style="margin-top: 2rem;">After click on a trail or hike a modal/popup will appear with all the details. If you wish to close the modal/popup click outside the area or click on close</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the modal showing where to click to close it]">
+            <img style="margin-top: 1rem;" src="images/5image.png" alt="[Image of the modal showing where to click to close it]">
         </div>
 
         <div>
@@ -128,42 +133,57 @@
 
             <h2 id="User-Account-MakingAccount"><b>Making An Account</b></h2>
             <h3 style="margin-top: 2rem;" id="User-Account-Regisration">Registration</h3>
-            <p style="margin-top: 2rem;">For user registration there is a button on the main page "Sign in"</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the main page with a ring around the Sign in button]">
+            <p style="margin-top: 2rem;">For user registration there is a button on the main page "Log in"</p>
+            <img style="margin-top: 1rem;" src="images/U1-4image.png" alt="[Image of the main page with a ring around the Sign in button]">
             <p style="margin-top: 2rem;">In the window there is a button for registering a user.</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the main page with a ring around the register user button/link]">
+            <img style="margin-top: 1rem;" src="images/U2image.png" alt="[Image of the main page with a ring around the register user button/link]">
             <p style="margin-top: 2rem;">In the next window the user must fill all fields and then click button at the bottom. After that user creation is done.</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the registration window highlighting all fields that need to be filled]">
+            <img style="margin-top: 1rem;" src="images/U3image.png" alt="[Image of the registration window highlighting all fields that need to be filled]">
             
             <h3 style="margin-top: 4rem;" id="User-Account-LoggingIn">Logging in</h3>
             <p style="margin-top: 2rem;">To log into an account there is a button on the main page "Sign in" this same button will also be used to log out</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the main page with a ring around the Sign in button]">
+            <img style="margin-top: 1rem;" src="images/U1-4image.png" alt="[Image of the main page with a ring around the Sign in button]">
             <p style="margin-top: 2rem;">In the window if the user inputs the correct credential they will be logged in when pressing the button.</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the log in window highlighting the fields that need to be filled and the log in button]">
+            <img style="margin-top: 1rem;" src="images/U5image.png" alt="[Image of the log in window highlighting the fields that need to be filled and the log in button]">
 
             <h2 style="margin-top: 6rem; margin-bottom: 2rem;" id="User-Account-ProfileStart"><b>Profile</b></h2>
             <h3 style="margin-top: 2rem;" id="User-Account-Details">Profile</h3>
             <p style="margin-top: 2rem;">To get access to the profile window you need to first be logged in.</p>
             <p>Once logged in on the navigation bar there will be a link/button that will open the profile window</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the main page with a ring around the profile button]">
+            <img style="margin-top: 1rem;" src="images/U6image.png" alt="[Image of the main page with a ring around the profile button]">
             <p style="margin-top: 2rem;">The profile window show the user their account name, email, and phonenumber</p>
             <p>The phone number is empty by default and must be added by the user</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the profile window]">
+            <img style="margin-top: 1rem;" src="images/U7image.png" alt="[Image of the profile window]">
 
             <h3 style="margin-top: 2rem;" id="User-Account-ChangingDetails">Changing Account Details</h3>
             <p style="margin-top: 2rem;">While in the profile window there is a button "[ Change ]" next to both the email and phonenumber clicking on either one will allow you to change it</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the profile window with a ring around both change buttons]">
+            <img style="margin-top: 1rem;" src="images/U8image.png" alt="[Image of the profile window with a ring around both change buttons]">
             <p style="margin-top: 2rem;">Once the user is done inputting a new email or phonenumber they can click on the button with the checkmark in it to save the changes</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the profile window with a ring around the checkmark button]">
+            <img style="margin-top: 1rem;" src="images/U9image.png" alt="[Image of the profile window with a ring around the checkmark button]">
 
             <h3 style="margin-top: 2rem;" id="User-Account-AccDeletion">Deleting account</h3>
             <p style="margin-top: 2rem;">At the bottom of the profile window there is a red button with "Delete account" using this button requires a confirmation</p>
-            <img style="margin-top: 1rem;" src="" alt="[Image of the profile window with a ring around the delete button]">
-            <img style="margin-top: 2rem;" src="" alt="[Image of the profile window with a ring around the confirm delete button]">
+            <img style="margin-top: 1rem;" src="images/U10image.png" alt="[Image of the profile window with a ring around the delete button]">
+
+            <h2 style="margin-top: 6rem; margin-bottom: 2rem;" id="User-Account-Hikes"><b>Hikes</b></h2>
+            <h3 style="margin-top: 2rem;" id="User-Account-MakeHike">Make a hike</h3>
+            <p style="margin-top: 2rem;">To make a hike you must first click the create hike button on the navbar.</p>
+            <img style="margin-top: 1rem;" src="images/U11image.png" alt="[Image with a ring around the create hike button]">
+            <p style="margin-top: 2rem;">Once in the create hike window fill in all the required fields and click create</p>
+            <img style="margin-top: 1rem;" src="images/U12image.png" alt="[Image pointing to all required fields and create button]">
+
+            <h3 style="margin-top: 2rem;" id="User-Account-ViewYourHike">View your hike(s)</h3>
+            <p style="margin-top: 2rem;">To view your hikes you must be logged in then a new tab should appear where the hikes and trails were.</p>
+            <img style="margin-top: 1rem;" src="images/U13image.png" alt="[Image with a ring around the Your hikes tab]">
+            <p style="margin-top: 2rem;">To view details of a single hike follow the same steps as viewing a trail or any other hike just click on the desired hike.</p>
+
+            <h3 style="margin-top: 2rem;" id="User-Account-DeleteYourHike">Delete your hike</h3>
+            <p style="margin-top: 2rem;">To delete your hike simply select the hike you wish to delete and use the delete button at the bottom of the details window</p>
+            <img style="margin-top: 1rem;" src="images/U14image.png" alt="[Image with a ring around the delete button on hikes]">
         </div>
 
         <div>
-            <h1 id="User-Account-Start" class="text-center" style="margin-top: 4rem; margin-bottom: 2rem;"><b>User-Account Manual</b></h1>
+            <h1 id="User-Account-Start" class="text-center" style="margin-top: 4rem; margin-bottom: 2rem;"><b>Admin-Account Manual</b></h1>
 
             <h2 id="Admin-Account-Start"><b>Admin Account Manual</b></h2>
             <h3 style="margin-top: 2rem;" id="Admin-Account-ManaginTrails">COMINGSOON™</h3>
